@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,15 @@ namespace Domain.Models
     {
         #region Properties
         public int Id { get; set; }
+        public string ChassisNumber { get; set; }
+        public string LicensePlate { get; set; }
         public string Branch { get; set; }
         public string Model { get; set; }
-        public string Chassisnummer { get; set; }
-        public string Nummerplaat { get; set; }
+        public VehicleType Type { get; set; }
+        public string Color { get; set; }
+        public int DoorsCount { get; set; }
+        public Fuel Fuel { get; set; }
+        public User? User { get; set; }
 
         #endregion
     }

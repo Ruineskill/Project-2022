@@ -10,8 +10,10 @@ namespace Domain.Models
     {
         #region Properties
         public int Id { get; set; }
-        public string Name { get; set; }
-        public ICollection<Fuel> Fuels { get; set; }
+        public string CardNumber { get; set; }
+        public int PinCode { get; set; }
+        public User User { get; set; }
+        public ICollection<FuelCardFuel> Fuels { get; set; }
 
         #endregion
     }
