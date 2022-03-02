@@ -72,12 +72,7 @@ namespace Repository.Contexts
         //Connection Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=ID339746_FleetDB.db.webhosting.be;Initial Catalog=ID339746_FleetDB;User Id=ID339746_FleetDB;Password=Connect2022;");
+            optionsBuilder.UseSqlServer(@"Data Source=sql5103.site4now.net;Initial Catalog=db_a83a71_fm;User Id=db_a83a71_fm_admin;Password=Connect2022;");
         }
-
-        //Hostname: ID339746_FleetDB.db.webhosting.be
-        //Database: ID339746_FleetDB
-        //Gebruiker: ID339746_FleetDB
-        //wachtwoord: Connect2022
     }
 }
