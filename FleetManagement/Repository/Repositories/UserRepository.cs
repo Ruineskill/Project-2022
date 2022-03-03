@@ -38,7 +38,7 @@ namespace Repository.Repositories
 
 
 
-            return new User { };
+            return new User(1,"Hendrik","De Wilde","wautersdreef","3B","Melle",9090,new DateOnly(1990,10,04), "90100415338","B");
         }
 
         public User GetVehicle(string nationRegistrationNumber)
@@ -46,7 +46,7 @@ namespace Repository.Repositories
 
 
 
-            return new User { };
+            return new User(1, "Hendrik", "De Wilde", "wautersdreef", "3B", "Melle", 9090, new DateOnly(1990, 10, 04), "90100415338", "B");
         }
 
         #endregion

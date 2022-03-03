@@ -16,5 +16,23 @@ namespace Domain.Models
         public ICollection<FuelCardFuel> Fuels { get; set; }
 
         #endregion
+
+        #region Constructor
+        public FuelCard(int id, string cardNumber, int pinCode, User user, ICollection<FuelCardFuel> fuels)
+        {
+            Id = id;
+            CardNumber = cardNumber;
+            PinCode = pinCode;
+            User = user;
+            Fuels = fuels;
+        }
+
+        public FuelCard(int id, string cardNumber, int pinCode)
+        {
+            Id = id;
+            CardNumber = cardNumber;
+            PinCode = pinCode;
+        }
+        #endregion
     }
 }

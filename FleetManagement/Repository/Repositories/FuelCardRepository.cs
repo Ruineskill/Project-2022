@@ -38,7 +38,7 @@ namespace Repository.Repositories
 
 
 
-            return new FuelCard { };
+            return new FuelCard(1,"12345",1234);
         }
 
         public FuelCard GetVehicle(string cardNumber)
@@ -46,7 +46,7 @@ namespace Repository.Repositories
 
 
 
-            return new FuelCard { };
+            return new FuelCard(1, "12345", 1234);
         }
 
         #endregion

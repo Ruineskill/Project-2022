@@ -35,7 +35,7 @@ namespace Repository.Migrations
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PostalCode = table.Column<int>(type: "int", nullable: false),
                     DayOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NationRegistrationNumber = table.Column<int>(type: "int", nullable: false),
+                    NationRegistrationNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DriversLicenseType = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

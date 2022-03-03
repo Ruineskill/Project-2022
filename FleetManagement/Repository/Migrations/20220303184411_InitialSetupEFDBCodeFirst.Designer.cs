@@ -12,7 +12,7 @@ using Repository.Contexts;
 namespace Repository.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220227204821_InitialSetupEFDBCodeFirst")]
+    [Migration("20220303184411_InitialSetupEFDBCodeFirst")]
     partial class InitialSetupEFDBCodeFirst
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,8 +107,9 @@ namespace Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NationRegistrationNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("NationRegistrationNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("PostalCode")
                         .HasColumnType("int");

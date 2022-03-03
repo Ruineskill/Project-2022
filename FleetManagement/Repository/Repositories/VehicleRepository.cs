@@ -38,7 +38,7 @@ namespace Repository.Repositories
 
 
 
-            return new Vehicle { };
+            return new Vehicle(1, "ABC234", "ABC123", "Skoda", "SuperB", Domain.Models.Enums.VehicleType.Car, "red", 5, new Fuel(1, "Benzine"));
         }
 
         public Vehicle GetVehicle(string licensePlate)
@@ -46,7 +46,7 @@ namespace Repository.Repositories
 
 
 
-            return new Vehicle { };
+            return new Vehicle(1, "ABC234", "ABC123", "Skoda", "SuperB", Domain.Models.Enums.VehicleType.Car, "red", 5, new Fuel(1, "Benzine"));
         }
 
         #endregion

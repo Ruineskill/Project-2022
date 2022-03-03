@@ -1,3 +1,17 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿Console.WriteLine("Hello, Fleet Manager !");
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Give your NationRegistrationNumber:");
+
+string nrn = Console.ReadLine();
+
+if (Domain.Models.User.IsNationRegistrationNumber(nrn))
+{
+    Console.WriteLine("Is valid!");
+}
+
+
+
+
+
+
+Console.WriteLine("End of Management!");

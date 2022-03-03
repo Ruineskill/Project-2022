@@ -38,7 +38,7 @@ namespace Repository.Repositories
 
 
 
-            return new Fuel { };
+            return new Fuel(1,"benzine");
         }
 
         public Fuel GetVehicle(string type)
@@ -46,7 +46,7 @@ namespace Repository.Repositories
 
 
 
-            return new Fuel { };
+            return new Fuel(1, "benzine");
         }
 
         #endregion

@@ -22,5 +22,32 @@ namespace Domain.Models
         public User? User { get; set; }
 
         #endregion
+
+        #region Constructor
+        public Vehicle(int id, string chassisNumber, string licensePlate, string branch, string model, VehicleType type, string color, int doorsCount, Fuel fuel)
+        {
+            Id = id;
+            ChassisNumber = chassisNumber;
+            LicensePlate = licensePlate;
+            Branch = branch;
+            Model = model;
+            Type = type;
+            Color = color;
+            DoorsCount = doorsCount;
+            Fuel = fuel;
+        }
+
+        public Vehicle(int id, string chassisNumber, string licensePlate, string branch, string model, VehicleType type, string color, int doorsCount)
+        {
+            Id = id;
+            ChassisNumber = chassisNumber;
+            LicensePlate = licensePlate;
+            Branch = branch;
+            Model = model;
+            Type = type;
+            Color = color;
+            DoorsCount = doorsCount;
+        }
+        #endregion
     }
 }

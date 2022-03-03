@@ -105,8 +105,9 @@ namespace Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NationRegistrationNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("NationRegistrationNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("PostalCode")
                         .HasColumnType("int");
