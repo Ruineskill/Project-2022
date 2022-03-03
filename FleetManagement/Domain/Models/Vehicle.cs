@@ -49,5 +49,38 @@ namespace Domain.Models
             DoorsCount = doorsCount;
         }
         #endregion
+        #region Public
+        public static bool validateChassisNumber(string number)
+        {
+            if (number.Length != 17)
+                return false;
+
+            return getCheckDigit(number) == number[8];
+        }
+
+        private static char getCheckDigit(string number)
+        {
+            //list of the possible check numbers
+            string map = "0123456789X";
+
+            //weigh of each char of the chassis number
+            string weights = "8765432X098765432";
+            int sum = 0;
+            for (int i = 0; i < 17; i++)
+            {
+                sum += transliterate(number[i]) * map.IndexOf(weights[i]);
+            }
+            return map[sum % 11];
+        }
+        /// <summary>
+        /// translates a letter or number to a specific number (the matrix can be found in the documentation)
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        private static int transliterate(char c)
+        {
+            return "0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ".IndexOf(c) % 10;
+        }
+        #endregion
     }
 }
