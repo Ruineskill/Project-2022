@@ -63,7 +63,7 @@ namespace Domain.Models
             //list of the possible check numbers
             string map = "0123456789X";
 
-            //weigh of each char of the chassis number
+            //weight of each char of the chassis number
             string weights = "8765432X098765432";
             int sum = 0;
             for (int i = 0; i < 17; i++)

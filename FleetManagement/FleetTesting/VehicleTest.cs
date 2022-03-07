@@ -1,4 +1,6 @@
 ﻿using Xunit;
+using Domain.Models;
+using System;
 
 namespace FleetTesting
 {
@@ -7,19 +9,19 @@ namespace FleetTesting
         [Fact]
         public void DeleteVehicle()
         {
-
+            throw new NotImplementedException();
         }
 
         [Fact]
         public void AddVehicle()
         {
-
+            throw new NotImplementedException();
         }
 
         [Fact]
         public void ModifyVehicle()
         {
-
+            throw new NotImplementedException();
         }
 
        
@@ -27,14 +29,30 @@ namespace FleetTesting
         [Fact]  // check if duplication of license plate is disallowed
         public void LicensePlateCheck()
         {
-
+            throw new NotImplementedException();
         }
 
         
 
-        [Fact]  // Check if duplication of chassisnumber is disallowed
-        public void ChassisNumberCheck()
+        [Fact]  // Check if chasis number is valid
+        public void isValidChasisNumber()
         {
+            //arrange
+            Vehicle vehicle = new Vehicle(
+                                1,
+                                "1FAHP26W49G252740",
+                                "test",
+                                "test",
+                                "test",
+                                Domain.Models.Enums.VehicleType.Car,
+                                "red",
+                                5
+                              );
+            //act
+            bool isValid = Vehicle.validateChassisNumber(vehicle.ChassisNumber);
+
+            //assert
+            Assert.True(isValid, $"The VNI number: ${vehicle.ChassisNumber} is not valid");
 
         }
     }
