@@ -1,17 +1,7 @@
-﻿Console.WriteLine("Hello, Fleet Manager !");
+﻿using Domain.Models;
+using Repository.Repositories;
 
-Console.WriteLine("Give your NationRegistrationNumber:");
-
-string nrn = Console.ReadLine();
-
-if (Domain.Models.User.IsNationRegistrationNumber(nrn))
-{
-    Console.WriteLine("Is valid!");
-}
-
-
-
-
+Console.WriteLine("Hello, Fleet Manager !");
 
 
 Console.WriteLine("End of Management!");

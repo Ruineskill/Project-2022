@@ -1,52 +1,89 @@
 ﻿using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Interfaces;
+using Repository.Contexts;
+using Repository.Exceptions;
 
 namespace Repository.Repositories
 {
-    public class FuelCardRepository
+    public class FuelCardRepository : IFuelCardRepository
     {
+        private Context ctx = new Context();
+
         #region Public
-
-        public FuelCard AddVehicle(FuelCard fuelCard)
+        public FuelCard AddFuelCardRepo(FuelCard fuelCard)
         {
-
-
+            try
+            {
+                ctx.FuelCard.Add(fuelCard);
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new FuelCardRepositoryException(nameof(AddFuelCardRepo), ex);
+            }
 
             return fuelCard;
         }
 
-        public FuelCard UpdateVehicle(FuelCard fuelCard)
+        public FuelCard UpdateFuelCardRepo(FuelCard fuelCard)
         {
-
-
+            try
+            {
+                var tempFuelCard = ctx.FuelCard.Find(fuelCard.Id);
+                tempFuelCard.CardNumber = fuelCard.CardNumber;
+                tempFuelCard.PinCode = fuelCard.PinCode;
+                tempFuelCard.User = fuelCard.User;
+                tempFuelCard.Fuels = fuelCard.Fuels;
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new FuelCardRepositoryException(nameof(UpdateFuelCardRepo), ex);
+            }
 
             return fuelCard;
         }
 
-        public void DeleteVehicle(FuelCard vehicle)
+        public void DeleteFuelCardRepo(FuelCard fuelCard)
         {
-
-
+            try
+            {
+                ctx.FuelCard.Remove(fuelCard);
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new FuelCardRepositoryException(nameof(DeleteFuelCardRepo), ex);
+            }
         }
 
-        public FuelCard GetVehicle(int id)
+        public FuelCard GetFuelCardByIdRepo(int id)
         {
-
-
-
-            return new FuelCard(1,"12345",1234);
+            try
+            {
+                return ctx.FuelCard.Find(id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new FuelCardRepositoryException(nameof(GetFuelCardByIdRepo), ex);
+            }
         }
 
-        public FuelCard GetVehicle(string cardNumber)
+        public List<FuelCard> GetAllFuelCardRepo()
         {
-
-
-
-            return new FuelCard(1, "12345", 1234);
+            try
+            {
+                return ctx.FuelCard.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new FuelCardRepositoryException(nameof(GetAllFuelCardRepo), ex);
+            }
         }
 
         #endregion

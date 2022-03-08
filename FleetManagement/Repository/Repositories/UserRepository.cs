@@ -1,52 +1,97 @@
 ﻿using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Interfaces;
+using Repository.Contexts;
+using Repository.Exceptions;
 
 namespace Repository.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
+        private Context ctx = new Context();
+
         #region Public
-
-        public User AddVehicle(User user)
+        public User AddUserRepo(User user)
         {
-
-
+            try
+            {
+                ctx.User.Add(user);
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new UserRepositoryException(nameof(AddUserRepo), ex);
+            }
 
             return user;
         }
 
-        public User UpdateVehicle(User user)
+        public User UpdateUserRepo(User user)
         {
-
-
+            try
+            {
+                var tempUser = ctx.User.Find(user.Id);
+                tempUser.Name = user.Name;
+                tempUser.FirstName = user.FirstName;
+                tempUser.Street = user.Street;
+                tempUser.HouseNumber = user.HouseNumber;
+                tempUser.City = user.City;
+                tempUser.PostalCode = user.PostalCode;
+                tempUser.DayOfBirth = user.DayOfBirth;
+                tempUser.NationRegistrationNumber = user.NationRegistrationNumber;
+                tempUser.DriversLicenseType = user.DriversLicenseType;
+                tempUser.Vehicle = user.Vehicle;
+                tempUser.FuelCard = user.FuelCard;
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new UserRepositoryException(nameof(UpdateUserRepo), ex);
+            }
 
             return user;
         }
 
-        public void DeleteVehicle(User user)
+        public void DeleteUserRepo(User user)
         {
-
+            try
+            {
+                ctx.User.Remove(user);
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new UserRepositoryException(nameof(DeleteUserRepo), ex);
+            }
 
         }
 
-        public User GetVehicle(int id)
+        public User GetUserByIdRepo(int id)
         {
-
-
-
-            return new User(1,"Hendrik","De Wilde","wautersdreef","3B","Melle",9090,new DateOnly(1990,10,04), "90100415338","B");
+            try
+            {
+                return ctx.User.Find(id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new UserRepositoryException(nameof(GetUserByIdRepo), ex);
+            }
         }
 
-        public User GetVehicle(string nationRegistrationNumber)
+        public List<User> GetAllUserRepo()
         {
-
-
-
-            return new User(1, "Hendrik", "De Wilde", "wautersdreef", "3B", "Melle", 9090, new DateOnly(1990, 10, 04), "90100415338", "B");
+            try
+            {
+                return ctx.User.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new UserRepositoryException(nameof(GetAllUserRepo), ex);
+            }
         }
 
         #endregion

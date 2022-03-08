@@ -1,52 +1,87 @@
 ﻿using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Interfaces;
+using Repository.Contexts;
+using Repository.Exceptions;
 
 namespace Repository.Repositories
 {
-    public class FuelRepository
+    public class FuelRepository : IFuelRepository
     {
+        private Context ctx = new Context();
+
         #region Public
-
-        public Fuel AddVehicle(Fuel fuel)
+        public Fuel AddFuelRepo(Fuel fuel)
         {
-
-
+            try
+            {
+                ctx.Fuel.Add(fuel);
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new FuelRepositoryException(nameof(AddFuelRepo), ex);
+            }
 
             return fuel;
         }
 
-        public Fuel UpdateVehicle(Fuel fuel)
+        public Fuel UpdateFuelRepo(Fuel fuel)
         {
-
-
+            try
+            {
+                var tempFuel = ctx.Fuel.Find(fuel.Id);
+                tempFuel.Type = fuel.Type;
+                tempFuel.FuelCards = fuel.FuelCards;
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new FuelRepositoryException(nameof(UpdateFuelRepo), ex);
+            }
 
             return fuel;
         }
 
-        public void DeleteVehicle(Fuel fuel)
+        public void DeleteFuelRepo(Fuel fuel)
         {
-
-
+            try
+            {
+                ctx.Fuel.Remove(fuel);
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new FuelRepositoryException(nameof(DeleteFuelRepo), ex);
+            }
         }
 
-        public Fuel GetVehicle(int id)
+        public Fuel GetFuelByIdRepo(int id)
         {
-
-
-
-            return new Fuel(1,"benzine");
+            try
+            {
+                return ctx.Fuel.Find(id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new FuelRepositoryException(nameof(GetFuelByIdRepo), ex);
+            }
         }
 
-        public Fuel GetVehicle(string type)
+        public List<Fuel> GetAllFuelRepo()
         {
-
-
-
-            return new Fuel(1, "benzine");
+            try
+            {
+                return ctx.Fuel.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new FuelRepositoryException(nameof(GetAllFuelRepo), ex);
+            }
         }
 
         #endregion

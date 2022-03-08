@@ -1,52 +1,94 @@
 ﻿using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Interfaces;
+using Repository.Contexts;
+using Repository.Exceptions;
 
 namespace Repository.Repositories
 {
-    public class VehicleRepository
+    public class VehicleRepository : IVehicleRepository
     {
+        private Context ctx = new Context();
+
         #region Public
-
-        public Vehicle AddVehicle(Vehicle vehicle)
+        public Vehicle AddVehicleRepo(Vehicle vehicle)
         {
-
-
+            try
+            {
+                ctx.Vehicle.Add(vehicle);
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new VehicleRepositoryException(nameof(AddVehicleRepo), ex);
+            }
 
             return vehicle;
         }
 
-        public Vehicle UpdateVehicle(Vehicle vehicle)
+        public Vehicle UpdateVehicleRepo(Vehicle vehicle)
         {
-
-
+            try
+            {
+                var tempVehicle = ctx.Vehicle.Find(vehicle.Id);
+                tempVehicle.ChassisNumber = vehicle.ChassisNumber;
+                tempVehicle.LicensePlate = vehicle.LicensePlate;
+                tempVehicle.Branch = vehicle.Branch;
+                tempVehicle.Model = vehicle.Model;
+                tempVehicle.Type = vehicle.Type;
+                tempVehicle.Color = vehicle.Color;
+                tempVehicle.DoorsCount = vehicle.DoorsCount;
+                tempVehicle.Fuel = vehicle.Fuel;
+                tempVehicle.User = vehicle.User;
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new VehicleRepositoryException(nameof(UpdateVehicleRepo), ex);
+            }
 
             return vehicle;
         }
 
-        public void DeleteVehicle(Vehicle vehicle)
+        public void DeleteVehicleRepo(Vehicle vehicle)
         {
-
-
+            try
+            {
+                ctx.Vehicle.Remove(vehicle);
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new VehicleRepositoryException(nameof(DeleteVehicleRepo), ex);
+            }
         }
 
-        public Vehicle GetVehicle(int id)
+        public Vehicle GetVehicleByIdRepo(int id)
         {
-
-
-
-            return new Vehicle(1, "ABC234", "ABC123", "Skoda", "SuperB", Domain.Models.Enums.VehicleType.Car, "red", 5, new Fuel(1, "Benzine"));
+            try
+            {
+                return ctx.Vehicle.Find(id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new VehicleRepositoryException(nameof(GetVehicleByIdRepo), ex);
+            }
         }
 
-        public Vehicle GetVehicle(string licensePlate)
+        public List<Vehicle> GetAllVehicleRepo()
         {
-
-
-
-            return new Vehicle(1, "ABC234", "ABC123", "Skoda", "SuperB", Domain.Models.Enums.VehicleType.Car, "red", 5, new Fuel(1, "Benzine"));
+            try
+            {
+                return ctx.Vehicle.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw new VehicleRepositoryException(nameof(GetAllVehicleRepo), ex);
+            }
         }
 
         #endregion
