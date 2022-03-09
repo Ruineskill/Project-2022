@@ -2,7 +2,7 @@
 using Domain.Models;
 using System;
 
-namespace FleetTesting
+namespace FleetTesting.ModelTesting
 {
     public class VehicleTest
     {

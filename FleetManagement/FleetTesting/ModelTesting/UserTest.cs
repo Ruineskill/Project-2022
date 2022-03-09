@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace FleetTesting
+namespace FleetTesting.ModelTesting
 {
     public class UserTest
     {
