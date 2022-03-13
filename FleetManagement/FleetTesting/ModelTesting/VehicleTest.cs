@@ -35,7 +35,7 @@ namespace FleetTesting.ModelTesting
         
 
         [Fact]  // Check if chasis number is valid
-        public void isValidChasisNumber()
+        public void IsValidChasisNumber()
         {
             //arrange
             Vehicle vehicle = new Vehicle(
