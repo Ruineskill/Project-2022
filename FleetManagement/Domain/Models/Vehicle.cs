@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Domain.Models
@@ -82,5 +83,16 @@ namespace Domain.Models
             return "0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ".IndexOf(c) % 10;
         }
         #endregion
+
+        public static bool IsValidLicensePlate(string LicensePlate)
+        {
+            if (string.IsNullOrEmpty(LicensePlate) || LicensePlate.Length > 9) return false;
+
+            // License plate format are: N-LLL-NNN , N-NNN-LLL, LLL-NNN-N, NNN-LLL-N
+            // where N is a digit and L is a letter
+            const string pattern = @"[1-9]-[A-Z]{3}-[1-9]{3}|[1-9]-[1-9]{3}-[A-Z]{3}|[A-Z]{3}-[1-9]{3}-[1-9]|[1-9]{3}-[A-Z]{3}-[1-9]";
+
+            return Regex.IsMatch(LicensePlate, pattern);
+        }
     }
 }
