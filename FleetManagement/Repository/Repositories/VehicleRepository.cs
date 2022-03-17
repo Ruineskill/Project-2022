@@ -37,7 +37,7 @@ namespace Repository.Repositories
                 tempVehicle.Model = vehicle.Model;
                 tempVehicle.Type = vehicle.Type;
                 tempVehicle.Color = vehicle.Color;
-                tempVehicle.DoorsCount = vehicle.DoorsCount;
+                tempVehicle.DoorsCount = vehicle.DoorCount;
                 tempVehicle.Fuel = vehicle.Fuel;
                 tempVehicle.User = vehicle.User;
                 ctx.SaveChanges();

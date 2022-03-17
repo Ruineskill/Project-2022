@@ -1,10 +1,12 @@
-﻿using Domain.Models.Enums;
+﻿using Domain.Exceptions;
+using Domain.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
 
 namespace Domain.Models
 {
@@ -14,44 +16,50 @@ namespace Domain.Models
         public int Id { get; protected set; }
         public string ChassisNumber { get; protected set; }
         public string LicensePlate { get; protected set; }
-        public string Branch { get; protected set; }
+        public string Brand { get; protected set; }
         public string Model { get; protected set; }
         public VehicleType Type { get; protected set; }
         public string Color { get; protected set; }
-        public int DoorsCount { get; protected set; }
+        public int DoorCount { get; protected set; }
         public Fuel Fuel { get; protected set; }
         public User? User { get; protected set; }
 
         #endregion
 
         #region Constructor
-        public Vehicle(int id, string chassisNumber, string licensePlate, string branch, string model, VehicleType type, string color, int doorsCount, Fuel fuel)
+        public Vehicle(int id, string chassisNumber, string licensePlate, string brand, string model, Fuel fuel , VehicleType type,  string color = "Unknown", int doorCount = 2)
         {
+            if (!IsValidChassisNumber(chassisNumber)) 
+                throw new InvalidChassisNumberException("Vehicle chassis number is not valid!", chassisNumber);
+
+            if (!IsValidLicensePlate(licensePlate))
+                throw new InvalidLicensePlateException("Vehicle license plate is not valid!", licensePlate);
+
+            if (string.IsNullOrEmpty(brand))
+                throw new ArgumentNullException(nameof(brand));
+
+            if (string.IsNullOrEmpty(model))
+                throw new ArgumentNullException(nameof(model));
+
             Id = id;
             ChassisNumber = chassisNumber;
             LicensePlate = licensePlate;
-            Branch = branch;
+            Brand = brand;
             Model = model;
             Type = type;
             Color = color;
-            DoorsCount = doorsCount;
+            DoorCount = doorCount;
             Fuel = fuel;
         }
 
-        public Vehicle(int id, string chassisNumber, string licensePlate, string branch, string model, VehicleType type, string color, int doorsCount)
+        public void AssignUser(User user)
         {
-            Id = id;
-            ChassisNumber = chassisNumber;
-            LicensePlate = licensePlate;
-            Branch = branch;
-            Model = model;
-            Type = type;
-            Color = color;
-            DoorsCount = doorsCount;
+            User = user;   
         }
+
         #endregion
 
-        public static bool ValidateChassisNumber(string number)
+        public static bool IsValidChassisNumber(string number)
         {
             if (number.Length != 17)
                 return false;

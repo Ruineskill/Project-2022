@@ -41,7 +41,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("1FBHP26W49G222740")]
         public void Validate_PassedValidChassisNumber_ReturndTrue(string ChassisNumber)
         {
-            Assert.True(Vehicle.ValidateChassisNumber(ChassisNumber));
+            Assert.True(Vehicle.IsValidChassisNumber(ChassisNumber));
         }
 
         [Theory] // Check invalid chasis numbers
@@ -50,7 +50,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("AFAHP26349G252740")]
         public void Validate_PassedInvalidChassisNumber_ReturndFalse(string ChassisNumber)
         {
-            Assert.False(Vehicle.ValidateChassisNumber(ChassisNumber));
+            Assert.False(Vehicle.IsValidChassisNumber(ChassisNumber));
         }
     }
 }
