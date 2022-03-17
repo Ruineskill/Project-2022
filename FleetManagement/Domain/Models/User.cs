@@ -9,18 +9,18 @@ namespace Domain.Models
     public class User
     {
         #region Properties
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string FirstName { get; set; }
-        public string Street { get; set; }
-        public string HouseNumber { get; set; }
-        public string City { get; set; }
-        public int PostalCode { get; set; }
-        public DateOnly DayOfBirth { get; set; }
-        public string NationRegistrationNumber { get; set; }
-        public string DriversLicenseType { get; set; }
-        public Vehicle? Vehicle { get; set; }
-        public FuelCard? FuelCard { get; set; }
+        public int Id { get; protected set; }
+        public string Name { get; protected set; }
+        public string FirstName { get; protected set; }
+        public string Street { get; protected set; }
+        public string HouseNumber { get; protected set; }
+        public string City { get; protected set; }
+        public int PostalCode { get; protected set; }
+        public DateOnly DayOfBirth { get; protected set; }
+        public string NationRegistrationNumber { get; protected set; }
+        public string DriversLicenseType { get; protected set; }
+        public Vehicle? Vehicle { get; protected set; }
+        public FuelCard? FuelCard { get; protected set; }
 
         #endregion
 
