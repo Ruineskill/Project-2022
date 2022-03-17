@@ -50,16 +50,16 @@ namespace Domain.Models
             DoorsCount = doorsCount;
         }
         #endregion
-        #region Public
-        public static bool validateChassisNumber(string number)
+
+        public static bool ValidateChassisNumber(string number)
         {
             if (number.Length != 17)
                 return false;
 
-            return getCheckDigit(number) == number[8];
+            return GetCheckDigit(number) == number[8];
         }
 
-        private static char getCheckDigit(string number)
+        private static char GetCheckDigit(string number)
         {
             //list of the possible check numbers
             string map = "0123456789X";
@@ -69,7 +69,7 @@ namespace Domain.Models
             int sum = 0;
             for (int i = 0; i < 17; i++)
             {
-                sum += transliterate(number[i]) * map.IndexOf(weights[i]);
+                sum += Transliterate(number[i]) * map.IndexOf(weights[i]);
             }
             return map[sum % 11];
         }
@@ -78,11 +78,11 @@ namespace Domain.Models
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        private static int transliterate(char c)
+        private static int Transliterate(char c)
         {
             return "0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ".IndexOf(c) % 10;
         }
-        #endregion
+
 
         public static bool IsValidLicensePlate(string LicensePlate)
         {

@@ -20,7 +20,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("1-234-ABC")]
         [InlineData("GBA-567-3")]
         [InlineData("456-LPO-3")]
-        public void ValidatePlate_PassedValidPlate_ReturndTrue(string LicensePlate)
+        public void Validate_PassedValidPlate_ReturndTrue(string LicensePlate)
         {
             Assert.True(Vehicle.IsValidLicensePlate(LicensePlate));
         }
@@ -30,7 +30,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("1-2B4-ABC")]
         [InlineData("gBA-567-3")]
         [InlineData("456-L6O-3")]
-        public void ValidatePlate_PassedInvalidPlate_ReturndFalse(string LicensePlate)
+        public void Validate_PassedInvalidPlate_ReturndFalse(string LicensePlate)
         {
             Assert.False(Vehicle.IsValidLicensePlate(LicensePlate));
         }
@@ -39,18 +39,18 @@ namespace FleetTesting.ModelTesting
         [InlineData("1FAHP26W49G252740")]
         [InlineData("1FAHP26W49G222740")]
         [InlineData("1FBHP26W49G222740")]
-        public void ValidateChassis_PassedValidChassisNumber_ReturndTrue(string ChassisNumber)
+        public void Validate_PassedValidChassisNumber_ReturndTrue(string ChassisNumber)
         {
-            Assert.True(Vehicle.validateChassisNumber(ChassisNumber));
+            Assert.True(Vehicle.ValidateChassisNumber(ChassisNumber));
         }
 
         [Theory] // Check invalid chasis numbers
         [InlineData("1FAHP26W4XG252740")]
         [InlineData("1FAHP26349G252740")]
         [InlineData("AFAHP26349G252740")]
-        public void ValidateChassis_PassedInvalidChassisNumber_ReturndFalse(string ChassisNumber)
+        public void Validate_PassedInvalidChassisNumber_ReturndFalse(string ChassisNumber)
         {
-            Assert.False(Vehicle.validateChassisNumber(ChassisNumber));
+            Assert.False(Vehicle.ValidateChassisNumber(ChassisNumber));
         }
     }
 }
