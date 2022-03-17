@@ -7,20 +7,9 @@ namespace FleetTesting.ModelTesting
     public class VehicleTest
     {
         [Fact]
-        public void DeleteVehicle()
+        public void Create_WithCorrectInformation_ReturnsConstructedVehicle()
         {
-            throw new NotImplementedException();
-        }
-
-        [Fact]
-        public void AddVehicle()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Fact]
-        public void ModifyVehicle()
-        {
+        
             throw new NotImplementedException();
         }
 
@@ -31,7 +20,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("1-234-ABC")]
         [InlineData("GBA-567-3")]
         [InlineData("456-LPO-3")]
-        public void LicensePlateIsValid(string LicensePlate)
+        public void ValidatePlate_PassedValidPlate_ReturndTrue(string LicensePlate)
         {
             Assert.True(Vehicle.IsValidLicensePlate(LicensePlate));
         }
@@ -41,7 +30,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("1-2B4-ABC")]
         [InlineData("gBA-567-3")]
         [InlineData("456-L6O-3")]
-        public void LicensePlateIsNotValid(string LicensePlate)
+        public void ValidatePlate_PassedInvalidPlate_ReturndFalse(string LicensePlate)
         {
             Assert.False(Vehicle.IsValidLicensePlate(LicensePlate));
         }
@@ -50,7 +39,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("1FAHP26W49G252740")]
         [InlineData("1FAHP26W49G222740")]
         [InlineData("1FBHP26W49G222740")]
-        public void ChasisNumberIsValid(string ChassisNumber)
+        public void ValidateChassis_PassedValidChassisNumber_ReturndTrue(string ChassisNumber)
         {
             Assert.True(Vehicle.validateChassisNumber(ChassisNumber));
         }
@@ -59,7 +48,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("1FAHP26W4XG252740")]
         [InlineData("1FAHP26349G252740")]
         [InlineData("AFAHP26349G252740")]
-        public void ChasisNumberIsNotValid(string ChassisNumber)
+        public void ValidateChassis_PassedInvalidChassisNumber_ReturndFalse(string ChassisNumber)
         {
             Assert.False(Vehicle.validateChassisNumber(ChassisNumber));
         }
