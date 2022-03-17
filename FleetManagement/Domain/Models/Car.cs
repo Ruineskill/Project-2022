@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Vehicle
+    public class Car
     {
         #region Properties
         public int Id { get; protected set; }
@@ -27,7 +27,7 @@ namespace Domain.Models
         #endregion
 
         #region Constructor
-        public Vehicle(int id, string chassisNumber, string licensePlate, string brand, string model, Fuel fuel , VehicleType type,  string color = "Unknown", int doorCount = 2)
+        public Car(int id, string chassisNumber, string licensePlate, string brand, string model, Fuel fuel , VehicleType type,  string color = "Unknown", int doorCount = 2)
         {
             if (!IsValidChassisNumber(chassisNumber)) 
                 throw new InvalidChassisNumberException("Vehicle chassis number is not valid!", chassisNumber);

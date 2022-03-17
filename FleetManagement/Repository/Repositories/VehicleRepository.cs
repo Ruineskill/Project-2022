@@ -10,7 +10,7 @@ namespace Repository.Repositories
         private Context ctx = new Context();
 
         #region Public
-        public Vehicle AddVehicleRepo(Vehicle vehicle)
+        public Car AddVehicleRepo(Car vehicle)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace Repository.Repositories
             return vehicle;
         }
 
-        public Vehicle UpdateVehicleRepo(Vehicle vehicle)
+        public Car UpdateVehicleRepo(Car vehicle)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace Repository.Repositories
             return vehicle;
         }
 
-        public void DeleteVehicleRepo(Vehicle vehicle)
+        public void DeleteVehicleRepo(Car vehicle)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace Repository.Repositories
             }
         }
 
-        public Vehicle GetVehicleByIdRepo(int id)
+        public Car GetVehicleByIdRepo(int id)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace Repository.Repositories
             }
         }
 
-        public List<Vehicle> GetAllVehicleRepo()
+        public List<Car> GetAllVehicleRepo()
         {
             try
             {

@@ -19,13 +19,13 @@ namespace Domain.Models
         public DateOnly DayOfBirth { get; protected set; }
         public string NationRegistrationNumber { get; protected set; }
         public string DriversLicenseType { get; protected set; }
-        public Vehicle? Vehicle { get; protected set; }
+        public Car? Vehicle { get; protected set; }
         public FuelCard? FuelCard { get; protected set; }
 
         #endregion
 
         #region Constructor
-        public User(int id, string name, string firstName, string street, string houseNumber, string city, int postalCode, DateOnly dayOfBirth, string nationRegistrationNumber, string driversLicenseType, Vehicle? vehicle, FuelCard? fuelCard)
+        public User(int id, string name, string firstName, string street, string houseNumber, string city, int postalCode, DateOnly dayOfBirth, string nationRegistrationNumber, string driversLicenseType, Car? vehicle, FuelCard? fuelCard)
         {
             Id = id;
             Name = name;

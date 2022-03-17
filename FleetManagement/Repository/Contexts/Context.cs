@@ -11,7 +11,7 @@ namespace Repository.Contexts
     public class Context : DbContext
     {
         public DbSet<User> User { get; set; }
-        public DbSet<Vehicle> Vehicle { get; set; }
+        public DbSet<Car> Vehicle { get; set; }
         public DbSet<Fuel> Fuel { get; set; }
         public DbSet<FuelCardFuel> FuelCardFuel { get; set; }
         public DbSet<FuelCard> FuelCard { get; set; }
@@ -39,15 +39,15 @@ namespace Repository.Contexts
                 .HasForeignKey<FuelCard>(ad => ad.Id);
 
             modelBuilder.Entity<User>()
-                .HasOne<Vehicle>(s => s.Vehicle)
+                .HasOne<Car>(s => s.Vehicle)
                 .WithOne(ad => ad.User)
-                .HasForeignKey<Vehicle>(ad => ad.Id);
+                .HasForeignKey<Car>(ad => ad.Id);
 
 
             //Vehicle Relations & Requirements
-            modelBuilder.Entity<Vehicle>()
+            modelBuilder.Entity<Car>()
                 .HasKey(c => c.Id);
-            modelBuilder.Entity<Vehicle>()
+            modelBuilder.Entity<Car>()
                 .HasIndex(u => new { u.ChassisNumber, u.LicensePlate })
                 .IsUnique();
 
