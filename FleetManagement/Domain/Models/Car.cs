@@ -18,7 +18,7 @@ namespace Domain.Models
         public string LicensePlate { get; protected set; }
         public string Brand { get; protected set; }
         public string Model { get; protected set; }
-        public VehicleType Type { get; protected set; }
+        public CarType Type { get; protected set; }
         public string Color { get; protected set; }
         public int DoorCount { get; protected set; }
         public Fuel Fuel { get; protected set; }
@@ -27,7 +27,7 @@ namespace Domain.Models
         #endregion
 
         #region Constructor
-        public Car(int id, string chassisNumber, string licensePlate, string brand, string model, Fuel fuel , VehicleType type,  string color = "Unknown", int doorCount = 2)
+        public Car(int id, string chassisNumber, string licensePlate, string brand, string model, Fuel fuel , CarType type,  string color = "Unknown", int doorCount = 2)
         {
             if (!IsValidChassisNumber(chassisNumber)) 
                 throw new InvalidChassisNumberException("Vehicle chassis number is not valid!", chassisNumber);

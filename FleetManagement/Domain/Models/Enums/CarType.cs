@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Enums
 {
-    public enum VehicleType
+    public enum CarType
     {
         Car, Jeep, Van, Truck, Bus
     }
