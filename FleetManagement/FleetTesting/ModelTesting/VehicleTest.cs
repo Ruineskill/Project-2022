@@ -1,18 +1,29 @@
 ﻿using Xunit;
 using Domain.Models;
 using System;
+using Domain.Models.Enums;
+using Domain.Exceptions;
 
 namespace FleetTesting.ModelTesting
 {
     public class VehicleTest
     {
         [Fact]
-        public void Create_WithCorrectInformation_ReturnsConstructedVehicle()
+        public void Construct_WithCorrectInformation_ShouldConstruct()
         {
         
             throw new NotImplementedException();
         }
 
+
+        [Fact]
+        public void Construct_WithInvalidChassisNumber_ThrowsInvalidChassisNumberException()
+        {
+            Fuel carFuel = new(0, "Benzine");
+            Assert.Throws<InvalidChassisNumberException>(() => new Car(0, "1FAHP26W4XG252740",
+                "1-ABC-235", "Mercedes", "Class C", carFuel, CarType.Car));
+           
+        }
 
 
         [Theory]  // Check valid license plate
