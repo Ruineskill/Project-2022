@@ -6,13 +6,6 @@ namespace FleetTesting.ModelTesting
     public class UserTest
     {
         [Fact]
-        public void DeleteUser()
-        {
-            throw new NotImplementedException();
-
-        }
-
-        [Fact]
         public void AddUser()
         {
             throw new NotImplementedException();

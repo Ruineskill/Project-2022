@@ -6,12 +6,13 @@ using Domain.Exceptions;
 
 namespace FleetTesting.ModelTesting
 {
-    public class VehicleTest
+    public class CarTest
     {
         [Fact]
         public void Construct_WithCorrectInformation_ShouldConstruct()
         {
-        
+
+            
             throw new NotImplementedException();
         }
 
@@ -20,8 +21,10 @@ namespace FleetTesting.ModelTesting
         public void Construct_WithInvalidChassisNumber_ThrowsInvalidChassisNumberException()
         {
             Fuel carFuel = new(0, "Benzine");
-            Assert.Throws<InvalidChassisNumberException>(() => new Car(0, "1FAHP26W4XG252740",
-                "1-ABC-235", "Mercedes", "Class C", carFuel, CarType.Car));
+
+            Action actual = () => new Car(0, "1FAHP26W4XG252740", "1-ABC-235", "Mercedes", "Class C", carFuel, CarType.Car);
+
+            Assert.Throws<InvalidChassisNumberException>(actual);
            
         }
 
