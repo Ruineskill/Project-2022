@@ -5,12 +5,12 @@ using Repository.Exceptions;
 
 namespace Repository.Repositories
 {
-    public class VehicleRepository : IVehicleRepository
+    public class CarRepository : ICarRepository
     {
         private Context ctx = new Context();
 
         #region Public
-        public Car AddVehicleRepo(Car vehicle)
+        public Car AddCarRepo(Car vehicle)
         {
             try
             {
@@ -20,24 +20,24 @@ namespace Repository.Repositories
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw new VehicleRepositoryException(nameof(AddVehicleRepo), ex);
+                throw new VehicleRepositoryException(nameof(AddCarRepo), ex);
             }
 
             return vehicle;
         }
 
-        public Car UpdateVehicleRepo(Car vehicle)
+        public Car UpdateCarRepo(Car vehicle)
         {
             try
             {
                 var tempVehicle = ctx.Vehicle.Find(vehicle.Id);
                 tempVehicle.ChassisNumber = vehicle.ChassisNumber;
                 tempVehicle.LicensePlate = vehicle.LicensePlate;
-                tempVehicle.Branch = vehicle.Branch;
+                tempVehicle.Brand = vehicle.Brand;
                 tempVehicle.Model = vehicle.Model;
                 tempVehicle.Type = vehicle.Type;
                 tempVehicle.Color = vehicle.Color;
-                tempVehicle.DoorsCount = vehicle.DoorCount;
+                tempVehicle.DoorCount = vehicle.DoorCount;
                 tempVehicle.Fuel = vehicle.Fuel;
                 tempVehicle.User = vehicle.User;
                 ctx.SaveChanges();
@@ -45,13 +45,13 @@ namespace Repository.Repositories
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw new VehicleRepositoryException(nameof(UpdateVehicleRepo), ex);
+                throw new VehicleRepositoryException(nameof(UpdateCarRepo), ex);
             }
 
             return vehicle;
         }
 
-        public void DeleteVehicleRepo(Car vehicle)
+        public void DeleteCarRepo(Car vehicle)
         {
             try
             {
@@ -61,11 +61,11 @@ namespace Repository.Repositories
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw new VehicleRepositoryException(nameof(DeleteVehicleRepo), ex);
+                throw new VehicleRepositoryException(nameof(DeleteCarRepo), ex);
             }
         }
 
-        public Car GetVehicleByIdRepo(int id)
+        public Car GetCarByIdRepo(int id)
         {
             try
             {
@@ -74,11 +74,11 @@ namespace Repository.Repositories
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw new VehicleRepositoryException(nameof(GetVehicleByIdRepo), ex);
+                throw new VehicleRepositoryException(nameof(GetCarByIdRepo), ex);
             }
         }
 
-        public List<Car> GetAllVehicleRepo()
+        public List<Car> GetAllCarRepo()
         {
             try
             {
@@ -87,7 +87,7 @@ namespace Repository.Repositories
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw new VehicleRepositoryException(nameof(GetAllVehicleRepo), ex);
+                throw new VehicleRepositoryException(nameof(GetAllCarRepo), ex);
             }
         }
 
