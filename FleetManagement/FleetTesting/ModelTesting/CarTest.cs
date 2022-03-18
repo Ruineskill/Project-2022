@@ -3,6 +3,7 @@ using Domain.Models;
 using System;
 using Domain.Models.Enums;
 using Domain.Exceptions;
+using Moq;
 
 namespace FleetTesting.ModelTesting
 {
@@ -12,16 +13,28 @@ namespace FleetTesting.ModelTesting
         public void Construct_WithCorrectInformation_ShouldConstruct()
         {
 
-            
-            throw new NotImplementedException();
+            Mock<Car> expected = new();
+            expected.Setup(x => x.Id).Returns(0);
+            expected.Setup(x => x.ChassisNumber).Returns("1FAHP26W49G252740");
+            expected.Setup(x => x.LicensePlate).Returns("1-ABC-235");
+            expected.Setup(x => x.Brand).Returns("BMW");
+            expected.Setup(x => x.Model).Returns("X1");
+            expected.Setup(x => x.Fuel).Returns(new Fuel(0, "Benzine"));
+            expected.Setup(x => x.Type).Returns(CarType.Jeep);
+
+            var actual = new Car(0, "1FAHP26W49G252740", "1-ABC-235", "BMW", "X1", new Fuel(0, "Benzine"), CarType.Jeep);
+
+
+            Assert.Equal(actual, expected.Object);
+
         }
 
 
         [Fact]
         public void Construct_WithInvalidChassisNumber_ThrowsInvalidChassisNumberException()
         {
-            Fuel carFuel = new(0, "Benzine");
 
+            Fuel carFuel = new(0, "Benzine");
             Action actual = () => new Car(0, "1FAHP26W4XG252740", "1-ABC-235", "Mercedes", "Class C", carFuel, CarType.Car);
 
             Assert.Throws<InvalidChassisNumberException>(actual);

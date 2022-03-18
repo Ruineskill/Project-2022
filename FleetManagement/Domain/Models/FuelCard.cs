@@ -9,11 +9,11 @@ namespace Domain.Models
     public class FuelCard
     {
         #region Properties
-        public int Id { get; protected set; }
-        public string CardNumber { get; protected set; }
-        public int PinCode { get; protected set; }
-        public User User { get; protected set; }
-        public ICollection<FuelCardFuel> Fuels { get; protected set; }
+        public int Id { get;  set; }
+        public string CardNumber { get;  set; }
+        public int PinCode { get;  set; }
+        public User User { get;  set; }
+        public ICollection<FuelCardFuel> Fuels { get;  set; }
 
         #endregion
 

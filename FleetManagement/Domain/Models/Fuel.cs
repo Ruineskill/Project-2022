@@ -9,9 +9,9 @@ namespace Domain.Models
     public class Fuel
     {
         #region Properties
-        public int Id { get; protected set; }
-        public string Type { get; protected set; }
-        public ICollection<FuelCardFuel> FuelCards { get; protected set; }
+        public int Id { get;  set; }
+        public string Type { get;  set; }
+        public ICollection<FuelCardFuel> FuelCards { get;  set; }
         #endregion
 
         #region Constructor
