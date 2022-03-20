@@ -10,7 +10,7 @@ namespace FleetTesting.ModelTesting
     public class CarTest
     {
         [Fact]
-        public void Construct_WithCorrectInformation_ShouldConstruct()
+        public void Construct_CorrectInformation_ShouldConstruct()
         {
             int ExceptedId = 0;
             string ExceptedChassisNumber = "1FAHP26W49G252740";
@@ -36,7 +36,7 @@ namespace FleetTesting.ModelTesting
 
 
         [Fact]
-        public void Construct_WithInvalidChassisNumber_ThrowsInvalidChassisNumberException()
+        public void Construct_InvalidChassisNumber_ThrowsInvalidChassisNumberException()
         {
 
             Fuel carFuel = new(0, "Benzine");
@@ -47,7 +47,7 @@ namespace FleetTesting.ModelTesting
         }
 
         [Fact]
-        public void Construct_WithInvalidLicencePlate_ThrowsInvalidLicensePlateException()
+        public void Construct_InvalidLicencePlate_ThrowsInvalidLicensePlateException()
         {
 
             Fuel carFuel = new(0, "Benzine");
@@ -58,7 +58,7 @@ namespace FleetTesting.ModelTesting
         }
 
         [Fact]
-        public void Construct_WithEmptyBrand_ThrowsArgumentNullException()
+        public void Construct_EmptyBrand_ThrowsArgumentNullException()
         {
 
             Fuel carFuel = new(0, "Benzine");
@@ -69,7 +69,7 @@ namespace FleetTesting.ModelTesting
         }
 
         [Fact]
-        public void Construct_WithEmptyModel_ThrowsArgumentNullException()
+        public void Construct_EmptyModel_ThrowsArgumentNullException()
         {
 
             Fuel carFuel = new(0, "Benzine");
@@ -85,7 +85,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("1-234-ABC")]
         [InlineData("GBA-567-3")]
         [InlineData("456-LPO-3")]
-        public void Validate_PassedValidPlate_ReturndTrue(string LicensePlate)
+        public void Validate_ValidPlate_ReturndTrue(string LicensePlate)
         {
             Assert.True(Car.IsValidLicensePlate(LicensePlate));
         }
@@ -95,7 +95,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("1-2B4-ABC")]
         [InlineData("gBA-567-3")]
         [InlineData("456-L6O-3")]
-        public void Validate_PassedInvalidPlate_ReturndFalse(string LicensePlate)
+        public void Validate_InvalidPlate_ReturndFalse(string LicensePlate)
         {
             Assert.False(Car.IsValidLicensePlate(LicensePlate));
         }
@@ -104,7 +104,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("5GZCZ43D13S812715")]
         [InlineData("1M8GDM9AXKP042788")]
         [InlineData("1FBHP26W49G222740")]
-        public void Validate_PassedValidChassisNumber_ReturndTrue(string ChassisNumber)
+        public void Validate_ValidChassisNumber_ReturndTrue(string ChassisNumber)
         {
             Assert.True(Car.IsValidChassisNumber(ChassisNumber));
         }
@@ -113,7 +113,7 @@ namespace FleetTesting.ModelTesting
         [InlineData("1FAHP26W4XG252740")]
         [InlineData("1FAHP26349G252740")]
         [InlineData("AFAHP26349G252740")]
-        public void Validate_PassedInvalidChassisNumber_ReturndFalse(string ChassisNumber)
+        public void Validate_InvalidChassisNumber_ReturndFalse(string ChassisNumber)
         {
             Assert.False(Car.IsValidChassisNumber(ChassisNumber));
         }

@@ -57,7 +57,7 @@ namespace Domain.Models
         #endregion
 
         #region Public
-        public static bool IsNationRegistrationNumber(string nrn)
+        public static bool IsValidNationalRegistrationNumber(string nrn)
         {
             //Last 2 digits of NationRegistration Number
             var nrnChecksum = Convert.ToInt64(nrn.Substring(9, 2));
