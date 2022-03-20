@@ -103,7 +103,7 @@ namespace FleetTesting.ModelTesting
         [Theory]  // Check valid chassis number
         [InlineData("5GZCZ43D13S812715")]
         [InlineData("1M8GDM9AXKP042788")]
-        [InlineData("1FBHP26W49G222740")]
+        [InlineData("1FBHP26W39G222740")]
         public void Validate_ValidChassisNumber_ReturndTrue(string ChassisNumber)
         {
             Assert.True(Car.IsValidChassisNumber(ChassisNumber));
