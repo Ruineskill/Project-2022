@@ -12,20 +12,25 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Construct_WithCorrectInformation_ShouldConstruct()
         {
-
-            Mock<Car> expected = new();
-            expected.Setup(x => x.Id).Returns(0);
-            expected.Setup(x => x.ChassisNumber).Returns("1FAHP26W49G252740");
-            expected.Setup(x => x.LicensePlate).Returns("1-ABC-235");
-            expected.Setup(x => x.Brand).Returns("BMW");
-            expected.Setup(x => x.Model).Returns("X1");
-            expected.Setup(x => x.Fuel).Returns(new Fuel(0, "Benzine"));
-            expected.Setup(x => x.Type).Returns(CarType.Jeep);
+            int ExceptedId = 0;
+            string ExceptedChassisNumber = "1FAHP26W49G252740";
+            string ExceptedLicensePlate = "1-ABC-235";
+            string ExceptedBrand = "BMW";
+            string ExceptedModel = "X1";
+            CarType ExceptedType = CarType.Jeep;
+            Fuel ExceptedFuel = new Fuel(0, "Benzine");
 
             var actual = new Car(0, "1FAHP26W49G252740", "1-ABC-235", "BMW", "X1", new Fuel(0, "Benzine"), CarType.Jeep);
 
 
-            Assert.Equal(actual, expected.Object);
+            Assert.Equal(actual.Id, ExceptedId);
+            Assert.Equal(actual.ChassisNumber, ExceptedChassisNumber);
+            Assert.Equal(actual.LicensePlate, ExceptedLicensePlate);
+            Assert.Equal(actual.Brand, ExceptedBrand);
+            Assert.Equal(actual.Model, ExceptedModel);
+            Assert.Equal(actual.Type, ExceptedType);
+            Assert.Equal(actual.Fuel.Id, ExceptedFuel.Id);
+            Assert.Equal(actual.Fuel.Type, ExceptedFuel.Type);
 
         }
 
@@ -39,6 +44,39 @@ namespace FleetTesting.ModelTesting
 
             Assert.Throws<InvalidChassisNumberException>(actual);
            
+        }
+
+        [Fact]
+        public void Construct_WithInvalidLicencePlate_ThrowsInvalidLicensePlateException()
+        {
+
+            Fuel carFuel = new(0, "Benzine");
+            Action actual = () => new Car(0, "1M8GDM9AXKP042788", "A-ABC-235", "Mercedes", "Class C", carFuel, CarType.Car);
+
+            Assert.Throws<InvalidLicensePlateException>(actual);
+
+        }
+
+        [Fact]
+        public void Construct_WithEmptyBrand_ThrowsArgumentNullException()
+        {
+
+            Fuel carFuel = new(0, "Benzine");
+            Action actual = () => new Car(0, "1M8GDM9AXKP042788", "1-ABC-235", "", "Class C", carFuel, CarType.Car);
+
+            Assert.Throws<ArgumentNullException>(actual);
+
+        }
+
+        [Fact]
+        public void Construct_WithEmptyModel_ThrowsArgumentNullException()
+        {
+
+            Fuel carFuel = new(0, "Benzine");
+            Action actual = () => new Car(0, "1M8GDM9AXKP042788", "1-ABC-235", "Mercedes", "", carFuel, CarType.Car);
+
+            Assert.Throws<ArgumentNullException>(actual);
+
         }
 
 
@@ -62,16 +100,16 @@ namespace FleetTesting.ModelTesting
             Assert.False(Car.IsValidLicensePlate(LicensePlate));
         }
 
-        [Theory]  // Check valid chasis number
-        [InlineData("1FAHP26W49G252740")]
-        [InlineData("1FAHP26W49G222740")]
+        [Theory]  // Check valid chassis number
+        [InlineData("5GZCZ43D13S812715")]
+        [InlineData("1M8GDM9AXKP042788")]
         [InlineData("1FBHP26W49G222740")]
         public void Validate_PassedValidChassisNumber_ReturndTrue(string ChassisNumber)
         {
             Assert.True(Car.IsValidChassisNumber(ChassisNumber));
         }
 
-        [Theory] // Check invalid chasis numbers
+        [Theory] // Check invalid chassis numbers
         [InlineData("1FAHP26W4XG252740")]
         [InlineData("1FAHP26349G252740")]
         [InlineData("AFAHP26349G252740")]
