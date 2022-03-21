@@ -29,10 +29,10 @@ namespace Domain.Models
         #region Constructor
 
         public Car(int id, string chassisNumber, string licensePlate, string brand, string model, Fuel fuel, CarType type) :
-            this(id, chassisNumber, licensePlate, brand, model, fuel, type, "Unknown", 4)
+            this(id, chassisNumber, licensePlate, brand, model, fuel, type, "Unknown", 4, null)
         { }
 
-        public Car(int id, string chassisNumber, string licensePlate, string brand, string model, Fuel fuel, CarType type, string color = "Unknown", int doorCount = 2)
+        public Car(int id, string chassisNumber, string licensePlate, string brand, string model, Fuel fuel, CarType type, string color, int doorCount, User? user )
         {
             if (!IsValidChassisNumber(chassisNumber))
                 throw new InvalidChassisNumberException("Vehicle chassis number is not valid!", chassisNumber);
@@ -55,10 +55,6 @@ namespace Domain.Models
             Color = color;
             DoorCount = doorCount;
             Fuel = fuel;
-        }
-
-        public void AssignUser(User user)
-        {
             User = user;
         }
 

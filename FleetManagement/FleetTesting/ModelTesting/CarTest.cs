@@ -18,9 +18,14 @@ namespace FleetTesting.ModelTesting
             string ExceptedBrand = "BMW";
             string ExceptedModel = "X1";
             CarType ExceptedType = CarType.Jeep;
-            Fuel ExceptedFuel = new Fuel(0, "Benzine");
+            Fuel ExceptedFuel = new(0, "Benzine");
+            string ExceptedColor = "Red";
+            int ExceptedDoorCount = 3;
+            User ExceptedUser = new(0, "Luc", "SkyWalker", "nabustreet", "3",
+                "Polis Massa", 9000, new DateOnly(1000, 02, 01), "86022402508", "B");
 
-            var actual = new Car(0, "1FAHP26W49G252740", "1-ABC-235", "BMW", "X1", new Fuel(0, "Benzine"), CarType.Jeep);
+            var actual = new Car(ExceptedId, ExceptedChassisNumber, ExceptedLicensePlate, ExceptedBrand, ExceptedModel,
+                                 ExceptedFuel, ExceptedType, ExceptedColor, ExceptedDoorCount, ExceptedUser);
 
 
             Assert.Equal(actual.Id, ExceptedId);
@@ -31,6 +36,20 @@ namespace FleetTesting.ModelTesting
             Assert.Equal(actual.Type, ExceptedType);
             Assert.Equal(actual.Fuel.Id, ExceptedFuel.Id);
             Assert.Equal(actual.Fuel.Type, ExceptedFuel.Type);
+            Assert.Equal(actual.Color, ExceptedColor);
+            Assert.Equal(actual.DoorCount, ExceptedDoorCount);
+
+            Assert.Equal(actual.User.Id, ExceptedUser.Id);
+            Assert.Equal(actual.User.FirstName, ExceptedUser.FirstName);
+            Assert.Equal(actual.User.Name, ExceptedUser.Name);
+            Assert.Equal(actual.User.Street, ExceptedUser.Street);
+            Assert.Equal(actual.User.HouseNumber, ExceptedUser.HouseNumber);
+            Assert.Equal(actual.User.City, ExceptedUser.City);
+            Assert.Equal(actual.User.PostalCode, ExceptedUser.PostalCode);
+            Assert.Equal(actual.User.DayOfBirth, ExceptedUser.DayOfBirth);
+            Assert.Equal(actual.User.NationRegistrationNumber, ExceptedUser.NationRegistrationNumber); ;
+            Assert.Equal(actual.User.DriversLicenseType, ExceptedUser.DriversLicenseType); ;
+
 
         }
 
@@ -43,7 +62,7 @@ namespace FleetTesting.ModelTesting
             Action actual = () => new Car(0, "1FAHP26W4XG252740", "1-ABC-235", "Mercedes", "Class C", carFuel, CarType.Car);
 
             Assert.Throws<InvalidChassisNumberException>(actual);
-           
+
         }
 
         [Fact]

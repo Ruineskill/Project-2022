@@ -7,7 +7,7 @@ namespace FleetTesting.ModelTesting
     {
 
 
-        [Theory]  // Check valid chassis number
+        [Theory]  // Check valid National Number
         [InlineData("86022402508")]
         [InlineData("60061812456")]
         [InlineData("44121181161")]
@@ -16,7 +16,7 @@ namespace FleetTesting.ModelTesting
             Assert.True(User.IsValidNationalRegistrationNumber(RegistrationNumber));
         }
 
-        [Theory] // Check invalid chassis numbers
+        [Theory] // Check invalid National Number
         [InlineData("86022402502")]
         [InlineData("60061812451")]
         [InlineData("44121181160")]
