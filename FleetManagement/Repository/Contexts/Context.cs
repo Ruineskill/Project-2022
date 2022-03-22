@@ -10,38 +10,42 @@ namespace Repository.Contexts
 {
     public class Context : DbContext
     {
-        public DbSet<Person> User { get; set; }
-        public DbSet<Car> Vehicle { get; set; }
-        public DbSet<Fuel> Fuel { get; set; }
-        public DbSet<FuelCardFuel> FuelCardFuel { get; set; }
-        public DbSet<FuelCard> FuelCard { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<FuelCard> FuelCards { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+          
             //User Relations & Requirements
             modelBuilder.Entity<Person>()
                 .HasKey(c => c.Id);
 
             modelBuilder.Entity<Person>()
-                .HasIndex(u => u.NationRegistrationNumber)
+                .HasIndex(u => u.NationalRegistrationNumber)
                 .IsUnique();
 
             modelBuilder.Entity<Person>(builder =>
             {
                 // DateOfBirth is a DateOnly property and Date on database
-                builder.Property(x => x.DayOfBirth)
+                builder.Property(x => x.DateOfBirth)
                     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
             });
 
-            modelBuilder.Entity<Person>()
-                .HasOne<FuelCard>(s => s.FuelCard)
-                .WithOne(ad => ad.User)
-                .HasForeignKey<FuelCard>(ad => ad.Id);
+            //modelBuilder.Entity<Person>()
+            //    .HasOne<FuelCard>(s => s.FuelCard)
+            //    .WithOne(ad => ad.User)
+            //    .HasForeignKey<FuelCard>(ad => ad.Id);
 
             modelBuilder.Entity<Person>()
-                .HasOne<Car>(s => s.Vehicle)
-                .WithOne(ad => ad.User)
+                .HasOne<Car>(s => s.Car)
+                .WithOne(ad => ad.Person)
                 .HasForeignKey<Car>(ad => ad.Id);
+
+            //Address Relations & Requirements
+            modelBuilder.Entity<Address>().HasKey(k => k.Id);
 
 
             //Vehicle Relations & Requirements
@@ -57,16 +61,16 @@ namespace Repository.Contexts
                 .IsUnique();
 
             //Many to Many Relation
-            modelBuilder.Entity<FuelCardFuel>()
-                .HasKey(bc => new { bc.FuelId, bc.FuelCardId });
-            modelBuilder.Entity<FuelCardFuel>()
-                .HasOne(bc => bc.Fuel)
-                .WithMany(b => b.FuelCards)
-                .HasForeignKey(bc => bc.FuelId);
-            modelBuilder.Entity<FuelCardFuel>()
-                .HasOne(bc => bc.FuelCard)
-                .WithMany(c => c.Fuels)
-                .HasForeignKey(bc => bc.FuelCardId);
+            //modelBuilder.Entity<FuelCardFuel>()
+            //    .HasKey(bc => new { bc.FuelId, bc.FuelCardId });
+            //modelBuilder.Entity<FuelCardFuel>()
+            //    .HasOne(bc => bc.Fuel)
+            //    .WithMany(b => b.FuelCards)
+            //    .HasForeignKey(bc => bc.FuelId);
+            //modelBuilder.Entity<FuelCardFuel>()
+            //    .HasOne(bc => bc.FuelCard)
+            //    .WithMany(c => c.Fuels)
+            //    .HasForeignKey(bc => bc.FuelCardId);
         }
 
         //Connection Database

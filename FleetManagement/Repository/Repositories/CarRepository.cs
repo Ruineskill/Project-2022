@@ -14,7 +14,7 @@ namespace Repository.Repositories
         {
             try
             {
-                ctx.Vehicle.Add(vehicle);
+                ctx.Cars.Add(vehicle);
                 ctx.SaveChanges();
             }
             catch (Exception ex)
@@ -30,7 +30,7 @@ namespace Repository.Repositories
         {
             try
             {
-                var tempVehicle = ctx.Vehicle.Find(vehicle.Id);
+                var tempVehicle = ctx.Cars.Find(vehicle.Id);
                 tempVehicle.ChassisNumber = vehicle.ChassisNumber;
                 tempVehicle.LicensePlate = vehicle.LicensePlate;
                 tempVehicle.Brand = vehicle.Brand;
@@ -55,7 +55,7 @@ namespace Repository.Repositories
         {
             try
             {
-                ctx.Vehicle.Remove(vehicle);
+                ctx.Cars.Remove(vehicle);
                 ctx.SaveChanges();
             }
             catch (Exception ex)
@@ -69,7 +69,7 @@ namespace Repository.Repositories
         {
             try
             {
-                return ctx.Vehicle.Find(id);
+                return ctx.Cars.Find(id);
             }
             catch (Exception ex)
             {
@@ -82,7 +82,7 @@ namespace Repository.Repositories
         {
             try
             {
-                return ctx.Vehicle.ToList();
+                return ctx.Cars.ToList();
             }
             catch (Exception ex)
             {

@@ -14,7 +14,7 @@ namespace Repository.Repositories
         {
             try
             {
-                ctx.FuelCard.Add(fuelCard);
+                ctx.FuelCards.Add(fuelCard);
                 ctx.SaveChanges();
             }
             catch (Exception ex)
@@ -30,11 +30,12 @@ namespace Repository.Repositories
         {
             try
             {
-                var tempFuelCard = ctx.FuelCard.Find(fuelCard.Id);
+                var tempFuelCard = ctx.FuelCards.Find(fuelCard.Id);
                 tempFuelCard.CardNumber = fuelCard.CardNumber;
                 tempFuelCard.PinCode = fuelCard.PinCode;
-                tempFuelCard.User = fuelCard.User;
-                tempFuelCard.Fuels = fuelCard.Fuels;
+                tempFuelCard.ExpirationDate  = fuelCard.ExpirationDate;
+                tempFuelCard.Person = fuelCard.Person;
+                tempFuelCard.UsableFuelTypes = fuelCard.UsableFuelTypes;
                 ctx.SaveChanges();
             }
             catch (Exception ex)
@@ -50,7 +51,7 @@ namespace Repository.Repositories
         {
             try
             {
-                ctx.FuelCard.Remove(fuelCard);
+                ctx.FuelCards.Remove(fuelCard);
                 ctx.SaveChanges();
             }
             catch (Exception ex)
@@ -64,7 +65,7 @@ namespace Repository.Repositories
         {
             try
             {
-                return ctx.FuelCard.Find(id);
+                return ctx.FuelCards.Find(id);
             }
             catch (Exception ex)
             {
@@ -77,7 +78,7 @@ namespace Repository.Repositories
         {
             try
             {
-                return ctx.FuelCard.ToList();
+                return ctx.FuelCards.ToList();
             }
             catch (Exception ex)
             {
