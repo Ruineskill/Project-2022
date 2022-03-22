@@ -10,7 +10,7 @@ namespace Repository.Contexts
 {
     public class Context : DbContext
     {
-        public DbSet<User> User { get; set; }
+        public DbSet<Person> User { get; set; }
         public DbSet<Car> Vehicle { get; set; }
         public DbSet<Fuel> Fuel { get; set; }
         public DbSet<FuelCardFuel> FuelCardFuel { get; set; }
@@ -19,26 +19,26 @@ namespace Repository.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //User Relations & Requirements
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<Person>()
                 .HasKey(c => c.Id);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<Person>()
                 .HasIndex(u => u.NationRegistrationNumber)
                 .IsUnique();
 
-            modelBuilder.Entity<User>(builder =>
+            modelBuilder.Entity<Person>(builder =>
             {
                 // DateOfBirth is a DateOnly property and Date on database
                 builder.Property(x => x.DayOfBirth)
                     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
             });
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<Person>()
                 .HasOne<FuelCard>(s => s.FuelCard)
                 .WithOne(ad => ad.User)
                 .HasForeignKey<FuelCard>(ad => ad.Id);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<Person>()
                 .HasOne<Car>(s => s.Vehicle)
                 .WithOne(ad => ad.User)
                 .HasForeignKey<Car>(ad => ad.Id);

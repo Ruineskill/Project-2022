@@ -4,10 +4,10 @@ namespace Domain.Interfaces
 {
     public interface IUserRepository
     {
-        User AddUserRepo(User user);
-        void DeleteUserRepo(User user);
-        List<User> GetAllUserRepo();
-        User GetUserByIdRepo(int id);
-        User UpdateUserRepo(User user);
+        Person AddUserRepo(Person user);
+        void DeleteUserRepo(Person user);
+        List<Person> GetAllUserRepo();
+        Person GetUserByIdRepo(int id);
+        Person UpdateUserRepo(Person user);
     }
 }

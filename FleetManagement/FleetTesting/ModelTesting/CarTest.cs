@@ -4,6 +4,7 @@ using System;
 using Domain.Models.Enums;
 using Domain.Exceptions;
 using Moq;
+using Domain;
 
 namespace FleetTesting.ModelTesting
 {
@@ -18,14 +19,11 @@ namespace FleetTesting.ModelTesting
             string ExceptedBrand = "BMW";
             string ExceptedModel = "X1";
             CarType ExceptedType = CarType.Jeep;
-            Fuel ExceptedFuel = new(0, "Benzine");
             string ExceptedColor = "Red";
+            FuelType ExceptedFuelType = FuelType.Benzine;
             int ExceptedDoorCount = 3;
-            User ExceptedUser = new(0, "Luc", "SkyWalker", "nabustreet", "3",
-                "Polis Massa", 9000, new DateOnly(1000, 02, 01), "86022402508", "B");
 
-            var actual = new Car(ExceptedId, ExceptedChassisNumber, ExceptedLicensePlate, ExceptedBrand, ExceptedModel,
-                                 ExceptedFuel, ExceptedType, ExceptedColor, ExceptedDoorCount, ExceptedUser);
+            var actual = new Car(ExceptedId, ExceptedBrand, ExceptedModel, ExceptedChassisNumber, ExceptedLicensePlate, ExceptedFuelType, ExceptedType);
 
 
             Assert.Equal(actual.Id, ExceptedId);
@@ -34,22 +32,8 @@ namespace FleetTesting.ModelTesting
             Assert.Equal(actual.Brand, ExceptedBrand);
             Assert.Equal(actual.Model, ExceptedModel);
             Assert.Equal(actual.Type, ExceptedType);
-            Assert.Equal(actual.Fuel.Id, ExceptedFuel.Id);
-            Assert.Equal(actual.Fuel.Type, ExceptedFuel.Type);
             Assert.Equal(actual.Color, ExceptedColor);
-            Assert.Equal(actual.DoorCount, ExceptedDoorCount);
-
-            Assert.Equal(actual.User.Id, ExceptedUser.Id);
-            Assert.Equal(actual.User.FirstName, ExceptedUser.FirstName);
-            Assert.Equal(actual.User.Name, ExceptedUser.Name);
-            Assert.Equal(actual.User.Street, ExceptedUser.Street);
-            Assert.Equal(actual.User.HouseNumber, ExceptedUser.HouseNumber);
-            Assert.Equal(actual.User.City, ExceptedUser.City);
-            Assert.Equal(actual.User.PostalCode, ExceptedUser.PostalCode);
-            Assert.Equal(actual.User.DayOfBirth, ExceptedUser.DayOfBirth);
-            Assert.Equal(actual.User.NationRegistrationNumber, ExceptedUser.NationRegistrationNumber); ;
-            Assert.Equal(actual.User.DriversLicenseType, ExceptedUser.DriversLicenseType); ;
-
+            Assert.Equal(actual.NumberOfDoors, ExceptedDoorCount);
 
         }
 
@@ -58,8 +42,7 @@ namespace FleetTesting.ModelTesting
         public void Construct_InvalidChassisNumber_ThrowsInvalidChassisNumberException()
         {
 
-            Fuel carFuel = new(0, "Benzine");
-            Action actual = () => new Car(0, "1FAHP26W4XG252740", "1-ABC-235", "Mercedes", "Class C", carFuel, CarType.Car);
+            Action actual = () => new Car(0, "Mercedes", "Class C", "1FAHP26W4XG252740", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
 
             Assert.Throws<InvalidChassisNumberException>(actual);
 
@@ -69,8 +52,8 @@ namespace FleetTesting.ModelTesting
         public void Construct_InvalidLicencePlate_ThrowsInvalidLicensePlateException()
         {
 
-            Fuel carFuel = new(0, "Benzine");
-            Action actual = () => new Car(0, "1M8GDM9AXKP042788", "A-ABC-235", "Mercedes", "Class C", carFuel, CarType.Car);
+            Action actual = () => new Car(0, "Mercedes", "Class C", "5GZCZ43D13S812715", "A-ABC-235", FuelType.Hydrogen, CarType.Van);
+
 
             Assert.Throws<InvalidLicensePlateException>(actual);
 
@@ -79,9 +62,9 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Construct_EmptyBrand_ThrowsArgumentNullException()
         {
+            Action actual = () => new Car(0, "", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
 
-            Fuel carFuel = new(0, "Benzine");
-            Action actual = () => new Car(0, "1M8GDM9AXKP042788", "1-ABC-235", "", "Class C", carFuel, CarType.Car);
+           
 
             Assert.Throws<ArgumentNullException>(actual);
 
@@ -91,8 +74,7 @@ namespace FleetTesting.ModelTesting
         public void Construct_EmptyModel_ThrowsArgumentNullException()
         {
 
-            Fuel carFuel = new(0, "Benzine");
-            Action actual = () => new Car(0, "1M8GDM9AXKP042788", "1-ABC-235", "Mercedes", "", carFuel, CarType.Car);
+            Action actual = () => new Car(0, "Mercedes", "", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
 
             Assert.Throws<ArgumentNullException>(actual);
 

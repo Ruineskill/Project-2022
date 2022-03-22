@@ -10,7 +10,7 @@ namespace Repository.Repositories
         private Context ctx = new Context();
 
         #region Public
-        public User AddUserRepo(User user)
+        public Person AddUserRepo(Person user)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace Repository.Repositories
             return user;
         }
 
-        public User UpdateUserRepo(User user)
+        public Person UpdateUserRepo(Person user)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Repository.Repositories
             return user;
         }
 
-        public void DeleteUserRepo(User user)
+        public void DeleteUserRepo(Person user)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace Repository.Repositories
 
         }
 
-        public User GetUserByIdRepo(int id)
+        public Person GetUserByIdRepo(int id)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace Repository.Repositories
             }
         }
 
-        public List<User> GetAllUserRepo()
+        public List<Person> GetAllUserRepo()
         {
             try
             {

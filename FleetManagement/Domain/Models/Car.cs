@@ -12,53 +12,67 @@ namespace Domain.Models
 {
     public class Car
     {
-        #region Properties
-        public int Id { get;  set; }
-        public string ChassisNumber { get;  set; }
-        public string LicensePlate { get;  set; }
-        public string Brand { get;  set; }
-        public string Model { get;  set; }
-        public CarType Type { get;  set; }
-        public string Color { get;  set; }
-        public int DoorCount { get;  set; }
-        public Fuel Fuel { get;  set; }
-        public User? User { get;  set; }
+        private int _id;
+        private string _brand;
+        private string _model;
+        private string _chassisNumber;
+        private string _licensePlate;
+        private FuelType _fuelType;
+        private CarType _type;
+        private Person? _person;
+        private string? _color;
+        private int _numberOfDoors;
 
-        #endregion
+        public int Id
+        {
+            get => _id;
+            set => _id = value;
+        }
+        public string Brand
+        {
+            get => _brand;
+            set => _brand = value ?? throw new ArgumentNullException(nameof(Brand));
+        }
+        public string Model
+        {
+            get => _model;
+            set => _model = value ?? throw new ArgumentNullException(nameof(Model));
+        }
+        public string ChassisNumber
+        {
+            get => _chassisNumber;
+            set => _chassisNumber = (IsValidChassisNumber(value) ? value : throw new InvalidChassisNumberException());
+        }
+        public string LicensePlate
+        {
+            get => _licensePlate;
+            set => _licensePlate = (IsValidLicensePlate(value) ? value : throw new InvalidLicensePlateException());
+        }
+        public FuelType FuelType { get => _fuelType; set => _fuelType = value; }
+        public CarType Type { get => _type; set => _type = value; }
+        public Person? Person { get => _person; set => _person = value; }
+        public string? Color { get => _color; set => _color = value; }
+        public int NumberOfDoors { get => _numberOfDoors; set => _numberOfDoors = value; }
 
-        #region Constructor
 
-        public Car(int id, string chassisNumber, string licensePlate, string brand, string model, Fuel fuel, CarType type) :
-            this(id, chassisNumber, licensePlate, brand, model, fuel, type, "Unknown", 4, null)
+        public Car(int id, string brand, string model, string chassisNumber, string licensePlate, FuelType fuelType, CarType type) :
+            this(id, brand, model, chassisNumber, licensePlate, fuelType, type, null, null, 4)
         { }
 
-        public Car(int id, string chassisNumber, string licensePlate, string brand, string model, Fuel fuel, CarType type, string color, int doorCount, User? user )
+        public Car(int id, string brand, string model, string chassisNumber, string licensePlate, FuelType fuelType, CarType type, Person? person, string? color, int numberOfDoors)
         {
-            if (!IsValidChassisNumber(chassisNumber))
-                throw new InvalidChassisNumberException("Vehicle chassis number is not valid!", chassisNumber);
-
-            if (!IsValidLicensePlate(licensePlate))
-                throw new InvalidLicensePlateException("Vehicle license plate is not valid!", licensePlate);
-
-            if (string.IsNullOrEmpty(brand))
-                throw new ArgumentNullException(nameof(brand));
-
-            if (string.IsNullOrEmpty(model))
-                throw new ArgumentNullException(nameof(model));
-
-            Id = id;
-            ChassisNumber = chassisNumber;
-            LicensePlate = licensePlate;
-            Brand = brand;
-            Model = model;
-            Type = type;
-            Color = color;
-            DoorCount = doorCount;
-            Fuel = fuel;
-            User = user;
+            _id = id;
+            _brand = brand ?? throw new ArgumentNullException(nameof(brand)); ;
+            _model = model ?? throw new ArgumentNullException(nameof(model));
+            _chassisNumber = IsValidChassisNumber(chassisNumber) ? chassisNumber : throw new InvalidChassisNumberException();
+            _licensePlate = IsValidLicensePlate(licensePlate) ? licensePlate : throw new InvalidLicensePlateException();
+            _fuelType = fuelType;
+            _type = type;
+            _person = person;
+            _color = color;
+            _numberOfDoors = numberOfDoors;
         }
 
-        #endregion
 
         public static bool IsValidChassisNumber(string number)
         {
@@ -103,5 +117,6 @@ namespace Domain.Models
 
             return Regex.IsMatch(LicensePlate, pattern);
         }
+
     }
 }

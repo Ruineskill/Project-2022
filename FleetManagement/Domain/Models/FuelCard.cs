@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,31 +9,43 @@ namespace Domain.Models
 {
     public class FuelCard
     {
-        #region Properties
-        public int Id { get;  set; }
-        public string CardNumber { get;  set; }
-        public int PinCode { get;  set; }
-        public User User { get;  set; }
-        public ICollection<FuelCardFuel> Fuels { get;  set; }
+        private int _id;
+        private int _cardNumber;
+        private DateOnly _expirationDate;
+        private int _pinCode;
+        private ICollection<FuelType>? _usableFuelTypes;
+        private Person? _person;
 
-        #endregion
-
-        #region Constructor
-        public FuelCard(int id, string cardNumber, int pinCode, User user, ICollection<FuelCardFuel> fuels)
+        public int Id { get => _id; set => _id = value; }
+        public int CardNumber { get => _cardNumber; set => _cardNumber = value; }
+        public DateOnly ExpirationDate
         {
-            Id = id;
-            CardNumber = cardNumber;
-            PinCode = pinCode;
-            User = user;
-            Fuels = fuels;
+            get => _expirationDate;
+            set => _expirationDate = IsValidExpirationDate(value) ? value : throw new InvalidFuelCardExpirationDateException();
+        }
+        public int PinCode { get => _pinCode; set => _pinCode = value; }
+        public Person? Person { get => _person; set => _person = value; }
+        public ICollection<FuelType>? UsableFuelTypes { get => _usableFuelTypes; set => _usableFuelTypes = value; }
+
+        public FuelCard(int id, int cardNumber, DateOnly expirationDate, int pinCode) :
+            this(id, cardNumber, expirationDate, pinCode, null, null)
+        { }
+
+        public FuelCard(int id, int cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType>? usableFuelTypes, Person? person)
+        {
+            _id = id;
+            _cardNumber = cardNumber;
+            _expirationDate = IsValidExpirationDate(expirationDate) ? expirationDate : throw new InvalidFuelCardExpirationDateException();
+            _pinCode = pinCode;
+            _usableFuelTypes = usableFuelTypes;
+            _person = person;
         }
 
-        public FuelCard(int id, string cardNumber, int pinCode)
+        public static bool IsValidExpirationDate(DateOnly expirationDate)
         {
-            Id = id;
-            CardNumber = cardNumber;
-            PinCode = pinCode;
+            var localDate = expirationDate.ToDateTime(TimeOnly.MinValue);
+
+            return DateTime.Now.Date < localDate.Date;
         }
-        #endregion
     }
 }
