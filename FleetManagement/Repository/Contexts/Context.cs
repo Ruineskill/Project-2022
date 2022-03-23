@@ -12,7 +12,6 @@ namespace Repository.Contexts
     public class Context : DbContext
     {
         public DbSet<Person> Persons { get; set; }
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<FuelCard> FuelCards { get; set; }
 
