@@ -23,11 +23,7 @@ namespace Domain.Models
         private string? _color;
         private int _numberOfDoors;
 
-        public int Id
-        {
-            get => _id;
-            set => _id = value;
-        }
+        public int Id {get => _id;set => _id = value; }
         public string Brand
         {
             get => _brand;
@@ -62,7 +58,7 @@ namespace Domain.Models
         public Car(int id, string brand, string model, string chassisNumber, string licensePlate, FuelType fuelType, CarType type, Person? person, string? color, int numberOfDoors)
         {
             _id = id;
-            _brand = brand ?? throw new ArgumentNullException(nameof(brand)); ;
+            _brand = brand ?? throw new ArgumentNullException(nameof(brand));
             _model = model ?? throw new ArgumentNullException(nameof(model));
             _chassisNumber = IsValidChassisNumber(chassisNumber) ? chassisNumber : throw new InvalidChassisNumberException();
             _licensePlate = IsValidLicensePlate(licensePlate) ? licensePlate : throw new InvalidLicensePlateException();

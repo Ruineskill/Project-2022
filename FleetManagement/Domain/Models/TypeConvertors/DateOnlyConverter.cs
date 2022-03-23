@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Domain.Models
+namespace Domain.Models.TypeConvertors
 {
     public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
     {
