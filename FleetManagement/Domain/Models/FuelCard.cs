@@ -15,6 +15,7 @@ namespace Domain.Models
         private int _pinCode;
         private ICollection<FuelType>? _usableFuelTypes;
         private Person? _person;
+        private bool _blocked = false;
 
         public int Id { get => _id; set => _id = value; }
         public int CardNumber { get => _cardNumber; set => _cardNumber = value; }
@@ -24,8 +25,10 @@ namespace Domain.Models
             set => _expirationDate = IsValidExpirationDate(value) ? value : throw new InvalidFuelCardExpirationDateException();
         }
         public int PinCode { get => _pinCode; set => _pinCode = value; }
-        public Person? Person { get => _person; set => _person = value; }
         public ICollection<FuelType>? UsableFuelTypes { get => _usableFuelTypes; set => _usableFuelTypes = value; }
+        public Person? Person { get => _person; set => _person = value; }
+
+        public bool Blocked { get => _blocked; set => _blocked = value; }
 
         public FuelCard(int id, int cardNumber, DateOnly expirationDate, int pinCode) :
             this(id, cardNumber, expirationDate, pinCode, null, null)
