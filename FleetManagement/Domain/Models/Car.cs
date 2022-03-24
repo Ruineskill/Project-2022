@@ -23,26 +23,36 @@ namespace Domain.Models
         private string? _color;
         private int _numberOfDoors;
 
-        public int Id {get => _id;set => _id = value; }
+        public int Id { get => _id; set => _id = value; }
         public string Brand
         {
             get => _brand;
-            set => _brand = value ?? throw new ArgumentNullException(nameof(Brand));
+            //  set => _brand = string.IsNullOrEmpty(value) ? value : throw new ArgumentNullException(nameof(Brand)); does not work
+            set
+            {
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Brand));
+                _brand= value;
+            }
         }
         public string Model
         {
             get => _model;
-            set => _model = value ?? throw new ArgumentNullException(nameof(Model));
+            //set => _model = string.IsNullOrEmpty(value) ? value : throw new ArgumentNullException(nameof(Model)); does not work
+            set
+            {
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Model));
+                _model = value;
+            }
         }
         public string ChassisNumber
         {
             get => _chassisNumber;
-            set => _chassisNumber = (IsValidChassisNumber(value) ? value : throw new InvalidChassisNumberException());
+            set => _chassisNumber = IsValidChassisNumber(value) ? value : throw new InvalidChassisNumberException();
         }
         public string LicensePlate
         {
             get => _licensePlate;
-            set => _licensePlate = (IsValidLicensePlate(value) ? value : throw new InvalidLicensePlateException());
+            set => _licensePlate = IsValidLicensePlate(value) ? value : throw new InvalidLicensePlateException();
         }
         public FuelType FuelType { get => _fuelType; set => _fuelType = value; }
         public CarType Type { get => _type; set => _type = value; }
@@ -57,11 +67,16 @@ namespace Domain.Models
 
         public Car(int id, string brand, string model, string chassisNumber, string licensePlate, FuelType fuelType, CarType type, Person? person, string? color, int numberOfDoors)
         {
+            if (string.IsNullOrEmpty(brand)) throw new ArgumentNullException(nameof(brand));
+            if (string.IsNullOrEmpty(model)) throw new ArgumentNullException(nameof(model));
+            if (!IsValidChassisNumber(chassisNumber)) throw new InvalidChassisNumberException();
+            if (!IsValidLicensePlate(licensePlate)) throw new InvalidLicensePlateException();
+
             _id = id;
-            _brand = brand ?? throw new ArgumentNullException(nameof(brand));
-            _model = model ?? throw new ArgumentNullException(nameof(model));
-            _chassisNumber = IsValidChassisNumber(chassisNumber) ? chassisNumber : throw new InvalidChassisNumberException();
-            _licensePlate = IsValidLicensePlate(licensePlate) ? licensePlate : throw new InvalidLicensePlateException();
+            _brand = brand;
+            _model = model;
+            _chassisNumber = chassisNumber;
+            _licensePlate = licensePlate;
             _fuelType = fuelType;
             _type = type;
             _person = person;
