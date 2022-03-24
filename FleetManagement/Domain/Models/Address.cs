@@ -20,6 +20,9 @@ namespace Domain.Models
 
         public Address(string street, int streetNumber, string city, int postalCode)
         {
+            if(string.IsNullOrEmpty(street)) throw new ArgumentNullException(nameof(street));
+            if(string.IsNullOrEmpty(city)) throw new ArgumentNullException(nameof(city));
+
             _street = street;
             _streetNumber = streetNumber;
             _city = city;
