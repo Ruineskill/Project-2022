@@ -20,8 +20,24 @@ namespace Domain.Models
         private FuelCard? _fuelCard;
 
         public int Id { get => _id; set => _id = value; }
-        public string FirstName { get => _firstName; set => _firstName = value; }
-        public string LastName { get => _lastName; set => _lastName = value; }
+        public string FirstName 
+        {
+            get => _firstName; 
+            set
+            {
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(FirstName));
+                _firstName = value;
+            }
+        }
+        public string LastName 
+        {
+            get => _lastName; 
+            set
+            {
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(LastName));
+                _lastName = value;
+            }
+        }
         public DateOnly DateOfBirth
         {
             get => _dateOfBirth;
@@ -43,11 +59,16 @@ namespace Domain.Models
 
         public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, ICollection<DrivingLicenseType> drivingLicenseTypes, Address? address, Car? car, FuelCard? fuelCard)
         {
+            if (string.IsNullOrEmpty(firstName)) throw new ArgumentNullException(nameof(firstName));
+            if (string.IsNullOrEmpty(lastName)) throw new ArgumentNullException(nameof(lastName));
+            if (!IsValidDateOfBirth(dateOfBirth)) throw new InvalidDateOfBirthException();
+            if (!IsValidNationalRegistrationNumber(nationalRegistrationNumber)) throw new InvalidNationRegistrationNumberException();
+
             _id = id;
             _firstName = firstName;
             _lastName = lastName;
-            _dateOfBirth = IsValidDateOfBirth(dateOfBirth) ? dateOfBirth : throw new InvalidDateOfBirthException();
-            _nationalRegistrationNumber = IsValidNationalRegistrationNumber(nationalRegistrationNumber) ? nationalRegistrationNumber : throw new InvalidNationRegistrationNumberException();
+            _dateOfBirth = dateOfBirth;
+            _nationalRegistrationNumber = nationalRegistrationNumber;
             _drivingLicenseTypes = drivingLicenseTypes;
             _address = address;
             _car = car;
