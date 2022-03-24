@@ -23,7 +23,7 @@ namespace FleetTesting.ModelTesting
             FuelType ExceptedFuelType = FuelType.Benzine;
             int ExceptedDoorCount = 3;
 
-            var actual = new Car(ExceptedId, ExceptedBrand, ExceptedModel, ExceptedChassisNumber, ExceptedLicensePlate, ExceptedFuelType, ExceptedType);
+            var actual = new Car(ExceptedId, ExceptedBrand, ExceptedModel, ExceptedChassisNumber, ExceptedLicensePlate, ExceptedFuelType, ExceptedType,null,ExceptedColor, ExceptedDoorCount);
 
 
             Assert.Equal(actual.Id, ExceptedId);
@@ -79,6 +79,50 @@ namespace FleetTesting.ModelTesting
             Assert.Throws<ArgumentNullException>(actual);
 
         }
+
+
+
+        [Fact]
+        public void Assignment_InvalidChassisNumber_ThrowsInvalidChassisNumberException()
+        {
+            var car = new Car(0, "Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
+            Action actual = () => car.ChassisNumber = "1FAHP26W4XG252740";
+
+            Assert.Throws<InvalidChassisNumberException>(actual);
+
+        }
+
+        [Fact]
+        public void Assignment_InvalidLicencePlate_ThrowsInvalidLicensePlateException()
+        {
+            var car = new Car(0, "Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
+            Action actual = () => car.LicensePlate = "A-ABC-235";
+
+            Assert.Throws<InvalidLicensePlateException>(actual);
+
+        }
+
+        [Fact]
+        public void Assignment_EmptyBrand_ThrowsArgumentNullException()
+        {
+            var car = new Car(0, "Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
+            Action actual = () => car.Brand = "";
+
+            Assert.Throws<ArgumentNullException>(actual);
+
+        }
+
+        [Fact]
+        public void Assignment_EmptyModel_ThrowsArgumentNullException()
+        {
+            var car = new Car(0, "Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
+            Action actual = () => car.Model ="";
+
+            Assert.Throws<ArgumentNullException>(actual);
+
+        }
+
+
 
 
         [Theory]  // Check valid license plate

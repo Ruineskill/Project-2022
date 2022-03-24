@@ -37,9 +37,9 @@ namespace Repository.Repositories
                 tempVehicle.Model = vehicle.Model;
                 tempVehicle.Type = vehicle.Type;
                 tempVehicle.Color = vehicle.Color;
-                tempVehicle.DoorCount = vehicle.DoorCount;
-                tempVehicle.Fuel = vehicle.Fuel;
-                tempVehicle.User = vehicle.User;
+                tempVehicle.NumberOfDoors = vehicle.NumberOfDoors;
+                tempVehicle.FuelType = vehicle.FuelType;
+                tempVehicle.Person = vehicle.Person;
                 ctx.SaveChanges();
             }
             catch (Exception ex)
