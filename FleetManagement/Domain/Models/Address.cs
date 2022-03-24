@@ -13,9 +13,25 @@ namespace Domain.Models
         private string _city;
         private int _postalCode;
 
-        public string Street { get => _street; set => _street = value; }
+        public string Street 
+        { 
+            get => _street; 
+            set
+            {
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Street));
+                _street = value;
+            }
+        }
         public int StreetNumber { get => _streetNumber; set => _streetNumber = value; }
-        public string City { get => _city; set => _city = value; }
+        public string City 
+        { 
+            get => _city; 
+            set
+            {
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(City));
+                _city = value;
+            }
+        }
         public int PostalCode { get => _postalCode; set => _postalCode = value; }
 
         public Address(string street, int streetNumber, string city, int postalCode)

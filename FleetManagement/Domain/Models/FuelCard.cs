@@ -1,4 +1,5 @@
 ﻿using Domain.Exceptions;
+using Domain.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

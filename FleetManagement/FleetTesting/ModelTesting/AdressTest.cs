@@ -1,0 +1,88 @@
+﻿using Xunit;
+using Domain.Models;
+using System;
+using Domain.Models.Enums;
+
+namespace FleetTesting.ModelTesting
+{
+    public class AdressTest
+    {
+        [Fact]
+        public void Construct_CorrectInformation_ShouldConstruct()
+        {
+
+            const string ExceptedStreet = "Somestraat";
+            const int ExceptedStreetNumber = 2;
+            const string ExceptedCity = "Brussel";
+            const int ExceptedPostalCode = 9000;
+
+
+            var actual = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+
+
+            Assert.Equal(actual.Street, ExceptedStreet);
+            Assert.Equal(actual.StreetNumber, ExceptedStreetNumber);
+            Assert.Equal(actual.City, ExceptedCity);
+            Assert.Equal(actual.PostalCode, ExceptedPostalCode);
+        }
+
+        [Fact]
+        public void Construct_EmptyStreet_ThrowsArgumentNullException()
+        {
+            const string ExceptedStreet = "";
+            const int ExceptedStreetNumber = 2;
+            const string ExceptedCity = "Brussel";
+            const int ExceptedPostalCode = 9000;
+            Action actual = () => new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+
+
+
+            Assert.Throws<ArgumentNullException>(actual);
+
+        }
+
+        [Fact]
+        public void Construct_EmptyCity_ThrowsArgumentNullException()
+        {
+            const string ExceptedStreet = "Somestraat";
+            const int ExceptedStreetNumber = 2;
+            const string ExceptedCity = "";
+            const int ExceptedPostalCode = 9000;
+
+            Action actual = () => new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+
+            Assert.Throws<ArgumentNullException>(actual);
+
+        }
+
+        [Fact]
+        public void Assignment_EmptyStreet_ThrowsArgumentNullException()
+        {
+            const string ExceptedStreet = "Somestraat";
+            const int ExceptedStreetNumber = 2;
+            const string ExceptedCity = "Brussel";
+            const int ExceptedPostalCode = 9000;
+            var address = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+
+            Action actual = () => address.Street = "";
+
+            Assert.Throws<ArgumentNullException>(actual);
+
+        }
+
+        [Fact]
+        public void Assignment_EmptyCity_ThrowsArgumentNullException()
+        {
+            const string ExceptedStreet = "Somestraat";
+            const int ExceptedStreetNumber = 2;
+            const string ExceptedCity = "Brussel";
+            const int ExceptedPostalCode = 9000;
+            var address = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+
+            Action actual = () => address.City = "";
+
+            Assert.Throws<ArgumentNullException>(actual);
+
+        }
+    }
+}
