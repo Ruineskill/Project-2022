@@ -29,6 +29,7 @@ namespace FleetTesting.ModelTesting
             Assert.Equal(actual.Id, ExceptedId);
             Assert.Equal(actual.ChassisNumber, ExceptedChassisNumber);
             Assert.Equal(actual.LicensePlate, ExceptedLicensePlate);
+            Assert.Equal(actual.FuelType, ExceptedFuelType);
             Assert.Equal(actual.Brand, ExceptedBrand);
             Assert.Equal(actual.Model, ExceptedModel);
             Assert.Equal(actual.Type, ExceptedType);
