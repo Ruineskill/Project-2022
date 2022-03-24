@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,12 +33,17 @@ namespace Domain.Models
                 _city = value;
             }
         }
-        public int PostalCode { get => _postalCode; set => _postalCode = value; }
+        public int PostalCode 
+        {
+            get => _postalCode; 
+            set => _postalCode = IsValidPostalCode(value) ? value: throw new InvalidPostalCodeException(); 
+        }
 
         public Address(string street, int streetNumber, string city, int postalCode)
         {
             if(string.IsNullOrEmpty(street)) throw new ArgumentNullException(nameof(street));
             if(string.IsNullOrEmpty(city)) throw new ArgumentNullException(nameof(city));
+            if(!IsValidPostalCode(postalCode)) throw new InvalidPostalCodeException();
 
             _street = street;
             _streetNumber = streetNumber;
@@ -45,6 +51,11 @@ namespace Domain.Models
             _postalCode = postalCode;
         }
 
+
+        public static bool IsValidPostalCode(int code)
+        {
+            return code >= 1000 && code <= 9992;
+        }
 
     }
 }
