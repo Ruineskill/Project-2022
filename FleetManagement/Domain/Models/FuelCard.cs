@@ -24,7 +24,7 @@ namespace Domain.Models
             get => _cardNumber; 
             set
             {
-                if (value == 0) throw new ArgumentOutOfRangeException(nameof(CardNumber));
+                if (value <= 0) throw new ArgumentOutOfRangeException(nameof(CardNumber));
                 _cardNumber = value;
             }
         }
@@ -38,7 +38,7 @@ namespace Domain.Models
             get => _pinCode; 
             set
             {
-                if (_pinCode == 0) throw new ArgumentOutOfRangeException(nameof(PinCode));
+                if (value <= 0) throw new ArgumentOutOfRangeException(nameof(PinCode));
                 _pinCode = value;
             }
         }
@@ -54,9 +54,9 @@ namespace Domain.Models
         public FuelCard(int id, int cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes, Person? person)
         {
 
-            if (cardNumber == 0) throw new ArgumentOutOfRangeException(nameof(cardNumber));
+            if (cardNumber <= 0) throw new ArgumentOutOfRangeException(nameof(cardNumber));
             if (!IsValidExpirationDate(expirationDate)) throw new InvalidFuelCardExpirationDateException();
-            if (_pinCode == 0) throw new ArgumentOutOfRangeException(nameof(pinCode));
+            if (pinCode <= 0) throw new ArgumentOutOfRangeException(nameof(pinCode));
 
             _id = id;
             _cardNumber = cardNumber;
