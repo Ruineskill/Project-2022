@@ -19,13 +19,29 @@ namespace Domain.Models
         private bool _blocked = false;
 
         public int Id { get => _id; set => _id = value; }
-        public int CardNumber { get => _cardNumber; set => _cardNumber = value; }
+        public int CardNumber 
+        { 
+            get => _cardNumber; 
+            set
+            {
+                if (value == 0) throw new ArgumentOutOfRangeException(nameof(CardNumber));
+                _cardNumber = value;
+            }
+        }
         public DateOnly ExpirationDate
         {
             get => _expirationDate;
             set => _expirationDate = IsValidExpirationDate(value) ? value : throw new InvalidFuelCardExpirationDateException();
         }
-        public int PinCode { get => _pinCode; set => _pinCode = value; }
+        public int PinCode 
+        { 
+            get => _pinCode; 
+            set
+            {
+                if (_pinCode == 0) throw new ArgumentOutOfRangeException(nameof(PinCode));
+                _pinCode = value;
+            }
+        }
         public ICollection<FuelType> UsableFuelTypes { get => _usableFuelTypes; set => _usableFuelTypes = value; }
         public Person? Person { get => _person; set => _person = value; }
 
@@ -37,9 +53,14 @@ namespace Domain.Models
 
         public FuelCard(int id, int cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes, Person? person)
         {
+
+            if (cardNumber == 0) throw new ArgumentOutOfRangeException(nameof(cardNumber));
+            if (!IsValidExpirationDate(expirationDate)) throw new InvalidFuelCardExpirationDateException();
+            if (_pinCode == 0) throw new ArgumentOutOfRangeException(nameof(pinCode));
+
             _id = id;
             _cardNumber = cardNumber;
-            _expirationDate = IsValidExpirationDate(expirationDate) ? expirationDate : throw new InvalidFuelCardExpirationDateException();
+            _expirationDate = expirationDate;
             _pinCode = pinCode;
             _usableFuelTypes = usableFuelTypes;
             _person = person;
