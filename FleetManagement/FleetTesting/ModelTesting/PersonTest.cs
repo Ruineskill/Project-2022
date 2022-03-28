@@ -13,10 +13,10 @@ namespace FleetTesting.ModelTesting
         public void Construct_CorrectInformation_ShouldConstruct()
         {
             int ExceptedId = 0;
-            string ExceptedFirstName = "Luc";
-            string ExceptedLastName = "skywalker";
+            const string ExceptedFirstName = "Luc";
+            const string ExceptedLastName = "skywalker";
             DateOnly ExceptedDateOfBirth = new DateOnly(2000, 09, 01);
-            string ExceptedNationalRegistrationNumber = "86022402508";
+            const string ExceptedNationalRegistrationNumber = "86022402508";
             DrivingLicenseType ExceptedDrivingLicenseTypes = DrivingLicenseType.B;
 
 
@@ -39,10 +39,10 @@ namespace FleetTesting.ModelTesting
         public void Construct_EmptyFirstName_ThrowsArgumentNullException()
         {
             int Id = 0;
-            string FirstName = "";
-            string LastName = "skywalker";
+            const string FirstName = "";
+            const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
-            string NationalRegistrationNumber = "86022402508";
+            const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
 
@@ -56,10 +56,10 @@ namespace FleetTesting.ModelTesting
         public void Construct_EmptyLastName_ThrowsArgumentNullException()
         {
             int Id = 0;
-            string FirstName = "Luc";
-            string LastName = "";
+            const string FirstName = "Luc";
+            const string LastName = "";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
-            string NationalRegistrationNumber = "86022402508";
+            const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
 
@@ -74,10 +74,10 @@ namespace FleetTesting.ModelTesting
         public void Construct_InvalidDateOfBirth_ThrowsInvalidDateOfBirthException()
         {
             int Id = 0;
-            string FirstName = "Luc";
-            string LastName = "skywalker";
+            const string FirstName = "Luc";
+            const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2023, 09, 01);
-            string NationalRegistrationNumber = "86022402508";
+            const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
 
@@ -91,10 +91,10 @@ namespace FleetTesting.ModelTesting
         public void Construct_InvalidNationalRegistrationNumber_ThrowsInvalidDateOfBirthException()
         {
             int Id = 0;
-            string FirstName = "Luc";
-            string LastName = "skywalker";
+            const string FirstName = "Luc";
+            const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
-            string NationalRegistrationNumber = "60061812451";
+            const string NationalRegistrationNumber = "60061812451";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
             Action actual = () => new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
@@ -107,10 +107,10 @@ namespace FleetTesting.ModelTesting
         public void Assignment_EmptyFirstName_ThrowsArgumentNullException()
         {
             int Id = 0;
-            string FirstName = "Luc";
-            string LastName = "skywalker";
+            const string FirstName = "Luc";
+            const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
-            string NationalRegistrationNumber = "86022402508";
+            const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
             var persion = new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
@@ -125,10 +125,10 @@ namespace FleetTesting.ModelTesting
         public void Assignment_EmptyLastName_ThrowsArgumentNullException()
         {
             int Id = 0;
-            string FirstName = "Luc";
-            string LastName = "skywalker";
+            const string FirstName = "Luc";
+            const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
-            string NationalRegistrationNumber = "86022402508";
+            const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
             var persion = new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
@@ -143,10 +143,10 @@ namespace FleetTesting.ModelTesting
         public void Assignment_InvalidDateOfBirt_ThrowsInvalidDateOfBirthException()
         {
             int Id = 0;
-            string FirstName = "Luc";
-            string LastName = "skywalker";
+            const string FirstName = "Luc";
+            const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
-            string NationalRegistrationNumber = "86022402508";
+            const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
             var persion = new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
@@ -161,10 +161,10 @@ namespace FleetTesting.ModelTesting
         public void Assignment_InvalidNationalRegistrationNumber_ThrowsInvalidNationRegistrationNumberException()
         {
             int Id = 0;
-            string FirstName = "Luc";
-            string LastName = "skywalker";
+            const string FirstName = "Luc";
+            const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
-            string NationalRegistrationNumber = "86022402508";
+            const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
             var persion = new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);

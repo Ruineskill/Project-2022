@@ -122,7 +122,7 @@ namespace FleetTesting.ModelTesting
         [InlineData(8000)]
         [InlineData(6000)]
         [InlineData(9000)]
-        public void Validate_ValidPostalCode_ReturndTrue(int code)
+        public void Validate_ValidPostalCode_ReturnsTrue(int code)
         {
             Assert.True(Address.IsValidPostalCode(code));
         }
@@ -132,7 +132,7 @@ namespace FleetTesting.ModelTesting
         [InlineData(8)]
         [InlineData(60000)]
         [InlineData(9999)]
-        public void Validate_InvalidPostalCode_ReturndFalse(int code)
+        public void Validate_InvalidPostalCode_ReturnsFalse(int code)
         {
             Assert.False(Address.IsValidPostalCode(code));
         }
