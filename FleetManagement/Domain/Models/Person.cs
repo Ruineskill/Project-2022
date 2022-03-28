@@ -1,4 +1,5 @@
 ﻿using Domain.Exceptions;
+using Domain.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Domain.Models
         private string _lastName;
         private DateOnly _dateOfBirth;
         private string _nationalRegistrationNumber;
-        private ICollection<DrivingLicenseType> _drivingLicenseTypes;
+        private DrivingLicenseType _drivingLicenseType;
         private Address? _address;
         private Car? _car;
         private FuelCard? _fuelCard;
@@ -48,16 +49,16 @@ namespace Domain.Models
             get => _nationalRegistrationNumber;
             set => _nationalRegistrationNumber = IsValidNationalRegistrationNumber(value) ? value : throw new InvalidNationRegistrationNumberException();
         }
-        public ICollection<DrivingLicenseType> DrivingLicenseTypes { get => _drivingLicenseTypes; set => _drivingLicenseTypes = value; }
+        public DrivingLicenseType DrivingLicenseTypes { get => _drivingLicenseType; set => _drivingLicenseType = value; }
         public Address? Address { get => _address; set => _address = value; }
         public Car? Car { get => _car; set => _car = value; }
         public FuelCard? FuelCard { get => _fuelCard; set => _fuelCard = value; }
 
-        public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, ICollection<DrivingLicenseType> drivingLicenseTypes) :
-            this(id, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseTypes, null, null, null)
+        public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType) :
+            this(id, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType, null, null, null)
         { }
 
-        public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, ICollection<DrivingLicenseType> drivingLicenseTypes, Address? address, Car? car, FuelCard? fuelCard)
+        public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType, Address? address, Car? car, FuelCard? fuelCard)
         {
             if (string.IsNullOrEmpty(firstName)) throw new ArgumentNullException(nameof(firstName));
             if (string.IsNullOrEmpty(lastName)) throw new ArgumentNullException(nameof(lastName));
@@ -69,7 +70,7 @@ namespace Domain.Models
             _lastName = lastName;
             _dateOfBirth = dateOfBirth;
             _nationalRegistrationNumber = nationalRegistrationNumber;
-            _drivingLicenseTypes = drivingLicenseTypes;
+            _drivingLicenseType = drivingLicenseType;
             _address = address;
             _car = car;
             _fuelCard = fuelCard;
