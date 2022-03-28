@@ -14,7 +14,7 @@ namespace Domain.Models
         private int _cardNumber;
         private DateOnly _expirationDate;
         private int _pinCode;
-        private ICollection<FuelType>? _usableFuelTypes;
+        private ICollection<FuelType> _usableFuelTypes;
         private Person? _person;
         private bool _blocked = false;
 
@@ -26,16 +26,16 @@ namespace Domain.Models
             set => _expirationDate = IsValidExpirationDate(value) ? value : throw new InvalidFuelCardExpirationDateException();
         }
         public int PinCode { get => _pinCode; set => _pinCode = value; }
-        public ICollection<FuelType>? UsableFuelTypes { get => _usableFuelTypes; set => _usableFuelTypes = value; }
+        public ICollection<FuelType> UsableFuelTypes { get => _usableFuelTypes; set => _usableFuelTypes = value; }
         public Person? Person { get => _person; set => _person = value; }
 
         public bool Blocked { get => _blocked; set => _blocked = value; }
 
-        public FuelCard(int id, int cardNumber, DateOnly expirationDate, int pinCode) :
-            this(id, cardNumber, expirationDate, pinCode, null, null)
+        public FuelCard(int id, int cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes) :
+            this(id, cardNumber, expirationDate, pinCode, usableFuelTypes, null)
         { }
 
-        public FuelCard(int id, int cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType>? usableFuelTypes, Person? person)
+        public FuelCard(int id, int cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes, Person? person)
         {
             _id = id;
             _cardNumber = cardNumber;
