@@ -2,6 +2,7 @@
 using Domain.Models;
 using System;
 using Domain.Models.Enums;
+using Domain.Exceptions;
 
 namespace FleetTesting.ModelTesting
 {
@@ -56,6 +57,20 @@ namespace FleetTesting.ModelTesting
         }
 
         [Fact]
+        public void Construct_InvalidPostalCode_ThrowsInvalidPostalCodeException()
+        {
+            const string ExceptedStreet = "Somestraat";
+            const int ExceptedStreetNumber = 2;
+            const string ExceptedCity = "Brussel";
+            const int ExceptedPostalCode = 90000;
+
+            Action actual = () => new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+
+            Assert.Throws<InvalidPostalCodeException>(actual);
+
+        }
+
+        [Fact]
         public void Assignment_EmptyStreet_ThrowsArgumentNullException()
         {
             const string ExceptedStreet = "Somestraat";
@@ -83,6 +98,43 @@ namespace FleetTesting.ModelTesting
 
             Assert.Throws<ArgumentNullException>(actual);
 
+        }
+
+        [Fact]
+        public void Assignment_InvalidPostalCode_ThrowsInvalidPostalCodeException()
+        {
+            const string ExceptedStreet = "Somestraat";
+            const int ExceptedStreetNumber = 2;
+            const string ExceptedCity = "Brussel";
+            const int ExceptedPostalCode = 9000;
+            var address = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+
+            Action actual = () => address.PostalCode = 1;
+
+            Assert.Throws<InvalidPostalCodeException>(actual);
+
+        }
+
+
+
+        [Theory]  // Check valid postal code
+        [InlineData(1000)]
+        [InlineData(8000)]
+        [InlineData(6000)]
+        [InlineData(9000)]
+        public void Validate_ValidPostalCode_ReturndTrue(int code)
+        {
+            Assert.True(Address.IsValidPostalCode(code));
+        }
+
+        [Theory]  // Check valid postal code
+        [InlineData(1)]
+        [InlineData(8)]
+        [InlineData(60000)]
+        [InlineData(9999)]
+        public void Validate_InvalidPostalCode_ReturndFalse(int code)
+        {
+            Assert.False(Address.IsValidPostalCode(code));
         }
     }
 }
