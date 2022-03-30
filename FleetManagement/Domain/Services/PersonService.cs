@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Services
 {
-    public class FuelService
+    public class PersonService
     {
-
     }
 }
