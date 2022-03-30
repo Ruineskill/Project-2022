@@ -50,7 +50,7 @@ namespace Domain.Models
             get => _nationalRegistrationNumber;
             set => _nationalRegistrationNumber = IsValidNationalRegistrationNumber(value) ? value : throw new InvalidNationRegistrationNumberException();
         }
-        public DrivingLicenseType DrivingLicenseTypes { get => _drivingLicenseType; set => _drivingLicenseType = value; }
+        public DrivingLicenseType DrivingLicenseType { get => _drivingLicenseType; set => _drivingLicenseType = value; }
         public Address? Address { get => _address; set => _address = value; }
         public Car? Car { get => _car; set => _car = value; }
         public FuelCard? FuelCard { get => _fuelCard; set => _fuelCard = value; }
