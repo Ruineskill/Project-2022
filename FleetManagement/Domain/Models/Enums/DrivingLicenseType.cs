@@ -2,8 +2,10 @@
 
 namespace Domain.Models.Enums
 {
-    public enum DrivingLicenseType
+
+    public enum DrivingLicenseType : int
     {
+        NONE,
         A,
         B,
         BE,

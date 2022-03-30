@@ -56,6 +56,9 @@ namespace Domain.Models
         public FuelCard? FuelCard { get => _fuelCard; set => _fuelCard = value; }
         public bool Delete { get => _delete; set => _delete = value; }
 
+        public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber) :
+            this(id, firstName, lastName, dateOfBirth, nationalRegistrationNumber, 0, null, null, null)
+        { }
         public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType) :
             this(id, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType, null, null, null)
         { }
