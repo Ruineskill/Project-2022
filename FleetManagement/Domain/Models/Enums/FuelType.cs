@@ -2,6 +2,7 @@
 
 namespace Domain.Models.Enums
 {
+    [Flags]
     public enum FuelType
     {
         Benzine,

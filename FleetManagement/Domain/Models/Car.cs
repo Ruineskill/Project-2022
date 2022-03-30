@@ -22,6 +22,7 @@ namespace Domain.Models
         private Person? _person;
         private string? _color;
         private int _numberOfDoors;
+        private bool _delete = false;
 
         public int Id { get => _id; set => _id = value; }
         public string Brand
@@ -59,6 +60,7 @@ namespace Domain.Models
         public Person? Person { get => _person; set => _person = value; }
         public string? Color { get => _color; set => _color = value; }
         public int NumberOfDoors { get => _numberOfDoors; set => _numberOfDoors = value; }
+        public bool Delete { get => _delete; set => _delete = value; }
 
 
         public Car(int id, string brand, string model, string chassisNumber, string licensePlate, FuelType fuelType, CarType type) :

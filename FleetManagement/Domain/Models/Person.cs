@@ -19,6 +19,7 @@ namespace Domain.Models
         private Address? _address;
         private Car? _car;
         private FuelCard? _fuelCard;
+        private bool _delete = false;
 
         public int Id { get => _id; set => _id = value; }
         public string FirstName 
@@ -53,6 +54,7 @@ namespace Domain.Models
         public Address? Address { get => _address; set => _address = value; }
         public Car? Car { get => _car; set => _car = value; }
         public FuelCard? FuelCard { get => _fuelCard; set => _fuelCard = value; }
+        public bool Delete { get => _delete; set => _delete = value; }
 
         public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType) :
             this(id, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType, null, null, null)
