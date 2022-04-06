@@ -36,7 +36,7 @@ namespace Repository.Repositories
                 tempUser.Address = user.Address;
                 tempUser.DateOfBirth = user.DateOfBirth;
                 tempUser.NationalRegistrationNumber = user.NationalRegistrationNumber;
-                tempUser.DrivingLicenseTypes = user.DrivingLicenseTypes;
+                tempUser.DrivingLicenseType = user.DrivingLicenseType;
                 tempUser.Car = user.Car;
                 tempUser.FuelCard = user.FuelCard;
                 ctx.SaveChanges();

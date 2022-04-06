@@ -29,7 +29,7 @@ namespace FleetTesting.ModelTesting
             Assert.Equal(actual.LastName, ExceptedLastName);
             Assert.Equal(actual.DateOfBirth, ExceptedDateOfBirth);
             Assert.Equal(actual.NationalRegistrationNumber, ExceptedNationalRegistrationNumber);
-            Assert.Equal(actual.DrivingLicenseTypes, ExceptedDrivingLicenseTypes);
+            Assert.Equal(actual.DrivingLicenseType, ExceptedDrivingLicenseTypes);
 
 
         }
