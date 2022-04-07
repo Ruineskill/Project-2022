@@ -1,33 +1,99 @@
-﻿using Domain.Models;
-using Domain.Services;
+﻿#nullable disable
+using Domain.Interfaces;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using Repository.Exceptions;
 
 namespace RestAPI.Controllers
 {
-    [Route("api/car")]
-    public class CarController : Controller
+    [Route("/api/[controller]")]
+    [ApiController]
+    public class CarController : ControllerBase
     {
-        CarService carService;
+        private readonly ICarRepository _repo;
 
-        public CarController(CarService carService)
+        public CarController(ICarRepository repo)
         {
-            this.carService = carService;
+            _repo = repo;
         }
 
-        [HttpPost]
-        public IActionResult AddCar([FromBody] Car car)
+        // GET: api/Car
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Car>>> GetAll()
+        {
+            return Ok(await _repo.GetAllAsync());
+        }
+
+        // GET: api/Car/
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Car>> Get(int id)
+        {
+            var car = await _repo.FindAsync(id);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            return car;
+        }
+
+        // PUT: api/Car/
+        [HttpPut]
+        public async Task<ActionResult<Car>> Update(Car car)
         {
             try
             {
-
+                return Ok(await _repo.UpdateAsync(car));
             }
-            catch (Exception)
+            catch (FuelCardRepositoryException ex)
             {
+                if (await _repo.FindAsync(car.Id) == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
 
-                throw;
+        // POST: api/Car
+        [HttpPost]
+        public async Task<ActionResult<Car>> Create(Car car)
+        {
+            try
+            {
+                await _repo.AddAsync(car);
+            }
+            catch (CarRepositoryException ex)
+            {
+                if (await _repo.FindAsync(car.Id) != null)
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
             }
 
-            return CreatedAtAction(nameof(AddCar), car);
+            return CreatedAtAction(nameof(Get), new { id = car.Id }, car);
+        }
+
+        // DELETE: api/Car/
+        [HttpDelete]
+        public async Task<IActionResult> Delete(Car car)
+        {
+            if (await _repo.FindAsync(car.Id) == null)
+            {
+                return NotFound();
+            }
+
+            _repo.Remove(car);
+
+            return Ok();
         }
     }
 }
