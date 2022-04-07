@@ -1,92 +1,82 @@
-﻿using Domain.Models;
+﻿#nullable disable
+using Domain.Models;
 using Domain.Interfaces;
 using Repository.Contexts;
 using Repository.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
     public class FuelCardRepository : IFuelCardRepository
     {
-        private Context ctx = new Context();
+        private readonly Context _ctx = new();
 
-        #region Public
-        public FuelCard AddFuelCardRepo(FuelCard fuelCard)
+        public async Task<FuelCard> AddAsync(FuelCard fuelCard)
         {
             try
             {
-                ctx.FuelCards.Add(fuelCard);
-                ctx.SaveChanges();
+                await _ctx.FuelCards.AddAsync(fuelCard);
+                await _ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw new FuelCardRepositoryException(nameof(AddFuelCardRepo), ex);
+                throw new FuelCardRepositoryException(nameof(AddAsync), ex);
             }
 
             return fuelCard;
         }
 
-        public FuelCard UpdateFuelCardRepo(FuelCard fuelCard)
+        public async void Remove(FuelCard fuelCard)
         {
             try
             {
-                var tempFuelCard = ctx.FuelCards.Find(fuelCard.Id);
-                tempFuelCard.CardNumber = fuelCard.CardNumber;
-                tempFuelCard.PinCode = fuelCard.PinCode;
-                tempFuelCard.ExpirationDate  = fuelCard.ExpirationDate;
-                tempFuelCard.Person = fuelCard.Person;
-                tempFuelCard.UsableFuelTypes = fuelCard.UsableFuelTypes;
-                ctx.SaveChanges();
+                _ctx.FuelCards.Remove(fuelCard);
+               await _ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new FuelCardRepositoryException(nameof(UpdateFuelCardRepo), ex);
+                throw new FuelCardRepositoryException(nameof(Remove), ex);
+            }
+        }
+
+        public async Task<IEnumerable<FuelCard>> GetAllAsync()
+        {
+            try
+            {
+                return await _ctx.FuelCards.AsNoTracking().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new FuelCardRepositoryException(nameof(GetAllAsync), ex);
+            }
+        }
+
+        public async Task<FuelCard> FindAsync(int id)
+        {
+            try
+            {
+                return await  _ctx.FuelCards.FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw new FuelCardRepositoryException(nameof(FindAsync), ex);
+            }
+        }
+
+        public async Task<FuelCard> UpdateAsync(FuelCard fuelCard)
+        {
+            try
+            {
+                _ctx.FuelCards.Update(fuelCard);
+                await _ctx.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new FuelCardRepositoryException(nameof(UpdateAsync), ex);
             }
 
             return fuelCard;
         }
-
-        public void DeleteFuelCardRepo(FuelCard fuelCard)
-        {
-            try
-            {
-                ctx.FuelCards.Remove(fuelCard);
-                ctx.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                throw new FuelCardRepositoryException(nameof(DeleteFuelCardRepo), ex);
-            }
-        }
-
-        public FuelCard GetFuelCardByIdRepo(int id)
-        {
-            try
-            {
-                return ctx.FuelCards.Find(id);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                throw new FuelCardRepositoryException(nameof(GetFuelCardByIdRepo), ex);
-            }
-        }
-
-        public List<FuelCard> GetAllFuelCardRepo()
-        {
-            try
-            {
-                return ctx.FuelCards.ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                throw new FuelCardRepositoryException(nameof(GetAllFuelCardRepo), ex);
-            }
-        }
-
-        #endregion
     }
 }

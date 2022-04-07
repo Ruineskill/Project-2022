@@ -1,13 +1,14 @@
 ﻿using Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface ICarRepository
+    public interface ICarRepository : IRepository<Car>
     {
-        Car AddCarRepo(Car vehicle);
-        void DeleteCarRepo(Car vehicle);
-        List<Car> GetAllCarRepo();
-        Car GetCarByIdRepo(int id);
-        Car UpdateCarRepo(Car vehicle);
+
     }
 }

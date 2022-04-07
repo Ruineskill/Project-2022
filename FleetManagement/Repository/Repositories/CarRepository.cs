@@ -1,5 +1,7 @@
-﻿using Domain.Models;
+﻿#nullable disable
 using Domain.Interfaces;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Repository.Contexts;
 using Repository.Exceptions;
 
@@ -7,90 +9,73 @@ namespace Repository.Repositories
 {
     public class CarRepository : ICarRepository
     {
-        private Context ctx = new Context();
+        private readonly Context _ctx = new();
 
-        #region Public
-        public Car AddCarRepo(Car vehicle)
+        public async Task<Car> AddAsync(Car car)
         {
             try
             {
-                ctx.Cars.Add(vehicle);
-                ctx.SaveChanges();
+                await _ctx.Cars.AddAsync(car);
+                await _ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new VehicleRepositoryException(nameof(AddCarRepo), ex);
+                throw new CarRepositoryException(nameof(AddAsync), ex);
             }
 
-            return vehicle;
+            return car;
         }
 
-        public Car UpdateCarRepo(Car vehicle)
+        public async void Remove(Car car)
         {
             try
             {
-                var tempVehicle = ctx.Cars.Find(vehicle.Id);
-                tempVehicle.ChassisNumber = vehicle.ChassisNumber;
-                tempVehicle.LicensePlate = vehicle.LicensePlate;
-                tempVehicle.Brand = vehicle.Brand;
-                tempVehicle.Model = vehicle.Model;
-                tempVehicle.Type = vehicle.Type;
-                tempVehicle.Color = vehicle.Color;
-                tempVehicle.NumberOfDoors = vehicle.NumberOfDoors;
-                tempVehicle.FuelType = vehicle.FuelType;
-                tempVehicle.Person = vehicle.Person;
-                ctx.SaveChanges();
+                _ctx.Cars.Remove(car);
+                await _ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new VehicleRepositoryException(nameof(UpdateCarRepo), ex);
+                throw new CarRepositoryException(nameof(Remove), ex);
             }
+        }   
 
-            return vehicle;
-        }
-
-        public void DeleteCarRepo(Car vehicle)
+        public async Task<IEnumerable<Car>> GetAllAsync()
         {
             try
             {
-                ctx.Cars.Remove(vehicle);
-                ctx.SaveChanges();
+                return await _ctx.Cars.AsNoTracking().ToListAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new VehicleRepositoryException(nameof(DeleteCarRepo), ex);
+                throw new CarRepositoryException(nameof(GetAllAsync), ex);
             }
         }
 
-        public Car GetCarByIdRepo(int id)
+        public async Task<Car> FindAsync(int id)
         {
             try
             {
-                return ctx.Cars.Find(id);
+                return await _ctx.Cars.FindAsync(id);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new VehicleRepositoryException(nameof(GetCarByIdRepo), ex);
+                throw new CarRepositoryException(nameof(FindAsync), ex);
             }
         }
 
-        public List<Car> GetAllCarRepo()
+        public async Task<Car> UpdateAsync(Car car)
         {
             try
             {
-                return ctx.Cars.ToList();
+                _ctx.Cars.Update(car);
+                await _ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new VehicleRepositoryException(nameof(GetAllCarRepo), ex);
+                throw new CarRepositoryException(nameof(UpdateAsync), ex);
             }
-        }
 
-        #endregion
+            return car;
+        }
     }
 }

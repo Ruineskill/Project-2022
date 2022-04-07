@@ -1,96 +1,81 @@
-﻿using Domain.Models;
+﻿#nullable disable
+using Domain.Models;
 using Domain.Interfaces;
 using Repository.Contexts;
 using Repository.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
     public class PersonRepository : IPersonRepository
-    {
-        private Context ctx = new Context();
+    { 
+        private readonly Context _ctx = new();
 
-        #region Public
-        public Person AddPersonRepo(Person user)
+        public async Task<Person> AddAsync(Person person)
         {
             try
             {
-                ctx.Persons.Add(user);
-                ctx.SaveChanges();
+                await _ctx.Persons.AddAsync(person);
+                await _ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new UserRepositoryException(nameof(AddPersonRepo), ex);
+                throw new PersonRepositoryException(nameof(AddAsync), ex);
             }
 
-            return user;
+            return person;
         }
 
-        public Person UpdatePersonRepo(Person user)
+        public async Task<IEnumerable<Person>> GetAllAsync()
         {
             try
             {
-                var tempUser = ctx.Persons.Find(user.Id);
-                tempUser.FirstName = user.FirstName;
-                tempUser.LastName = user.FirstName;
-                tempUser.Address = user.Address;
-                tempUser.DateOfBirth = user.DateOfBirth;
-                tempUser.NationalRegistrationNumber = user.NationalRegistrationNumber;
-                tempUser.DrivingLicenseType = user.DrivingLicenseType;
-                tempUser.Car = user.Car;
-                tempUser.FuelCard = user.FuelCard;
-                ctx.SaveChanges();
+                return await _ctx.Persons.AsNoTracking().ToListAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new UserRepositoryException(nameof(UpdatePersonRepo), ex);
+                throw new PersonRepositoryException(nameof(GetAllAsync), ex);
             }
-
-            return user;
         }
 
-        public void DeletePersonRepo(Person user)
+        public async Task<Person> FindAsync(int id)
         {
             try
             {
-                ctx.Persons.Remove(user);
-                ctx.SaveChanges();
+                return await _ctx.Persons.FindAsync(id);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new UserRepositoryException(nameof(DeletePersonRepo), ex);
+                throw new PersonRepositoryException(nameof(FindAsync), ex);
             }
-
         }
 
-        public Person GetPersonByIdRepo(int id)
+        public async void Remove(Person person)
         {
             try
             {
-                return ctx.Persons.Find(id);
+                _ctx.Persons.Remove(person);
+                await _ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new UserRepositoryException(nameof(GetPersonByIdRepo), ex);
+                throw new PersonRepositoryException(nameof(Remove), ex);
             }
         }
 
-        public List<Person> GetAllPersonRepo()
+        public async Task<Person> UpdateAsync(Person person)
         {
             try
             {
-                return ctx.Persons.ToList();
+                _ctx.Persons.Update(person);
+                await _ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw new UserRepositoryException(nameof(GetAllPersonRepo), ex);
+                throw new PersonRepositoryException(nameof(UpdateAsync), ex);
             }
-        }
 
-        #endregion
+            return person;
+        }
     }
 }

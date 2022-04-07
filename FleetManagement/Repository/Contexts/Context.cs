@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿#nullable disable
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Repositories.EntityTypeConfigurations;
 using System;

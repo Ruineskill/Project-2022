@@ -1,13 +1,13 @@
 ﻿using Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IFuelCardRepository
+    public interface IFuelCardRepository : IRepository<FuelCard>
     {
-        FuelCard AddFuelCardRepo(FuelCard fuelCard);
-        void DeleteFuelCardRepo(FuelCard fuelCard);
-        List<FuelCard> GetAllFuelCardRepo();
-        FuelCard GetFuelCardByIdRepo(int id);
-        FuelCard UpdateFuelCardRepo(FuelCard fuelCard);
     }
 }
