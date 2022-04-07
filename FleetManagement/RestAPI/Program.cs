@@ -1,5 +1,4 @@
 using Domain.Interfaces;
-using Domain.Services;
 using Repository.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,9 +14,6 @@ builder.Services.AddSingleton<ICarRepository, CarRepository>();
 builder.Services.AddSingleton<IFuelCardRepository, FuelCardRepository>();
 builder.Services.AddSingleton<IPersonRepository, PersonRepository>();
 
-builder.Services.AddSingleton<CarService>();
-builder.Services.AddSingleton<FuelCardService>();
-builder.Services.AddSingleton<PersonService>();
 
 var app = builder.Build();
 
