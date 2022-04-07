@@ -40,7 +40,7 @@ namespace RestAPI.Controllers
 
         // PUT: api/Person/
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerson(Person person)
+        public async Task<IActionResult> Update(Person person)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace RestAPI.Controllers
 
         // DELETE: api/Person/
         [HttpDelete]
-        public async Task<IActionResult> DeletePerson(Person person)
+        public async Task<IActionResult> Delete(Person person)
         {
             if (await _repo.FindAsync(person.Id) == null)
             {
