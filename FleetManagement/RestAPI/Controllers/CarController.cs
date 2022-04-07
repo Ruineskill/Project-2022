@@ -46,7 +46,7 @@ namespace RestAPI.Controllers
             {
                 return Ok(await _repo.UpdateAsync(car));
             }
-            catch (FuelCardRepositoryException ex)
+            catch (CarRepositoryException ex)
             {
                 if (await _repo.FindAsync(car.Id) == null)
                 {

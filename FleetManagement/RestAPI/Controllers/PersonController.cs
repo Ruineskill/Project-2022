@@ -67,7 +67,7 @@ namespace RestAPI.Controllers
             {
                 await _repo.AddAsync(person);
             }
-            catch (CarRepositoryException ex)
+            catch (PersonRepositoryException ex)
             {
                 if (await _repo.FindAsync(person.Id) != null)
                 {
