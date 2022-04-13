@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Domain.Models
@@ -21,22 +22,22 @@ namespace Domain.Models
         private FuelCard? _fuelCard;
         private bool _delete = false;
 
-        public int Id { get => _id; set => _id = value; }
-        public string FirstName 
+        public int Id { get => _id; private set => _id = value; }
+        public string FirstName
         {
-            get => _firstName; 
+            get => _firstName;
             set
             {
-                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(FirstName));
+                if(string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(FirstName));
                 _firstName = value;
             }
         }
-        public string LastName 
+        public string LastName
         {
-            get => _lastName; 
+            get => _lastName;
             set
             {
-                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(LastName));
+                if(string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(LastName));
                 _lastName = value;
             }
         }
@@ -52,23 +53,29 @@ namespace Domain.Models
         }
         public DrivingLicenseType DrivingLicenseType { get => _drivingLicenseType; set => _drivingLicenseType = value; }
         public Address? Address { get => _address; set => _address = value; }
+
         public Car? Car { get => _car; set => _car = value; }
+
         public FuelCard? FuelCard { get => _fuelCard; set => _fuelCard = value; }
         public bool Delete { get => _delete; set => _delete = value; }
 
-        public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber) :
-            this(id, firstName, lastName, dateOfBirth, nationalRegistrationNumber, 0, null, null, null)
-        { }
-        public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType) :
-            this(id, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType, null, null, null)
+
+
+
+        public Person(string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType) :
+            this(0,firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType, null, null, null)
         { }
 
-        public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType, Address? address, Car? car, FuelCard? fuelCard)
+        public Person(string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType, Address? address, Car? car, FuelCard? fuelCard)
+            : this(0, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType, address, car, fuelCard) { }
+
+        [JsonConstructor]
+        public Person(int id,string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType, Address? address, Car? car, FuelCard? fuelCard)
         {
-            if (string.IsNullOrEmpty(firstName)) throw new ArgumentNullException(nameof(firstName));
-            if (string.IsNullOrEmpty(lastName)) throw new ArgumentNullException(nameof(lastName));
-            if (!IsValidDateOfBirth(dateOfBirth)) throw new InvalidDateOfBirthException();
-            if (!IsValidNationalRegistrationNumber(nationalRegistrationNumber)) throw new InvalidNationRegistrationNumberException();
+            if(string.IsNullOrEmpty(firstName)) throw new ArgumentNullException(nameof(firstName));
+            if(string.IsNullOrEmpty(lastName)) throw new ArgumentNullException(nameof(lastName));
+            if(!IsValidDateOfBirth(dateOfBirth)) throw new InvalidDateOfBirthException();
+            if(!IsValidNationalRegistrationNumber(nationalRegistrationNumber)) throw new InvalidNationRegistrationNumberException();
 
             _id = id;
             _firstName = firstName;
@@ -94,7 +101,7 @@ namespace Domain.Models
             var checksum = 97 - (Convert.ToInt64(partToCalculate) % 97);
 
             //Compare if equals return true
-            if (nrnChecksum == checksum) return true;
+            if(nrnChecksum == checksum) return true;
 
             //// Checksum not yet ok. We check for a possible 1900/2000 situation;
 
@@ -105,7 +112,7 @@ namespace Domain.Models
             checksum = 97 - (Convert.ToInt64(partToCalculate) % 97);
 
             // we compare the excisting checksum with the calculated, again
-            if (nrnChecksum == checksum)
+            if(nrnChecksum == checksum)
             {
                 // we have a good checksum. Person born between 2000 and now
                 return true;

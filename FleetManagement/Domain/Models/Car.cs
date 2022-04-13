@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -24,15 +25,16 @@ namespace Domain.Models
         private int _numberOfDoors;
         private bool _delete = false;
 
-        public int Id { get => _id; set => _id = value; }
+
+        public int Id { get => _id; private set => _id = value; }
         public string Brand
         {
             get => _brand;
             //  set => _brand = string.IsNullOrEmpty(value) ? value : throw new ArgumentNullException(nameof(Brand)); does not work
             set
             {
-                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Brand));
-                _brand= value;
+                if(string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Brand));
+                _brand = value;
             }
         }
         public string Model
@@ -41,7 +43,7 @@ namespace Domain.Models
             //set => _model = string.IsNullOrEmpty(value) ? value : throw new ArgumentNullException(nameof(Model)); does not work
             set
             {
-                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Model));
+                if(string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Model));
                 _model = value;
             }
         }
@@ -63,16 +65,20 @@ namespace Domain.Models
         public bool Delete { get => _delete; set => _delete = value; }
 
 
-        public Car(int id, string brand, string model, string chassisNumber, string licensePlate, FuelType fuelType, CarType type) :
-            this(id, brand, model, chassisNumber, licensePlate, fuelType, type, null, null, 4)
+        public Car(string brand, string model, string chassisNumber, string licensePlate, FuelType fuelType, CarType type) :
+            this(0, brand, model, chassisNumber, licensePlate, fuelType, type, null, null, 4)
         { }
 
+        public Car(string brand, string model, string chassisNumber, string licensePlate, FuelType fuelType, CarType type, Person? person, string? color, int numberOfDoors)
+            : this(0, brand, model, chassisNumber, licensePlate, fuelType, type, person, color, numberOfDoors) { }
+       
+        [JsonConstructor]
         public Car(int id, string brand, string model, string chassisNumber, string licensePlate, FuelType fuelType, CarType type, Person? person, string? color, int numberOfDoors)
         {
-            if (string.IsNullOrEmpty(brand)) throw new ArgumentNullException(nameof(brand));
-            if (string.IsNullOrEmpty(model)) throw new ArgumentNullException(nameof(model));
-            if (!IsValidChassisNumber(chassisNumber)) throw new InvalidChassisNumberException();
-            if (!IsValidLicensePlate(licensePlate)) throw new InvalidLicensePlateException();
+            if(string.IsNullOrEmpty(brand)) throw new ArgumentNullException(nameof(brand));
+            if(string.IsNullOrEmpty(model)) throw new ArgumentNullException(nameof(model));
+            if(!IsValidChassisNumber(chassisNumber)) throw new InvalidChassisNumberException();
+            if(!IsValidLicensePlate(licensePlate)) throw new InvalidLicensePlateException();
 
             _id = id;
             _brand = brand;
@@ -89,7 +95,7 @@ namespace Domain.Models
 
         public static bool IsValidChassisNumber(string number)
         {
-            if (number.Length != 17)
+            if(number.Length != 17)
                 return false;
 
             return GetCheckDigit(number) == number[8];
@@ -103,7 +109,7 @@ namespace Domain.Models
             //weight of each char of the chassis number
             string weights = "8765432X098765432";
             int sum = 0;
-            for (int i = 0; i < 17; i++)
+            for(int i = 0; i < 17; i++)
             {
                 sum += Transliterate(number[i]) * map.IndexOf(weights[i]);
             }
@@ -122,7 +128,7 @@ namespace Domain.Models
 
         public static bool IsValidLicensePlate(string LicensePlate)
         {
-            if (string.IsNullOrEmpty(LicensePlate) || LicensePlate.Length > 9) return false;
+            if(string.IsNullOrEmpty(LicensePlate) || LicensePlate.Length > 9) return false;
 
             // License plate format are: N-LLL-NNN , N-NNN-LLL, LLL-NNN-N, NNN-LLL-N
             // where N is a digit and L is a letter
