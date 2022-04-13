@@ -1,15 +1,10 @@
-﻿using Xunit;
-using Domain.Interfaces;
-using Repository.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Models;
+﻿using Domain.Models;
 using Domain.Models.Enums;
-using Tests.Repositories.Fixtures;
 using Repository.Exceptions;
+using Repository.Repositories;
+using System.Linq;
+using Tests.Repositories.Fixtures;
+using Xunit;
 
 namespace Tests.Repositories
 {
