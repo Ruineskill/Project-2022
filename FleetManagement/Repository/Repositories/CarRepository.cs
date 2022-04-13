@@ -9,43 +9,45 @@ namespace Repository.Repositories
 {
     public class CarRepository : ICarRepository
     {
-        private readonly Context _ctx = new();
+        private readonly Context _context;
+
+        public CarRepository(Context context) => _context = context;
 
         public async Task<Car> AddAsync(Car car)
         {
             try
             {
-                await _ctx.Cars.AddAsync(car);
-                await _ctx.SaveChangesAsync();
+                await _context.Cars.AddAsync(car);
+                await _context.SaveChangesAsync();
+                return car;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new CarRepositoryException(nameof(AddAsync), ex);
             }
 
-            return car;
         }
 
-        public async void Remove(Car car)
+        public void Remove(Car car)
         {
             try
             {
-                _ctx.Cars.Remove(car);
-                await _ctx.SaveChangesAsync();
+                _context.Cars.Remove(car);
+                _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new CarRepositoryException(nameof(Remove), ex);
             }
-        }   
+        }
 
         public async Task<IEnumerable<Car>> GetAllAsync()
         {
             try
             {
-                return await _ctx.Cars.AsNoTracking().ToListAsync();
+                return await _context.Cars.AsNoTracking().ToListAsync();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new CarRepositoryException(nameof(GetAllAsync), ex);
             }
@@ -55,9 +57,9 @@ namespace Repository.Repositories
         {
             try
             {
-                return await _ctx.Cars.FindAsync(id);
+                return await _context.Cars.FindAsync(id);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new CarRepositoryException(nameof(FindAsync), ex);
             }
@@ -67,15 +69,16 @@ namespace Repository.Repositories
         {
             try
             {
-                _ctx.Cars.Update(car);
-                await _ctx.SaveChangesAsync();
+                _context.Cars.Update(car);
+                await _context.SaveChangesAsync();
+
+                return car;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new CarRepositoryException(nameof(UpdateAsync), ex);
             }
 
-            return car;
         }
     }
 }

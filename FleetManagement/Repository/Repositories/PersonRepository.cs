@@ -9,28 +9,32 @@ namespace Repository.Repositories
 {
     public class PersonRepository : IPersonRepository
     { 
-        private readonly Context _ctx = new();
+        private readonly Context _context;
+
+        public PersonRepository(Context context) => _context = context;
+
 
         public async Task<Person> AddAsync(Person person)
         {
             try
             {
-                await _ctx.Persons.AddAsync(person);
-                await _ctx.SaveChangesAsync();
+                await _context.Persons.AddAsync(person);
+                await _context.SaveChangesAsync();
+                return person;
             }
             catch (Exception ex)
             {
                 throw new PersonRepositoryException(nameof(AddAsync), ex);
             }
 
-            return person;
+           
         }
 
         public async Task<IEnumerable<Person>> GetAllAsync()
         {
             try
             {
-                return await _ctx.Persons.AsNoTracking().ToListAsync();
+                return await _context.Persons.AsNoTracking().ToListAsync();
             }
             catch (Exception ex)
             {
@@ -42,7 +46,7 @@ namespace Repository.Repositories
         {
             try
             {
-                return await _ctx.Persons.FindAsync(id);
+                return await _context.Persons.FindAsync(id);
             }
             catch (Exception ex)
             {
@@ -50,12 +54,12 @@ namespace Repository.Repositories
             }
         }
 
-        public async void Remove(Person person)
+        public  void Remove(Person person)
         {
             try
             {
-                _ctx.Persons.Remove(person);
-                await _ctx.SaveChangesAsync();
+                _context.Persons.Remove(person);
+                 _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -67,8 +71,8 @@ namespace Repository.Repositories
         {
             try
             {
-                _ctx.Persons.Update(person);
-                await _ctx.SaveChangesAsync();
+                _context.Persons.Update(person);
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {

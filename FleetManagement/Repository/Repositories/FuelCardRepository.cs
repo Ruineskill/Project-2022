@@ -9,16 +9,18 @@ namespace Repository.Repositories
 {
     public class FuelCardRepository : IFuelCardRepository
     {
-        private readonly Context _ctx = new();
+        private readonly Context _context;
+
+        public FuelCardRepository(Context context) => _context = context;
 
         public async Task<FuelCard> AddAsync(FuelCard fuelCard)
         {
             try
             {
-                await _ctx.FuelCards.AddAsync(fuelCard);
-                await _ctx.SaveChangesAsync();
+                await _context.FuelCards.AddAsync(fuelCard);
+                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 Console.WriteLine(ex);
                 throw new FuelCardRepositoryException(nameof(AddAsync), ex);
@@ -27,14 +29,14 @@ namespace Repository.Repositories
             return fuelCard;
         }
 
-        public async void Remove(FuelCard fuelCard)
+        public void Remove(FuelCard fuelCard)
         {
             try
             {
-                _ctx.FuelCards.Remove(fuelCard);
-               await _ctx.SaveChangesAsync();
+                _context.FuelCards.Remove(fuelCard);
+                _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new FuelCardRepositoryException(nameof(Remove), ex);
             }
@@ -44,9 +46,9 @@ namespace Repository.Repositories
         {
             try
             {
-                return await _ctx.FuelCards.AsNoTracking().ToListAsync();
+                return await _context.FuelCards.AsNoTracking().ToListAsync();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new FuelCardRepositoryException(nameof(GetAllAsync), ex);
             }
@@ -56,9 +58,9 @@ namespace Repository.Repositories
         {
             try
             {
-                return await  _ctx.FuelCards.FindAsync(id);
+                return await _context.FuelCards.FindAsync(id);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new FuelCardRepositoryException(nameof(FindAsync), ex);
             }
@@ -68,10 +70,10 @@ namespace Repository.Repositories
         {
             try
             {
-                _ctx.FuelCards.Update(fuelCard);
-                await _ctx.SaveChangesAsync();
+                _context.FuelCards.Update(fuelCard);
+                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new FuelCardRepositoryException(nameof(UpdateAsync), ex);
             }
