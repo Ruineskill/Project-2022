@@ -1,11 +1,14 @@
 ﻿#nullable disable
 using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
+using RestAPI.Authentication.Constants;
 
 namespace RestAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FuelCardController : ControllerBase
@@ -39,6 +42,7 @@ namespace RestAPI.Controllers
         }
 
         // PUT: api/FuelCard/
+        [Authorize(Roles = UserRoles.ManagerAndAdmin)]
         [HttpPut]
         public async Task<ActionResult<FuelCard>> Update(FuelCard fuelCard)
         {        
@@ -60,6 +64,7 @@ namespace RestAPI.Controllers
         }
 
         // POST: api/FuelCard
+        [Authorize(Roles = UserRoles.ManagerAndAdmin)]
         [HttpPost]
         public async Task<ActionResult<FuelCard>> Create(FuelCard fuelCard)
         {
@@ -83,6 +88,7 @@ namespace RestAPI.Controllers
         }
 
         // DELETE: api/FuelCard/
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpDelete]
         public async Task<IActionResult> Delete(FuelCard fuelCard)
         {

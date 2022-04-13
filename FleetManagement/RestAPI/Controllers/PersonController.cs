@@ -1,11 +1,14 @@
 ﻿#nullable disable
 using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
+using RestAPI.Authentication.Constants;
 
 namespace RestAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PersonController : ControllerBase
@@ -39,6 +42,7 @@ namespace RestAPI.Controllers
         }
 
         // PUT: api/Person/
+        [Authorize(Roles = UserRoles.ManagerAndAdmin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Person person)
         {
@@ -60,6 +64,7 @@ namespace RestAPI.Controllers
         }
 
         // POST: api/Person
+        [Authorize(Roles = UserRoles.ManagerAndAdmin)]
         [HttpPost]
         public async Task<ActionResult<Person>> Create(Person person)
         {
@@ -83,6 +88,7 @@ namespace RestAPI.Controllers
         }
 
         // DELETE: api/Person/
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpDelete]
         public async Task<IActionResult> Delete(Person person)
         {
