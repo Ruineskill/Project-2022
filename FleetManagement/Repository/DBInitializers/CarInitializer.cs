@@ -1,11 +1,6 @@
 ﻿using Domain.Models;
 using Domain.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Repository.Contexts;
 namespace Repository.DBInitializers
 {
     public class CarInitializer
@@ -18,7 +13,7 @@ namespace Repository.DBInitializers
             new Car("Porsche ", "Cayenne", "WVWRP61J23W519467", "456-LPD-3", FuelType.Benzine, CarType.Jeep)
         };
 
-        public static void SeedData(Contexts.Context context)
+        public static void SeedData(Context context)
         {
             context.Database.EnsureCreated();
 

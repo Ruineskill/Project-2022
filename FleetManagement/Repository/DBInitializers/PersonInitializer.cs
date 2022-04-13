@@ -1,10 +1,6 @@
 ﻿using Domain.Models;
 using Domain.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repository.Contexts;
 
 namespace Repository.DBInitializers
 {
@@ -17,7 +13,7 @@ namespace Repository.DBInitializers
             new Person("Padmé", "Amidala", new(1981, 05, 03), "81050312962", DrivingLicenseType.B, new("Amidalastreet", 255, "Mechelen", 2500), null, null),
             new Person("Sheev", "Palpatine", new(1977, 09, 03), "77090381596", DrivingLicenseType.C1E, new("Palpatinestreet", 12, "Leuven", 3000), null, null),
         };
-        public static void SeedData(Contexts.Context context)
+        public static void SeedData(Context context)
         {
             context.Database.EnsureCreated();
 
