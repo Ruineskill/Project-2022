@@ -1,7 +1,8 @@
 ﻿#nullable disable
 using Domain.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Repositories.EntityTypeConfigurations;
+using Repository.EntityTypeConfigurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,24 +11,23 @@ using System.Threading.Tasks;
 
 namespace Repository.Contexts
 {
-    public class Context : DbContext
+    public class Context : IdentityDbContext
     {
         public DbSet<Person> Persons { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<FuelCard> FuelCards { get; set; }
 
+        public Context(DbContextOptions<Context> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CarEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PersonEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FuelCardEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
+            base.OnModelCreating(modelBuilder);
+
         }
 
-        //Connection Database
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=sql5103.site4now.net;Initial Catalog=db_a83a71_fm;User Id=db_a83a71_fm_admin;Password=Connect2022;");
-        }
     }
 }
