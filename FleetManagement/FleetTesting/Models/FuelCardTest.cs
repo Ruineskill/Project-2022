@@ -11,10 +11,9 @@ namespace FleetTesting.ModelTesting
     public class FuelCardTest
     {
         [Fact]
-        public void Construct_CorrectInformation_ShouldConstruct()
+        public void Construct_CorrectInformation_Success()
         {
 
-            int ExceptedId = 0;
             int ExceptedCardNumber = 8797687;
             DateOnly ExceptedExpirationDate = new(2030, 02, 15);
             int ExceptedPinCode = 8889;
@@ -22,10 +21,10 @@ namespace FleetTesting.ModelTesting
 
 
 
-            var actual = new FuelCard(ExceptedId, ExceptedCardNumber, ExceptedExpirationDate, ExceptedPinCode, ExceptedUsableFuelTypes, null);
+            var actual = new FuelCard(ExceptedCardNumber, ExceptedExpirationDate, ExceptedPinCode, ExceptedUsableFuelTypes, null);
 
 
-            Assert.Equal(actual.Id, ExceptedId);
+            //Assert.Equal(actual.Id, ExceptedId);
             Assert.Equal(actual.CardNumber, ExceptedCardNumber);
             Assert.Equal(actual.ExpirationDate, ExceptedExpirationDate);
             Assert.Equal(actual.PinCode, ExceptedPinCode);
@@ -36,13 +35,13 @@ namespace FleetTesting.ModelTesting
         public void Construct_InvalidExpirationDate_ThrowsInvalidFuelCardExpirationDateException()
         {
 
-            int Id = 0;
+            // int Id = 0;
             int CardNumber = 8797687;
             DateOnly ExpirationDate = new(2000, 02, 15);
             int PinCode = 8889;
             List<FuelType> UsableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
 
-            Action actual = () => new FuelCard(Id, CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
+            Action actual = () => new FuelCard(CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
 
             Assert.Throws<InvalidFuelCardExpirationDateException>(actual);
         }
@@ -51,13 +50,13 @@ namespace FleetTesting.ModelTesting
         public void Construct_InvalidCardNumber_ThrowsArgumentOutOfRangeException()
         {
 
-            int Id = 0;
+            //int Id = 0;
             int CardNumber = 0;
             DateOnly ExpirationDate = new(2023, 02, 15);
             int PinCode = 8889;
             List<FuelType> UsableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
 
-            Action actual = () => new FuelCard(Id, CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
+            Action actual = () => new FuelCard(CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
 
             Assert.Throws<ArgumentOutOfRangeException>(actual);
         }
@@ -66,13 +65,13 @@ namespace FleetTesting.ModelTesting
         public void Construct_InvalidPinCode_ThrowsArgumentOutOfRangeException()
         {
 
-            int Id = 0;
+            //int Id = 0;
             int CardNumber = 345345345;
             DateOnly ExpirationDate = new(2023, 02, 15);
             int PinCode = 0;
             List<FuelType> UsableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
 
-            Action actual = () => new FuelCard(Id, CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
+            Action actual = () => new FuelCard(CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
 
             Assert.Throws<ArgumentOutOfRangeException>(actual);
         }
@@ -82,13 +81,13 @@ namespace FleetTesting.ModelTesting
         public void Assignment_InvalidExpirationDate_ThrowsInvalidFuelCardExpirationDateException()
         {
 
-            int Id = 0;
+            // int Id = 0;
             int CardNumber = 8797687;
             DateOnly ExpirationDate = new(2025, 02, 15);
             int PinCode = 8889;
             List<FuelType> UsableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
 
-            var fuelCard = new FuelCard(Id, CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
+            var fuelCard = new FuelCard(CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
 
             Action actual = () => fuelCard.ExpirationDate = new(2000, 02, 15);
 
@@ -99,13 +98,13 @@ namespace FleetTesting.ModelTesting
         public void Assignment_InvalidCardNumber_ThrowsArgumentOutOfRangeException()
         {
 
-            int Id = 0;
+            //int Id = 0;
             int CardNumber = 8797687;
             DateOnly ExpirationDate = new(2025, 02, 15);
             int PinCode = 8889;
             List<FuelType> UsableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
 
-            var fuelCard = new FuelCard(Id, CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
+            var fuelCard = new FuelCard(CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
 
             Action actual = () => fuelCard.CardNumber = 0;
 
@@ -115,13 +114,13 @@ namespace FleetTesting.ModelTesting
         public void Assignment_InvalidPinCode_ThrowsArgumentOutOfRangeException()
         {
 
-            int Id = 0;
+            //int Id = 0;
             int CardNumber = 8797687;
             DateOnly ExpirationDate = new(2025, 02, 15);
             int PinCode = 8889;
             List<FuelType> UsableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
 
-            var fuelCard = new FuelCard(Id, CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
+            var fuelCard = new FuelCard(CardNumber, ExpirationDate, PinCode, UsableFuelTypes, null);
 
             Action actual = () => fuelCard.PinCode = 0;
 

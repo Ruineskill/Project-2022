@@ -9,22 +9,22 @@ namespace FleetTesting.ModelTesting
     public class AdressTest
     {
         [Fact]
-        public void Construct_CorrectInformation_ShouldConstruct()
+        public void Construct_CorrectInformation_Success()
         {
 
             const string ExceptedStreet = "Somestraat";
             const int ExceptedStreetNumber = 2;
             const string ExceptedCity = "Brussel";
-            const int ExceptedPostalCode = 9000;
+            const int ExceptedZipCode = 9000;
 
 
-            var actual = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+            var actual = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedZipCode);
 
 
             Assert.Equal(actual.Street, ExceptedStreet);
-            Assert.Equal(actual.StreetNumber, ExceptedStreetNumber);
+            Assert.Equal(actual.Number, ExceptedStreetNumber);
             Assert.Equal(actual.City, ExceptedCity);
-            Assert.Equal(actual.PostalCode, ExceptedPostalCode);
+            Assert.Equal(actual.ZipCode, ExceptedZipCode);
         }
 
         [Fact]
@@ -33,8 +33,8 @@ namespace FleetTesting.ModelTesting
             const string ExceptedStreet = "";
             const int ExceptedStreetNumber = 2;
             const string ExceptedCity = "Brussel";
-            const int ExceptedPostalCode = 9000;
-            Action actual = () => new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+            const int ExceptedZipCode = 9000;
+            Action actual = () => new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedZipCode);
 
 
 
@@ -48,9 +48,9 @@ namespace FleetTesting.ModelTesting
             const string ExceptedStreet = "Somestraat";
             const int ExceptedStreetNumber = 2;
             const string ExceptedCity = "";
-            const int ExceptedPostalCode = 9000;
+            const int ExceptedZipCode = 9000;
 
-            Action actual = () => new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+            Action actual = () => new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedZipCode);
 
             Assert.Throws<ArgumentNullException>(actual);
 
@@ -62,9 +62,9 @@ namespace FleetTesting.ModelTesting
             const string ExceptedStreet = "Somestraat";
             const int ExceptedStreetNumber = 2;
             const string ExceptedCity = "Brussel";
-            const int ExceptedPostalCode = 90000;
+            const int ExceptedZipCode = 90000;
 
-            Action actual = () => new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+            Action actual = () => new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedZipCode);
 
             Assert.Throws<InvalidPostalCodeException>(actual);
 
@@ -76,8 +76,8 @@ namespace FleetTesting.ModelTesting
             const string ExceptedStreet = "Somestraat";
             const int ExceptedStreetNumber = 2;
             const string ExceptedCity = "Brussel";
-            const int ExceptedPostalCode = 9000;
-            var address = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+            const int ExceptedZipCode = 9000;
+            var address = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedZipCode);
 
             Action actual = () => address.Street = "";
 
@@ -91,8 +91,8 @@ namespace FleetTesting.ModelTesting
             const string ExceptedStreet = "Somestraat";
             const int ExceptedStreetNumber = 2;
             const string ExceptedCity = "Brussel";
-            const int ExceptedPostalCode = 9000;
-            var address = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+            const int ExceptedZipCode = 9000;
+            var address = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedZipCode);
 
             Action actual = () => address.City = "";
 
@@ -106,10 +106,10 @@ namespace FleetTesting.ModelTesting
             const string ExceptedStreet = "Somestraat";
             const int ExceptedStreetNumber = 2;
             const string ExceptedCity = "Brussel";
-            const int ExceptedPostalCode = 9000;
-            var address = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedPostalCode);
+            const int ExceptedZipCode = 9000;
+            var address = new Address(ExceptedStreet, ExceptedStreetNumber, ExceptedCity, ExceptedZipCode);
 
-            Action actual = () => address.PostalCode = 1;
+            Action actual = () => address.ZipCode = 1;
 
             Assert.Throws<InvalidPostalCodeException>(actual);
 

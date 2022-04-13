@@ -10,9 +10,9 @@ namespace FleetTesting.ModelTesting
     public class PersonTest
     {
         [Fact]
-        public void Construct_CorrectInformation_ShouldConstruct()
+        public void Construct_CorrectInformation_Success()
         {
-            int ExceptedId = 0;
+            // int ExceptedId = 0;
             const string ExceptedFirstName = "Luc";
             const string ExceptedLastName = "skywalker";
             DateOnly ExceptedDateOfBirth = new DateOnly(2000, 09, 01);
@@ -20,11 +20,11 @@ namespace FleetTesting.ModelTesting
             DrivingLicenseType ExceptedDrivingLicenseTypes = DrivingLicenseType.B;
 
 
-            var actual = new Person(ExceptedId, ExceptedFirstName, ExceptedLastName,
+            var actual = new Person(ExceptedFirstName, ExceptedLastName,
                 ExceptedDateOfBirth, ExceptedNationalRegistrationNumber, ExceptedDrivingLicenseTypes);
 
 
-            Assert.Equal(actual.Id, ExceptedId);
+            //Assert.Equal(actual.Id, ExceptedId);
             Assert.Equal(actual.FirstName, ExceptedFirstName);
             Assert.Equal(actual.LastName, ExceptedLastName);
             Assert.Equal(actual.DateOfBirth, ExceptedDateOfBirth);
@@ -38,7 +38,7 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Construct_EmptyFirstName_ThrowsArgumentNullException()
         {
-            int Id = 0;
+            //int Id = 0;
             const string FirstName = "";
             const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
@@ -46,7 +46,7 @@ namespace FleetTesting.ModelTesting
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
 
-            var actual = () => new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
+            var actual = () => new Person(FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
 
             Assert.Throws<ArgumentNullException>(actual);
 
@@ -55,7 +55,7 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Construct_EmptyLastName_ThrowsArgumentNullException()
         {
-            int Id = 0;
+            // int Id = 0;
             const string FirstName = "Luc";
             const string LastName = "";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
@@ -63,7 +63,7 @@ namespace FleetTesting.ModelTesting
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
 
-            Action actual = () => new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
+            Action actual = () => new Person(FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
 
             Assert.Throws<ArgumentNullException>(actual);
 
@@ -73,7 +73,7 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Construct_InvalidDateOfBirth_ThrowsInvalidDateOfBirthException()
         {
-            int Id = 0;
+            //int Id = 0;
             const string FirstName = "Luc";
             const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2023, 09, 01);
@@ -81,7 +81,7 @@ namespace FleetTesting.ModelTesting
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
 
-            Action actual = () => new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
+            Action actual = () => new Person(FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
 
             Assert.Throws<InvalidDateOfBirthException>(actual);
 
@@ -90,14 +90,14 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Construct_InvalidNationalRegistrationNumber_ThrowsInvalidDateOfBirthException()
         {
-            int Id = 0;
+            // int Id = 0;
             const string FirstName = "Luc";
             const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
             const string NationalRegistrationNumber = "60061812451";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
-            Action actual = () => new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
+            Action actual = () => new Person(FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
 
             Assert.Throws<InvalidNationRegistrationNumberException>(actual);
 
@@ -106,14 +106,14 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Assignment_EmptyFirstName_ThrowsArgumentNullException()
         {
-            int Id = 0;
+            //int Id = 0;
             const string FirstName = "Luc";
             const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
             const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
-            var persion = new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
+            var persion = new Person(FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
 
             Action actual = () => persion.FirstName = "";
 
@@ -124,14 +124,14 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Assignment_EmptyLastName_ThrowsArgumentNullException()
         {
-            int Id = 0;
+            // int Id = 0;
             const string FirstName = "Luc";
             const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
             const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
-            var persion = new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
+            var persion = new Person(FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
 
             Action actual = () => persion.LastName = "";
 
@@ -142,14 +142,14 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Assignment_InvalidDateOfBirt_ThrowsInvalidDateOfBirthException()
         {
-            int Id = 0;
+            //int Id = 0;
             const string FirstName = "Luc";
             const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
             const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
-            var persion = new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
+            var persion = new Person(FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
 
             Action actual = () => persion.DateOfBirth = new DateOnly(2023, 09, 01);
 
@@ -160,14 +160,14 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Assignment_InvalidNationalRegistrationNumber_ThrowsInvalidNationRegistrationNumberException()
         {
-            int Id = 0;
+            //int Id = 0;
             const string FirstName = "Luc";
             const string LastName = "skywalker";
             DateOnly DateOfBirth = new DateOnly(2000, 09, 01);
             const string NationalRegistrationNumber = "86022402508";
             DrivingLicenseType DrivingLicenseTypes = DrivingLicenseType.B;
 
-            var persion = new Person(Id, FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
+            var persion = new Person(FirstName, LastName, DateOfBirth, NationalRegistrationNumber, DrivingLicenseTypes);
 
             Action actual = () => persion.NationalRegistrationNumber = "86022402502";
 
