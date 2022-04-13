@@ -6,7 +6,7 @@ using Domain.Models.Enums;
 using Domain.Exceptions;
 using System.Linq;
 
-namespace FleetTesting.ModelTesting
+namespace UnitTest.Models
 {
     public class FuelCardTest
     {
@@ -28,7 +28,7 @@ namespace FleetTesting.ModelTesting
             Assert.Equal(actual.CardNumber, ExceptedCardNumber);
             Assert.Equal(actual.ExpirationDate, ExceptedExpirationDate);
             Assert.Equal(actual.PinCode, ExceptedPinCode);
-            Assert.True(Enumerable.SequenceEqual(actual.UsableFuelTypes, ExceptedUsableFuelTypes));
+            Assert.True(actual.UsableFuelTypes.SequenceEqual(ExceptedUsableFuelTypes));
         }
 
         [Fact]

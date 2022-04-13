@@ -5,10 +5,10 @@ using Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tests.Repositories.Fixtures;
+using UnitTest.Repositories.Fixtures;
 using Xunit;
 
-namespace Tests.Repositories
+namespace UnitTest.Repositories
 {
     [Collection("RepoCollection")]
     public class FuelCardRepoTest : IClassFixture<FuelCardFixture>
@@ -17,7 +17,7 @@ namespace Tests.Repositories
 
         public FuelCardRepoTest(FuelCardFixture fixture)
         {
-             var context = fixture.CreateContext();
+            var context = fixture.CreateContext();
             _repo = new FuelCardRepository(context);
         }
 
@@ -26,7 +26,7 @@ namespace Tests.Repositories
         {
 
 
-            long cardNumber = 87976874547;          
+            long cardNumber = 87976874547;
             int pinCode = 8889;
             DateOnly expirationDate = new(2025, 02, 15);
             List<FuelType> usableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
@@ -58,15 +58,15 @@ namespace Tests.Repositories
             fuelCard.PinCode = ExceptedPinCode;
             fuelCard.UsableFuelTypes = ExceptedUsableFuelTypes;
 
-             await _repo.UpdateAsync(fuelCard);
+            await _repo.UpdateAsync(fuelCard);
 
             var savedFuelCard = await _repo.FindAsync(fuelCard.Id);
 
             Assert.Equal(savedFuelCard.CardNumber, ExceptedCardNumber);
             Assert.Equal(savedFuelCard.ExpirationDate, ExceptedExpirationDate);
             Assert.Equal(savedFuelCard.PinCode, ExceptedPinCode);
-            Assert.True(Enumerable.SequenceEqual(savedFuelCard.UsableFuelTypes, ExceptedUsableFuelTypes));
-          
+            Assert.True(savedFuelCard.UsableFuelTypes.SequenceEqual(ExceptedUsableFuelTypes));
+
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace Tests.Repositories
             var fuelCard = fuelCards.First();
             _repo.Remove(fuelCard);
 
-             Assert.Throws<FuelCardRepositoryException>(() => _repo.Remove(fuelCard));
+            Assert.Throws<FuelCardRepositoryException>(() => _repo.Remove(fuelCard));
 
         }
 

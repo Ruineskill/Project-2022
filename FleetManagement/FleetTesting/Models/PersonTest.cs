@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Domain.Models.Enums;
 using Domain.Exceptions;
 
-namespace FleetTesting.ModelTesting
+namespace UnitTest.Models
 {
     public class PersonTest
     {

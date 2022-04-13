@@ -4,17 +4,17 @@ using Repository.Exceptions;
 using Repository.Repositories;
 using System;
 using System.Linq;
-using Tests.Repositories.Fixtures;
+using UnitTest.Repositories.Fixtures;
 using Xunit;
 
-namespace Tests.Repositories
+namespace UnitTest.Repositories
 {
     [Collection("RepoCollection")]
     public class PersonRepoTest : IClassFixture<PersonFixture>
     {
         private readonly PersonRepository _repo;
         private readonly PersonFixture _fixture;
-        
+
 
         public PersonRepoTest(PersonFixture fixture)
         {

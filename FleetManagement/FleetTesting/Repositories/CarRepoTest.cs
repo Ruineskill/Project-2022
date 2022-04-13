@@ -3,10 +3,10 @@ using Domain.Models.Enums;
 using Repository.Exceptions;
 using Repository.Repositories;
 using System.Linq;
-using Tests.Repositories.Fixtures;
+using UnitTest.Repositories.Fixtures;
 using Xunit;
 
-namespace Tests.Repositories
+namespace UnitTest.Repositories
 {
     [Collection("RepoCollection")]
     public class CarRepoTest : IClassFixture<CarFixture>

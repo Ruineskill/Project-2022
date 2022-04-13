@@ -5,14 +5,14 @@ using Domain.Models.Enums;
 using Domain.Exceptions;
 using Domain;
 
-namespace FleetTesting.ModelTesting
+namespace UnitTest.Models
 {
     public class CarTest
     {
         [Fact]
         public void Construct_CorrectInformation_Success()
         {
-           // int ExceptedId = 0;
+            // int ExceptedId = 0;
             string ExceptedChassisNumber = "1FAHP26W49G252740";
             string ExceptedLicensePlate = "1-ABC-235";
             string ExceptedBrand = "BMW";
@@ -22,7 +22,7 @@ namespace FleetTesting.ModelTesting
             FuelType ExceptedFuelType = FuelType.Benzine;
             int ExceptedDoorCount = 3;
 
-            var actual = new Car(ExceptedBrand, ExceptedModel, ExceptedChassisNumber, ExceptedLicensePlate, ExceptedFuelType, ExceptedType,null,ExceptedColor, ExceptedDoorCount);
+            var actual = new Car(ExceptedBrand, ExceptedModel, ExceptedChassisNumber, ExceptedLicensePlate, ExceptedFuelType, ExceptedType, null, ExceptedColor, ExceptedDoorCount);
 
 
             //Assert.Equal(actual.Id, ExceptedId);
@@ -62,9 +62,9 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Construct_EmptyBrand_ThrowsArgumentNullException()
         {
-            Action actual = () => new Car( "", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
+            Action actual = () => new Car("", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
 
-           
+
 
             Assert.Throws<ArgumentNullException>(actual);
 
@@ -74,7 +74,7 @@ namespace FleetTesting.ModelTesting
         public void Construct_EmptyModel_ThrowsArgumentNullException()
         {
 
-            Action actual = () => new Car( "Mercedes", "", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
+            Action actual = () => new Car("Mercedes", "", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
 
             Assert.Throws<ArgumentNullException>(actual);
 
@@ -85,7 +85,7 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Assignment_InvalidChassisNumber_ThrowsInvalidChassisNumberException()
         {
-            var car = new Car( "Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
+            var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
             Action actual = () => car.ChassisNumber = "1FAHP26W4XG252740";
 
             Assert.Throws<InvalidChassisNumberException>(actual);
@@ -95,7 +95,7 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Assignment_InvalidLicencePlate_ThrowsInvalidLicensePlateException()
         {
-            var car = new Car( "Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
+            var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
             Action actual = () => car.LicensePlate = "A-ABC-235";
 
             Assert.Throws<InvalidLicensePlateException>(actual);
@@ -105,7 +105,7 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Assignment_EmptyBrand_ThrowsArgumentNullException()
         {
-            var car = new Car( "Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
+            var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
             Action actual = () => car.Brand = "";
 
             Assert.Throws<ArgumentNullException>(actual);
@@ -115,8 +115,8 @@ namespace FleetTesting.ModelTesting
         [Fact]
         public void Assignment_EmptyModel_ThrowsArgumentNullException()
         {
-            var car = new Car( "Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
-            Action actual = () => car.Model ="";
+            var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Van);
+            Action actual = () => car.Model = "";
 
             Assert.Throws<ArgumentNullException>(actual);
 
