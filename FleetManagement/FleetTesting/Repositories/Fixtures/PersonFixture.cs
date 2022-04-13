@@ -17,7 +17,7 @@ namespace Tests.Repositories.Fixtures
         private static readonly object _lock = new();
         private static bool _databaseInitialized;
 
-        private const string ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=CarManager;Trusted_Connection=True;MultipleActiveResultSets=true";
+        private const string ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=FleetManager;Trusted_Connection=True;MultipleActiveResultSets=true";
 
         public static readonly List<Person> _persons = new()
         {
