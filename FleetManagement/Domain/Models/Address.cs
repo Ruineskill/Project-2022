@@ -10,9 +10,9 @@ namespace Domain.Models
     public record Address
     {
         private string _street;
-        private int _number;
+        private int _streetNumber;
         private string _city;
-        private int _zipCode;
+        private int _postalCode;
 
         public string Street 
         { 
@@ -23,7 +23,7 @@ namespace Domain.Models
                 _street = value;
             }
         }
-        public int Number { get => _number; set => _number = value; }
+        public int StreetNumber { get => _streetNumber; set => _streetNumber = value; }
         public string City 
         { 
             get => _city; 
@@ -33,22 +33,22 @@ namespace Domain.Models
                 _city = value;
             }
         }
-        public int ZipCode
+        public int PostalCode 
         {
-            get => _zipCode; 
-            set => _zipCode = IsValidPostalCode(value) ? value: throw new InvalidPostalCodeException(); 
+            get => _postalCode; 
+            set => _postalCode = IsValidPostalCode(value) ? value: throw new InvalidPostalCodeException(); 
         }
 
-        public Address(string street, int number, string city, int zipCode)
+        public Address(string street, int streetNumber, string city, int postalCode)
         {
             if(string.IsNullOrEmpty(street)) throw new ArgumentNullException(nameof(street));
             if(string.IsNullOrEmpty(city)) throw new ArgumentNullException(nameof(city));
-            if(!IsValidPostalCode(zipCode)) throw new InvalidPostalCodeException();
+            if(!IsValidPostalCode(postalCode)) throw new InvalidPostalCodeException();
 
             _street = street;
-            _number = number;
+            _streetNumber = streetNumber;
             _city = city;
-            _zipCode = zipCode;
+            _postalCode = postalCode;
         }
 
 
