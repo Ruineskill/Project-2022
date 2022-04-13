@@ -2,16 +2,24 @@
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace Repositories.EntityTypeConfigurations
+namespace Repository.EntityTypeConfigurations
 {
     public class CarEntityTypeConfiguration : IEntityTypeConfiguration<Car>
     {
         public void Configure(EntityTypeBuilder<Car> builder)
         {
-            builder.HasKey(c => c.Id);
-            builder.HasIndex(u => new { u.ChassisNumber, u.LicensePlate }).IsUnique();
+            //builder.HasIndex(u => new { u.ChassisNumber, u.LicensePlate }).IsUnique(); // this is for joint index only
+            builder.HasIndex(b => b.ChassisNumber).IsUnique();
+            builder.HasIndex(b => b.LicensePlate).IsUnique();
+
+            builder.HasOne<Person>(p=>p.Person).WithOne(p =>p.Car).HasForeignKey<Person>("CarId").IsRequired(false);
+
         }
     }
 }
