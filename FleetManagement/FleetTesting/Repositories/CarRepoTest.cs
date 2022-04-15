@@ -1,10 +1,15 @@
-﻿using Domain.Models;
+﻿using Xunit;
+using Domain.Interfaces;
+using Repository.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Domain.Models;
 using Domain.Models.Enums;
 using Repository.Exceptions;
-using Repository.Repositories;
-using System.Linq;
 using UnitTest.Repositories.Fixtures;
-using Xunit;
 
 namespace UnitTest.Repositories
 {
@@ -43,9 +48,6 @@ namespace UnitTest.Repositories
         [Fact]
         public async void UpdateCar_ValidCar_Success()
         {
-
-
-
             const string ExceptedChassisNumber = "1GTN1TEX1DZ200378";
             const string ExceptedLicensePlate = "1-ABC-264";
             const string ExceptedBrand = "Ford";
@@ -115,9 +117,9 @@ namespace UnitTest.Repositories
         public async void AddCar_WithExistingVIN_ThrowsCarRepositoryException()
         {
 
+            var cars = await _repo.GetAllAsync();
 
-
-            const string ChassisNumber = "5GZCZ43D13S812715";
+            string ChassisNumber = cars.Last().ChassisNumber;
             const string LicensePlate = "1-ABC-265";
             const string Brand = "Mercedes";
             const string Model = "Classe A";
@@ -136,9 +138,9 @@ namespace UnitTest.Repositories
         public async void AddCar_WithExistingLicensePlate_ThrowsCarRepositoryException()
         {
 
-
+            var cars = await _repo.GetAllAsync();
             const string ChassisNumber = "5GZCZ43D13S812715";
-            const string LicensePlate = "456-LPO-3";
+            string LicensePlate = cars.Last().LicensePlate;
             const string Brand = "Volkswagen";
             const string Model = "Tiguan";
             CarType Type = CarType.Van;
@@ -155,9 +157,9 @@ namespace UnitTest.Repositories
         [Fact]
         public async void UpdateCar_WithExistingVIN_ThrowsCarRepositoryException()
         {
+            var cars = await _repo.GetAllAsync();
 
-
-            const string ChassisNumber = "5GZCZ43D13S812715";
+            string ChassisNumber = cars.Last().ChassisNumber;
             const string LicensePlate = "1-ABC-265";
             const string Brand = "Volkswagen";
             const string Model = "Tiguan";
@@ -166,7 +168,7 @@ namespace UnitTest.Repositories
             FuelType FuelType = FuelType.HybridDiesel;
             const int DoorCount = 4;
 
-            var car = (await _repo.GetAllAsync()).First();
+            var car = cars.First();
 
             car.ChassisNumber = ChassisNumber;
             car.LicensePlate = LicensePlate;
@@ -186,9 +188,9 @@ namespace UnitTest.Repositories
         [Fact]
         public async void UpdateCar_WithExistingLicensePlate_ThrowsCarRepositoryException()
         {
-
+            var cars = await _repo.GetAllAsync();
             const string ChassisNumber = "5GZCZ43D13S812715";
-            const string LicensePlate = "456-LPO-3";
+            string LicensePlate = cars.Last().LicensePlate;
             const string Brand = "Volvo";
             const string Model = "XC40";
             CarType Type = CarType.Van;
@@ -196,7 +198,7 @@ namespace UnitTest.Repositories
             FuelType FuelType = FuelType.Benzine;
             const int DoorCount = 4;
 
-            var car = (await _repo.GetAllAsync()).First();
+            var car = cars.First();
 
             car.ChassisNumber = ChassisNumber;
             car.LicensePlate = LicensePlate;

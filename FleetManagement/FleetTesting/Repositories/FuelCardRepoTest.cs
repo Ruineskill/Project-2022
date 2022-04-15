@@ -26,12 +26,12 @@ namespace UnitTest.Repositories
         {
 
 
-            long cardNumber = 87976874547;
-            int pinCode = 8889;
-            DateOnly expirationDate = new(2025, 02, 15);
-            List<FuelType> usableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
+            long exceptedCardNumber = 87976874547;
+            int exceptedPinCode = 8889;
+            DateOnly exceptedExpirationDate = new(2025, 02, 15);
+            List<FuelType> exceptedUsableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
 
-            var fuelCard = new FuelCard(cardNumber, expirationDate, pinCode, usableFuelTypes, null);
+            var fuelCard = new FuelCard(exceptedCardNumber, exceptedExpirationDate, exceptedPinCode, exceptedUsableFuelTypes, null);
 
             await _repo.AddAsync(fuelCard);
             var savedCar = await _repo.FindAsync(fuelCard.Id);
@@ -45,34 +45,33 @@ namespace UnitTest.Repositories
         {
 
 
-            long ExceptedCardNumber = 87976872547;
-            int ExceptedPinCode = 8889;
-            DateOnly ExceptedExpirationDate = new(2025, 02, 15);
-            List<FuelType> ExceptedUsableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
+            long exceptedCardNumber = 87976845547;
+            int exceptedPinCode = 8889;
+            DateOnly exceptedExpirationDate = new(2025, 02, 15);
+            List<FuelType> exceptedUsableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
 
 
             var fuelCard = (await _repo.GetAllAsync()).First();
 
-            fuelCard.CardNumber = ExceptedCardNumber;
-            fuelCard.ExpirationDate = ExceptedExpirationDate;
-            fuelCard.PinCode = ExceptedPinCode;
-            fuelCard.UsableFuelTypes = ExceptedUsableFuelTypes;
+            fuelCard.CardNumber = exceptedCardNumber;
+            fuelCard.ExpirationDate = exceptedExpirationDate;
+            fuelCard.PinCode = exceptedPinCode;
+            fuelCard.UsableFuelTypes = exceptedUsableFuelTypes;
 
             await _repo.UpdateAsync(fuelCard);
 
             var savedFuelCard = await _repo.FindAsync(fuelCard.Id);
 
-            Assert.Equal(savedFuelCard.CardNumber, ExceptedCardNumber);
-            Assert.Equal(savedFuelCard.ExpirationDate, ExceptedExpirationDate);
-            Assert.Equal(savedFuelCard.PinCode, ExceptedPinCode);
-            Assert.True(savedFuelCard.UsableFuelTypes.SequenceEqual(ExceptedUsableFuelTypes));
+            Assert.Equal(savedFuelCard.CardNumber, exceptedCardNumber);
+            Assert.Equal(savedFuelCard.ExpirationDate, exceptedExpirationDate);
+            Assert.Equal(savedFuelCard.PinCode, exceptedPinCode);
+            Assert.True(Enumerable.SequenceEqual(savedFuelCard.UsableFuelTypes, exceptedUsableFuelTypes));
 
         }
 
         [Fact]
         public async void DeleteFuelCard_ValidFuelCard_Success()
         {
-
 
             var fuelCards = await _repo.GetAllAsync();
             var fuelCard = fuelCards.First();
@@ -90,7 +89,6 @@ namespace UnitTest.Repositories
         public async void DeleteFuelCard_InvalidFuelCard_ThrowsFuelCardRepositoryException()
         {
 
-
             var fuelCards = await _repo.GetAllAsync();
             var fuelCard = fuelCards.First();
             _repo.Remove(fuelCard);
@@ -103,8 +101,9 @@ namespace UnitTest.Repositories
         public async void AddFuelCard_WithExistingCard_ThrowsFuelCardRepositoryException()
         {
 
+            var fuelCards = await _repo.GetAllAsync();
 
-            long cardNumber = 46794775821745828;
+            long cardNumber = fuelCards.Last().CardNumber;
             int pinCode = 8889;
             DateOnly expirationDate = new(2025, 02, 15);
             List<FuelType> usableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
@@ -119,9 +118,9 @@ namespace UnitTest.Repositories
         [Fact]
         public async void UpdateFuelCard_WithExistingCard_ThrowsFuelCardRepositoryException()
         {
+            var fuelCards = await _repo.GetAllAsync();
 
-
-            long cardNumber = 38294475827545826;
+            long cardNumber = fuelCards.Last().CardNumber;
             int pinCode = 8889;
             DateOnly expirationDate = new(2025, 02, 15);
             List<FuelType> usableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
