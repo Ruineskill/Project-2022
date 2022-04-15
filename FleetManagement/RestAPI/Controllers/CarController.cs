@@ -43,7 +43,7 @@ namespace RestAPI.Controllers
         }
 
         // PUT: api/Car/
-        [Authorize(Roles = UserRoles.ManagerAndAdmin)]
+        [Authorize(Policy = UserPolicies.Manager)]
         [HttpPut]
         public async Task<ActionResult<Car>> Update(Car car)
         {
@@ -65,7 +65,7 @@ namespace RestAPI.Controllers
         }
 
         // POST: api/Car
-        [Authorize(Roles = UserRoles.ManagerAndAdmin)]
+        [Authorize(Policy = UserPolicies.Manager)]
         [HttpPost]
         public async Task<ActionResult<Car>> Create(Car car)
         {
@@ -89,7 +89,7 @@ namespace RestAPI.Controllers
         }
 
         // DELETE: api/Car/
-        [Authorize(Roles = UserRoles.Admin)]
+        [Authorize(Policy = UserPolicies.Admin)]
         [HttpDelete]
         public async Task<IActionResult> Delete(Car car)
         {

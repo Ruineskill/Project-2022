@@ -42,7 +42,7 @@ namespace RestAPI.Controllers
         }
 
         // PUT: api/Person/
-        [Authorize(Roles = UserRoles.ManagerAndAdmin)]
+        [Authorize(Policy = UserPolicies.Manager)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Person person)
         {
@@ -64,7 +64,7 @@ namespace RestAPI.Controllers
         }
 
         // POST: api/Person
-        [Authorize(Roles = UserRoles.ManagerAndAdmin)]
+        [Authorize(Policy = UserPolicies.Manager)]
         [HttpPost]
         public async Task<ActionResult<Person>> Create(Person person)
         {
@@ -88,7 +88,7 @@ namespace RestAPI.Controllers
         }
 
         // DELETE: api/Person/
-        [Authorize(Roles = UserRoles.Admin)]
+        [Authorize(Policy = UserPolicies.Admin)]
         [HttpDelete]
         public async Task<IActionResult> Delete(Person person)
         {

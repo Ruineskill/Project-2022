@@ -5,6 +5,7 @@ using RestAPI.Services;
 
 namespace RestAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -19,15 +20,24 @@ namespace RestAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("Authentication")]
-        public async Task<IActionResult> Authenticate(UserLogin login)
+        public async Task<ActionResult<LoginReponse>> Authenticate(UserLogin login)
         {
-            var response = await _userService.Authenticate(login);
+            var user = await _userService.Authenticate(login);
 
-            if(response == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+            if(user == null)
+                return BadRequest(new LoginReponse( "Username/password is incorrect" ));
 
-            return Ok(response);
+            var claims = await _userService.CreateClaimsForUser(user);
+            LoginReponse reponse = new()
+            {
+                IsAuthenticated = true,
+                UserName = login.UserName,
+                Token = _userService.CreateTokenFromClaims(claims)
+            };
+
+
+            return Ok(reponse);
         }
-      
+
     }
 }

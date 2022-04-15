@@ -1,23 +1,14 @@
 #nullable disable
-using Domain.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Repository.Contexts;
 using Repository.DBInitializers;
-using Repository.Repositories;
-using RestAPI.Services;
-using System.Text;
+using RestAPI.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -31,7 +22,7 @@ builder.Services.AddSwaggerGen(opt =>
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
         BearerFormat = "JWT",
-        Scheme = "bearer"
+        Scheme = "Bearer"
     });
 
     opt.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -50,62 +41,23 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
-// database
-var connectionString = builder.Configuration.GetConnectionString("RestAPIConnection");
-builder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectionString),
-                                       ServiceLifetime.Transient, ServiceLifetime.Singleton);
-
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-{
-    options.SignIn.RequireConfirmedAccount =true;
-    options.Password.RequireDigit = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 3;
-}).AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
 
 
+// Database
+DatabaseConfiguration.ConfigureDB(builder);
 
 // Authentication
-builder.Services.AddAuthentication(auth =>
-{
-    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidAudience = builder.Configuration["AuthSettings:Audience"],
-        ValidIssuer = builder.Configuration["AuthSettings:Issuer"],
-        RequireExpirationTime = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AuthSettings:Key"])),
-        ValidateIssuerSigningKey = true,
-        SaveSigninToken = true,
-
-    };
-});
-
+SecurityConfiguration.ConfigureAuthentication(builder);
 
 // Authorization
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-});
-
+SecurityConfiguration.ConfigureAuthorization(builder);
 
 // Repositories
-builder.Services.AddSingleton<ICarRepository, CarRepository>();
-builder.Services.AddSingleton<IFuelCardRepository, FuelCardRepository>();
-builder.Services.AddSingleton<IPersonRepository, PersonRepository>();
+ServicesConfiguration.ConfigureRepositories(builder.Services);
 
+// Services
+ServicesConfiguration.ConfigureServices(builder.Services);
 
-// services
-builder.Services.AddScoped<IUserService, UserService>();
 
 
 var app = builder.Build();
@@ -138,7 +90,6 @@ if(app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();

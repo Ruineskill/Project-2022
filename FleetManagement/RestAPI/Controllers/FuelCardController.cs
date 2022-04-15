@@ -42,7 +42,7 @@ namespace RestAPI.Controllers
         }
 
         // PUT: api/FuelCard/
-        [Authorize(Roles = UserRoles.ManagerAndAdmin)]
+        [Authorize(Policy = UserPolicies.Manager)]
         [HttpPut]
         public async Task<ActionResult<FuelCard>> Update(FuelCard fuelCard)
         {        
@@ -64,7 +64,7 @@ namespace RestAPI.Controllers
         }
 
         // POST: api/FuelCard
-        [Authorize(Roles = UserRoles.ManagerAndAdmin)]
+        [Authorize(Policy = UserPolicies.Manager)]
         [HttpPost]
         public async Task<ActionResult<FuelCard>> Create(FuelCard fuelCard)
         {
@@ -88,7 +88,7 @@ namespace RestAPI.Controllers
         }
 
         // DELETE: api/FuelCard/
-        [Authorize(Roles = UserRoles.Admin)]
+        [Authorize(Policy = UserPolicies.Admin)]
         [HttpDelete]
         public async Task<IActionResult> Delete(FuelCard fuelCard)
         {
