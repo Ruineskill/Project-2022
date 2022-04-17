@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
+    [Serializable]
     public class InvalidPostalCodeException : Exception
     {
         public InvalidPostalCodeException() : base() { }
