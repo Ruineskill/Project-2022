@@ -1,12 +1,15 @@
-﻿using Domain.Models;
-using Domain.Models.Enums;
-using Repository.Exceptions;
+﻿using Xunit;
+using Domain.Interfaces;
 using Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Domain.Models;
+using Domain.Models.Enums;
+using Repository.Exceptions;
 using UnitTest.Repositories.Fixtures;
-using Xunit;
 
 namespace UnitTest.Repositories
 {
@@ -31,7 +34,7 @@ namespace UnitTest.Repositories
             DateOnly exceptedExpirationDate = new(2025, 02, 15);
             List<FuelType> exceptedUsableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
 
-            var fuelCard = new FuelCard(exceptedCardNumber, exceptedExpirationDate, exceptedPinCode, exceptedUsableFuelTypes, null);
+            var fuelCard = new FuelCard(exceptedCardNumber, exceptedExpirationDate, exceptedPinCode, exceptedUsableFuelTypes);
 
             await _repo.AddAsync(fuelCard);
             var savedCar = await _repo.FindAsync(fuelCard.Id);
@@ -65,7 +68,7 @@ namespace UnitTest.Repositories
             Assert.Equal(savedFuelCard.CardNumber, exceptedCardNumber);
             Assert.Equal(savedFuelCard.ExpirationDate, exceptedExpirationDate);
             Assert.Equal(savedFuelCard.PinCode, exceptedPinCode);
-            Assert.True(Enumerable.SequenceEqual(savedFuelCard.UsableFuelTypes, exceptedUsableFuelTypes));
+            Assert.True(savedFuelCard.UsableFuelTypes.SequenceEqual(exceptedUsableFuelTypes));
 
         }
 
@@ -108,7 +111,7 @@ namespace UnitTest.Repositories
             DateOnly expirationDate = new(2025, 02, 15);
             List<FuelType> usableFuelTypes = new() { FuelType.Diesel, FuelType.Benzine };
 
-            var fuelCard = new FuelCard(cardNumber, expirationDate, pinCode, usableFuelTypes, null);
+            var fuelCard = new FuelCard(cardNumber, expirationDate, pinCode, usableFuelTypes);
 
             await Assert.ThrowsAsync<FuelCardRepositoryException>(async () => await _repo.AddAsync(fuelCard));
 

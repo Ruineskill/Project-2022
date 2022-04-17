@@ -37,7 +37,9 @@ namespace UnitTest.Repositories
             FuelType FuelType = FuelType.Benzine;
             const int DoorCount = 4;
 
-            var car = new Car(Brand, Model, ChassisNumber, LicensePlate, FuelType, Type, null, Color, DoorCount);
+            var car = new Car(Brand, Model, ChassisNumber, LicensePlate, FuelType, Type);
+            car.Color = Color;
+            car.NumberOfDoors = DoorCount;
 
             await _repo.AddAsync(car);
             var savedCar = await _repo.FindAsync(car.Id);
@@ -128,7 +130,9 @@ namespace UnitTest.Repositories
             FuelType FuelType = FuelType.Benzine;
             const int DoorCount = 4;
 
-            var car = new Car(Brand, Model, ChassisNumber, LicensePlate, FuelType, Type, null, Color, DoorCount);
+            var car = new Car(Brand, Model, ChassisNumber, LicensePlate, FuelType, Type);
+            car.Color = Color;
+            car.NumberOfDoors = DoorCount;
 
             await Assert.ThrowsAsync<CarRepositoryException>(async () => await _repo.AddAsync(car));
 
@@ -148,7 +152,9 @@ namespace UnitTest.Repositories
             FuelType FuelType = FuelType.Benzine;
             const int DoorCount = 4;
 
-            var car = new Car(Brand, Model, ChassisNumber, LicensePlate, FuelType, Type, null, Color, DoorCount);
+            var car = new Car(Brand, Model, ChassisNumber, LicensePlate, FuelType, Type);
+            car.Color = Color;
+            car.NumberOfDoors = DoorCount;
 
             await Assert.ThrowsAsync<CarRepositoryException>(async () => await _repo.AddAsync(car));
 

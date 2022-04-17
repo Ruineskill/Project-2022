@@ -17,14 +17,14 @@ namespace UnitTest.Repositories.Fixtures
         private static readonly object _lock = new();
         private static bool _databaseInitialized;
 
-        private const string ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=FleetManager;Trusted_Connection=True;MultipleActiveResultSets=true";
+        private const string ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=CarManager;Trusted_Connection=True;MultipleActiveResultSets=true";
 
         public static readonly List<Person> _persons = new()
         {
-            new Person("Luke", "Skywalker", new(1960, 06, 18), "60061812456", DrivingLicenseType.B, new("Skystreet", 08, "Brussel", 1000), null, null),
-            new Person("Boba", "Fett", new(1986, 02, 24), "86022402508", DrivingLicenseType.D, new("Fettstreet", 322, "Brugge", 8000), null, null),
-            new Person("Padmé", "Amidala", new(1981, 05, 03), "81050312962", DrivingLicenseType.B, new("Amidalastreet", 255, "Mechelen", 2500), null, null),
-            new Person("Sheev", "Palpatine", new(1977, 09, 03), "77090381596", DrivingLicenseType.C1E, new("Palpatinestreet", 12, "Leuven", 3000), null, null),
+            new Person("Luke", "Skywalker", new(1960, 06, 18), "60061812456", DrivingLicenseType.B) { Address = new("Skystreet", 08, "Brussel", 1000) },
+            new Person("Boba", "Fett", new(1986, 02, 24), "86022402508", DrivingLicenseType.D) { Address = new("Fettstreet", 322, "Brugge", 8000) },
+            new Person("Padmé", "Amidala", new(1981, 05, 03), "81050312962", DrivingLicenseType.B) { Address = new("Amidalastreet", 255, "Mechelen", 2500) },
+            new Person("Sheev", "Palpatine", new(1977, 09, 03), "77090381596", DrivingLicenseType.C1E) { Address = new("Palpatinestreet", 12, "Leuven", 3000) },
         };
 
 

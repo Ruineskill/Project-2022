@@ -3,12 +3,15 @@ using Domain.Models;
 using System;
 using Domain.Models.Enums;
 using Domain.Exceptions;
-using Domain;
+using System.Collections.Generic;
 
 namespace UnitTest.Models
 {
     public class CarTest
     {
+
+        static private Person _testPerson = new("test", "test", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
+
         [Fact]
         public void Construct_CorrectInformation_Success()
         {
@@ -22,8 +25,9 @@ namespace UnitTest.Models
             FuelType ExceptedFuelType = FuelType.Benzine;
             int ExceptedDoorCount = 3;
 
-            var actual = new Car(ExceptedBrand, ExceptedModel, ExceptedChassisNumber, ExceptedLicensePlate, ExceptedFuelType, ExceptedType, null, ExceptedColor, ExceptedDoorCount);
-
+            var actual = new Car(ExceptedBrand, ExceptedModel, ExceptedChassisNumber, ExceptedLicensePlate, ExceptedFuelType, ExceptedType);
+            actual.Color = ExceptedColor;
+            actual.NumberOfDoors = ExceptedDoorCount;
 
             //Assert.Equal(actual.Id, ExceptedId);
             Assert.Equal(actual.ChassisNumber, ExceptedChassisNumber);
@@ -36,7 +40,6 @@ namespace UnitTest.Models
             Assert.Equal(actual.NumberOfDoors, ExceptedDoorCount);
 
         }
-
 
         [Fact]
         public void Construct_InvalidChassisNumber_ThrowsInvalidChassisNumberException()
@@ -80,8 +83,6 @@ namespace UnitTest.Models
 
         }
 
-
-
         [Fact]
         public void Assignment_InvalidChassisNumber_ThrowsInvalidChassisNumberException()
         {
@@ -122,7 +123,44 @@ namespace UnitTest.Models
 
         }
 
+        [Fact]
+        public void Assignment_PersonWithInvalidLicence_ThrowsInvalidLicenceTypeRequirementException()
+        {
+            var person = new Person("test", "test", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
 
+            var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Truck);
+
+            Assert.Throws<InvalidLicenceTypeRequirementException>(() => car.Person = person);
+
+        }
+
+        [Fact]
+        public void Assignment_PersonWithUnsupportedFuelCard_ThrowsInvalidFuelCardRequirementException()
+        {
+            var fuelCard = new FuelCard(1298473626725, new(2040, 08, 01), 8888, new List<FuelType> { FuelType.Diesel });
+
+            var person = new Person("test", "test", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
+            person.FuelCard = fuelCard;
+
+            var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Car);
+
+            Assert.Throws<InvalidFuelCardRequirementException>(() => car.Person = person);
+
+        }
+
+        [Fact]
+        public void Assignment_PersonToOwnedCar_ThrowsInvalidCarException()
+        {
+
+            var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Car);
+            car.Person = _testPerson;
+
+            var person = new Person("test", "test", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
+
+
+            Assert.Throws<InvalidCarException>(() => car.Person = person);
+
+        }
 
 
         [Theory]  // Check valid license plate

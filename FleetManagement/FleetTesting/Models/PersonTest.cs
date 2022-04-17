@@ -9,6 +9,7 @@ namespace UnitTest.Models
 {
     public class PersonTest
     {
+
         [Fact]
         public void Construct_CorrectInformation_Success()
         {
@@ -33,7 +34,6 @@ namespace UnitTest.Models
 
 
         }
-
 
         [Fact]
         public void Construct_EmptyFirstName_ThrowsArgumentNullException()
@@ -68,7 +68,6 @@ namespace UnitTest.Models
             Assert.Throws<ArgumentNullException>(actual);
 
         }
-
 
         [Fact]
         public void Construct_InvalidDateOfBirth_ThrowsInvalidDateOfBirthException()
@@ -174,6 +173,78 @@ namespace UnitTest.Models
             Assert.Throws<InvalidNationRegistrationNumberException>(actual);
 
         }
+
+        [Fact]
+        public void Assignment_OwnedCar_ThrowsInvaliCarException()
+        {
+
+            var person = new Person("test", "test", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
+
+            var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Car);
+            car.Person = new Person("test2", "test2", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
+
+
+            Assert.Throws<InvalidCarException>(() => person.Car = car);
+
+        }
+
+        [Fact]
+        public void Assignment_OwnedFuelCard_ThrowsInvaliFuelCardException()
+        {
+
+            var person = new Person("test", "test", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
+
+            var fuelCard = new FuelCard(8797687, new(2025, 02, 15), 8889, new List<FuelType> { FuelType.Diesel, FuelType.Benzine });
+            fuelCard.Person = new Person("test2", "test2", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
+
+
+            Assert.Throws<InvalidFuelCardException>(() => person.FuelCard = fuelCard);
+
+        }
+
+        [Fact]
+        public void Assignment_CarWithUnsupportedLicence_ThrowsInvalidLicenceTypeRequirementException()
+        {
+
+            var person = new Person("test", "test", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
+            var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Bus);
+
+
+
+            Assert.Throws<InvalidLicenceTypeRequirementException>(() => person.Car = car);
+
+        }
+
+
+        [Fact]
+        public void Assignment_CarWithUnsupportedFuelCard_ThrowsInvalidFuelCardRequirementException()
+        {
+
+            var person = new Person("test", "test", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
+            person.FuelCard = new FuelCard(8797687, new(2025, 02, 15), 8889, new List<FuelType> { FuelType.Diesel, FuelType.Benzine });
+
+            var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Car);
+
+
+
+            Assert.Throws<InvalidFuelCardRequirementException>(() => person.Car = car);
+
+        }
+
+        [Fact]
+        public void Assignment_FuelCardWithUnsupportedCar_ThrowsInvalidFuelCardRequirementException()
+        {
+
+            var person = new Person("test", "test", new(1962, 06, 04), "86022402508", DrivingLicenseType.B);
+            person.Car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Car);
+
+            var fuelCard = new FuelCard(8797687, new(2025, 02, 15), 8889, new List<FuelType> { FuelType.Diesel, FuelType.Benzine });
+
+
+            Assert.Throws<InvalidFuelCardRequirementException>(() => person.FuelCard = fuelCard);
+
+        }
+
 
         [Theory]  // Check valid National Number
         [InlineData("86022402508")]

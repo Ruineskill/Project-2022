@@ -6,7 +6,6 @@ using System;
 using System.Linq;
 using UnitTest.Repositories.Fixtures;
 using Xunit;
-
 namespace UnitTest.Repositories
 {
     [Collection("RepoCollection")]
@@ -33,9 +32,10 @@ namespace UnitTest.Repositories
             DrivingLicenseType exceptedDrivingLicenseType = DrivingLicenseType.B;
             Address exceptedAdress = new("jinnstreet", 840, "Brussel", 1000);
 
-            var person = new Person(exceptedFirstName, exceptedLastName, exceptedDateOfBirth,
-                                    exceptedNationalId, exceptedDrivingLicenseType,
-                                    exceptedAdress, null, null);
+            var person = new Person(exceptedFirstName, exceptedLastName, exceptedDateOfBirth, exceptedNationalId, exceptedDrivingLicenseType)
+            {
+                Address = exceptedAdress
+            };
 
 
             await _repo.AddAsync(person);
@@ -121,9 +121,10 @@ namespace UnitTest.Repositories
             DrivingLicenseType drivingLicenseTypes = DrivingLicenseType.B;
             Address adress = new("jinnstreet", 840, "Brussel", 1000);
 
-            var person = new Person(firstName, lastName, dateOfBirth,
-                                    nationalId, drivingLicenseTypes,
-                                    adress, null, null);
+            var person = new Person(firstName, lastName, dateOfBirth, nationalId, drivingLicenseTypes)
+            {
+                Address = adress
+            };
 
             await Assert.ThrowsAsync<PersonRepositoryException>(async () => await _repo.AddAsync(person));
 
