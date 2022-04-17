@@ -1,6 +1,10 @@
 ﻿using Domain.Models;
 using Domain.Models.Enums;
-using Repository.Contexts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Repository.DBInitializers
 {
@@ -15,7 +19,7 @@ namespace Repository.DBInitializers
         };
 
 
-        public static void SeedData(Context context)
+        public static void SeedData(Contexts.Context context)
         {
             context.Database.EnsureCreated();
 
