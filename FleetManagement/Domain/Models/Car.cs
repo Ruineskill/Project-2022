@@ -20,10 +20,11 @@ namespace Domain.Models
         private string _licensePlate;
         private FuelType _fuelType;
         private CarType _type;
-        private Person? _person;
-        private string? _color;
+        private Person? _person = null;
+        private string? _color = null;
         private int _numberOfDoors;
         private bool _delete = false;
+        private DrivingLicenseType _requiredLicence;
 
         public int Id { get => _id; private set => _id = value; }
         public string Brand
@@ -57,24 +58,41 @@ namespace Domain.Models
             set => _licensePlate = IsValidLicensePlate(value) ? value : throw new InvalidLicensePlateException();
         }
         public FuelType FuelType { get => _fuelType; set => _fuelType = value; }
-        public CarType Type { get => _type; set => _type = value; }
-        public Person? Person { get => _person; set => _person = value; }
+        public CarType Type
+        {
+            get => _type;
+            set
+            {
+                _type = value;
+                _requiredLicence = GetLicenceForCarType(value);
+            }
+
+        }
+        public Person? Person
+        {
+            get => _person;
+            set
+            {
+                if(value != null)
+                {
+                    if(value.Car != this) value.Car = this;
+                    _person = value;
+                }
+
+            }
+        }
         public string? Color { get => _color; set => _color = value; }
         public int NumberOfDoors { get => _numberOfDoors; set => _numberOfDoors = value; }
         public bool Delete { get => _delete; set => _delete = value; }
-
-
-        public Car(string brand, string model, string chassisNumber, string licensePlate, FuelType fuelType, CarType type) :
-            this(brand, model, chassisNumber, licensePlate, fuelType, type, null, null, 4)
-        { }
+        public DrivingLicenseType RequiredLicence { get => _requiredLicence; private set => _requiredLicence = value; }
 
         public Car(string brand, string model, string chassisNumber, string licensePlate,
-                   FuelType fuelType, CarType type, Person? person, string? color, int numberOfDoors)
-            : this(0, brand, model, chassisNumber, licensePlate, fuelType, type, person, color, numberOfDoors) { }
+                   FuelType fuelType, CarType type, string? color = null, int numberOfDoors = 4)
+            : this(0, brand, model, chassisNumber, licensePlate, fuelType, type, color, numberOfDoors) { }
 
         [JsonConstructor]
         public Car(int id, string brand, string model, string chassisNumber, string licensePlate,
-                   FuelType fuelType, CarType type, Person? person, string? color, int numberOfDoors)
+                   FuelType fuelType, CarType type, string? color, int numberOfDoors)
         {
             if(string.IsNullOrEmpty(brand)) throw new ArgumentNullException(nameof(brand));
             if(string.IsNullOrEmpty(model)) throw new ArgumentNullException(nameof(model));
@@ -88,10 +106,11 @@ namespace Domain.Models
             _licensePlate = licensePlate;
             _fuelType = fuelType;
             _type = type;
-            _person = person;
             _color = color;
             _numberOfDoors = numberOfDoors;
+            _requiredLicence = GetLicenceForCarType(_type);
         }
+
 
 
         public static bool IsValidChassisNumber(string number)
@@ -137,6 +156,22 @@ namespace Domain.Models
 
             return Regex.IsMatch(LicensePlate, pattern);
         }
+
+        public static DrivingLicenseType GetLicenceForCarType(CarType type)
+        {
+            if(type == CarType.Truck)
+            {
+                return DrivingLicenseType.C;
+            }
+            else if(type == CarType.Bus)
+            {
+                return DrivingLicenseType.D;
+            }
+
+            return DrivingLicenseType.B;
+        }
+
+
 
     }
 }

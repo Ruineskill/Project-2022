@@ -8,7 +8,11 @@ namespace Domain.Models.Enums
 {
     public enum CarType
     {
-        Car, Jeep, Van, Truck, Bus,
+        Car,
+        Jeep, 
+        Van, 
+        Truck, 
+        Bus,
         Sedan,
         Coupe,
         Sport,

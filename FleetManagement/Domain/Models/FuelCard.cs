@@ -46,20 +46,28 @@ namespace Domain.Models
         }
         public ICollection<FuelType> UsableFuelTypes { get => _usableFuelTypes; set => _usableFuelTypes = value; }
 
-        public Person? Person { get => _person; set => _person = value; }
+        public Person? Person 
+        { 
+            get => _person; 
+            set
+            {
+                if(value != null)
+                {
+                    if(value.FuelCard != this) value.FuelCard = this;
+                    _person = value;
+                }
+            }
+        }
 
         public bool Blocked { get => _blocked; set => _blocked = value; }
         public bool Delete { get => _delete; set => _delete = value; }
 
-        public FuelCard(long cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes) :
-            this(0,cardNumber, expirationDate, pinCode, usableFuelTypes, null)
-        { }
 
-        public FuelCard(long cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes, Person? person)
-            : this(0, cardNumber, expirationDate, pinCode, usableFuelTypes, person) { }
+        public FuelCard(long cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes)
+            : this(0, cardNumber, expirationDate, pinCode, usableFuelTypes) {}
 
         [JsonConstructor]
-        public FuelCard(int id, long cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes, Person? person)
+        public FuelCard(int id, long cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes)
         {
 
             if(cardNumber <= 0) throw new ArgumentOutOfRangeException(nameof(cardNumber));
@@ -71,7 +79,19 @@ namespace Domain.Models
             _expirationDate = expirationDate;
             _pinCode = pinCode;
             _usableFuelTypes = usableFuelTypes;
-            _person = person;
+        }
+
+        public bool CanRefuel(Car? car)
+        {
+            if(car != null)
+            {
+                if(!_usableFuelTypes.Contains(car.FuelType))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public static bool IsValidExpirationDate(DateOnly expirationDate)

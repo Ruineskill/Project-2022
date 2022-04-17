@@ -49,21 +49,48 @@ namespace Domain.Models
         public DrivingLicenseType DrivingLicenseType { get => _drivingLicenseType; set => _drivingLicenseType = value; }
         public Address? Address { get => _address; set => _address = value; }
 
-        public Car? Car { get => _car; set => _car = value; }
+        public Car? Car
+        {
+            get => _car;
+            set
+            {
+                if(value != null)
+                {
+                    if(value.Person != null) throw new InvalidCarException("The car is already in use!");
+                    if(!CanDrive(value)) throw new InvalidLicenceTypeRequirementException("Person's car licence does not meet the car's required license type");
+                    if(_fuelCard != null && !_fuelCard.CanRefuel(value)) throw new InvalidFuelCardRequirementException("The Person's fuel card does not support the car's fuel type");
 
-        public FuelCard? FuelCard { get => _fuelCard; set => _fuelCard = value; }
+                    _car = value;
+                    if(_car.Person != this) _car.Person = this;
+
+                }
+            }
+        }
+
+        public FuelCard? FuelCard 
+        { 
+            get => _fuelCard;
+            set
+            {
+                if(value != null)
+                {
+                    if(value.Person != null) throw new InvalidFuelCardException("The fuel card is already in use!");
+                    if(_car !=null && !value.CanRefuel(_car)) throw new InvalidFuelCardRequirementException("Fuel card does not support person's car fuel type!");
+                  
+                    _fuelCard = value;
+                    if(_fuelCard.Person != this) _fuelCard.Person = this;
+
+                }
+            }
+        }
         public bool Delete { get => _delete; set => _delete = value; }
 
-
-        public Person(string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType) :
-            this(0,firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType, null, null, null)
-        { }
-
-        public Person(string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType, Address? address, Car? car, FuelCard? fuelCard)
-            : this(0, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType, address, car, fuelCard) { }
+        public Person(string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber,
+            DrivingLicenseType drivingLicenseType)
+            : this(0, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType){}
 
         [JsonConstructor]
-        public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType, Address? address, Car? car, FuelCard? fuelCard)
+        public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType)
         {
             if(string.IsNullOrEmpty(firstName)) throw new ArgumentNullException(nameof(firstName));
             if(string.IsNullOrEmpty(lastName)) throw new ArgumentNullException(nameof(lastName));
@@ -76,11 +103,17 @@ namespace Domain.Models
             _dateOfBirth = dateOfBirth;
             _nationalRegistrationNumber = nationalRegistrationNumber;
             _drivingLicenseType = drivingLicenseType;
-            _address = address;
-            _car = car;
-            _fuelCard = fuelCard;
         }
 
+        public bool CanDrive(Car car)
+        {
+            if(car.RequiredLicence <= _drivingLicenseType)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         public static bool IsValidNationalRegistrationNumber(string nrn)
         {
