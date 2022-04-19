@@ -62,7 +62,7 @@ namespace RestAPI.Configurations
                     policy.Requirements.Add(new UserRequirement());
                 });
 
-
+                options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
             });
 
 
