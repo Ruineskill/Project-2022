@@ -12,16 +12,16 @@ namespace RestAPI.Configurations
             builder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectionString),
                                                    ServiceLifetime.Transient, ServiceLifetime.Singleton);
 
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            builder.Services.AddIdentityCore<IdentityUser>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 3;
-            }).AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
+            }).AddRoles<IdentityRole>().AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
 
-
+         
         }
     }
 }

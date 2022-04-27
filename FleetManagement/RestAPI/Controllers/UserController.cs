@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestAPI.Authentication;
-using RestAPI.Services;
+using RestAPI.Interfaces;
 
 namespace RestAPI.Controllers
 {
@@ -19,24 +19,45 @@ namespace RestAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("Authentication")]
-        public async Task<ActionResult<LoginReponse>> Authenticate(UserLogin login)
+        [HttpPost("SignIn")]
+        public async Task<ActionResult<AuthenticationReponse>> SignIn(SignInRequest login)
         {
-            var user = await _userService.Authenticate(login);
+            var reponse = await _userService.Authenticate(login);
 
-            if(user == null)
-                return BadRequest(new LoginReponse( "Username/password is incorrect" ));
-
-            var claims = await _userService.CreateClaimsForUser(user);
-            LoginReponse reponse = new()
+            if (reponse == null)
             {
-                IsAuthenticated = true,
-                UserName = login.UserName,
-                Token = _userService.CreateTokenFromClaims(claims)
-            };
-
+                return BadRequest(new AuthenticationReponse("Username/password is incorrect"));
+            }
 
             return Ok(reponse);
+        }
+
+
+        [HttpPost("Refresh")]
+        public async Task<ActionResult<AuthenticationReponse>> Refresh(RefreshRequest refresh)
+        {
+
+            var user = await _userService.GetUser(User);
+            if (user == null) return BadRequest();
+
+            var isValid = _userService.Validate(user, refresh.Token);
+            if (!isValid) return BadRequest();
+
+            var reponse = await _userService.Refresh(user, refresh.Token);
+
+            return Ok();
+        }
+
+
+        [HttpDelete("Invalidate")]
+        public async Task<IActionResult> Invalidate()
+        {
+            var user = await _userService.GetUser(User);
+            if (user == null) return BadRequest();
+            _userService.RemoveRefreshToken(user);
+       
+            
+            return Ok();
         }
 
     }
