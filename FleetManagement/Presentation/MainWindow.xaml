@@ -3,10 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Presentation"
+        xmlns:views="clr-namespace:Presentation.Views" 
+        xmlns:vms="clr-namespace:Presentation.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=vms:MainViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Fleet Management" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}" MinHeight="600" MinWidth="800">
+
     <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:LogInViewModel}">
+                <views:LogInView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:FleetViewModel}">
+                <views:FleetView/>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <ContentControl  Content="{Binding CurrentViewModel}" />
 
     </Grid>
 </Window>
