@@ -12,7 +12,7 @@ using Repository.Contexts;
 namespace Repository.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220413223430_initial")]
+    [Migration("20220427151451_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,9 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequiredLicence")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
