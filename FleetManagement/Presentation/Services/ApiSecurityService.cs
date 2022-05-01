@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿#nullable disable
+using Domain.Models;
 using System.Text.Json;
 using Presentation.Constants;
 using Presentation.Dto;
@@ -18,7 +19,7 @@ namespace Presentation.Services
 {
     public class ApiSecurityService : IApiSecurityService
     {
-        private AuthenticationReponse? _authenticationInfo;
+        private AuthenticationReponse _authenticationInfo;
 
         private readonly ApiHttpClient _client;
 
@@ -30,8 +31,10 @@ namespace Presentation.Services
 
         public async Task<bool> SignIn(string username, SecureString password)
         {
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+            _client.ClearRequestHeaders();
+            _client.AddRequestHeader("Accept", "application / json");
 
             var signin = new SignInRequest()
             {
@@ -43,7 +46,8 @@ namespace Presentation.Services
             try
             {
                 _authenticationInfo = await _client.PostAsync<AuthenticationReponse, SignInRequest>(HttpPaths.SignIn, signin);
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authenticationInfo?.Token);
+                _client.AddRequestHeader("Authorization", "Bearer " + _authenticationInfo?.Token);
+                return _authenticationInfo.IsAuthenticated;
 
             }
             catch(Exception)
@@ -51,9 +55,6 @@ namespace Presentation.Services
 
                 return false;
             }
-
-
-            return true;
 
         }
 

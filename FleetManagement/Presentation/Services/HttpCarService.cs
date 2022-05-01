@@ -31,7 +31,7 @@ namespace Presentation.Services
 
         public async Task<IEnumerable<Car>> GetAllAsync()
         {
-            return await _client.GetAsync<IEnumerable<Car>>(HttpPaths.GetAllCars);
+            return await  _client.GetAsync<IEnumerable<Car>>(HttpPaths.GetAllCars);
         }
 
         public Task<Car> GetAsync(int id)

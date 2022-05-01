@@ -1,4 +1,6 @@
 ﻿using Domain.Models;
+using Presentation.Constants;
+using Presentation.HttpClients;
 using Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,17 +12,14 @@ namespace Presentation.Services
 {
     public class HttpPersonService : IHttpPersonService
     {
-        public Task<Car> CreateAsync(Car obj)
+        private readonly ApiHttpClient _client;
+
+        public HttpPersonService(ApiHttpClient client)
         {
-            throw new NotImplementedException();
+            _client = client;
         }
 
         public Task<Person> CreateAsync(Person obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteAsync(Car obj)
         {
             throw new NotImplementedException();
         }
@@ -30,32 +29,17 @@ namespace Presentation.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Car>> GetAllAsync()
+        public async Task<IEnumerable<Person>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _client.GetAsync<IEnumerable<Person>>(HttpPaths.GetAllPersons);
         }
 
-        public Task<Car> GetAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Car> UpdateAsync(Car obj)
+        public Task<Person> GetAsync(int id)
         {
             throw new NotImplementedException();
         }
 
         public Task<Person> UpdateAsync(Person obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<Person>> IHttpObject<Person>.GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Person> IHttpObject<Person>.GetAsync(int id)
         {
             throw new NotImplementedException();
         }

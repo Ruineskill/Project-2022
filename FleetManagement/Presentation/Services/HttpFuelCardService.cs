@@ -1,4 +1,6 @@
 ﻿using Domain.Models;
+using Presentation.Constants;
+using Presentation.HttpClients;
 using Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,14 @@ namespace Presentation.Services
 {
     public class HttpFuelCardService : IHttpFuelCardService
     {
+
+        private readonly ApiHttpClient _client;
+
+        public HttpFuelCardService(ApiHttpClient client)
+        {
+            _client = client;
+        }
+
         public Task<FuelCard> CreateAsync(FuelCard obj)
         {
             throw new NotImplementedException();
@@ -20,9 +30,9 @@ namespace Presentation.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<FuelCard>> GetAllAsync()
+        public async Task<IEnumerable<FuelCard>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _client.GetAsync<IEnumerable<FuelCard>>(HttpPaths.GetAllFuelCards);
         }
 
         public Task<FuelCard> GetAsync(int id)
