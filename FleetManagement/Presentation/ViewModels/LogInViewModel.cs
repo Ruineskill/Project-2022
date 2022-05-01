@@ -17,12 +17,7 @@ namespace Presentation.ViewModels
         public string Username
         {
             get => _username;
-            set
-            {
-                _username = value;
-                OnPropertyChanged(nameof(Username));
-            }
-
+            set => SetProperty(ref _username, value);
         }
 
 
@@ -31,38 +26,44 @@ namespace Presentation.ViewModels
         public SecureString Password
         {
             private get => _password;
-            set
-            {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-            }
-
+            set => SetProperty(ref _password, value);
         }
 
 
+        private bool _isLogInButtonEnabled = true;
+        public bool IsLogInButtonEnabled 
+        { 
+            get => _isLogInButtonEnabled; 
+            set => SetProperty(ref _isLogInButtonEnabled, value);
+        }
 
         public LogInViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
             LoginCommand = new RelayCommand(LoginHandler);
+
+
         }
 
 
         public ICommand LoginCommand { get; }
+       
+
         public async void LoginHandler()
         {
+            IsLogInButtonEnabled = false;
+
             var apiService = App.Current.Services.GetService<IApiSecurityService>();
-
-
             bool signedIn = await apiService.SignIn(Username, _password);
 
             if(signedIn)
             {
-                       
-                _navigationService.Navigate(App.Current.Services.GetService<FleetViewModel>());
+
+                var fleetViewModel = App.Current.Services.GetService<FleetViewModel>();
+                _navigationService.Navigate(fleetViewModel);
             }
 
-          
+            IsLogInButtonEnabled = true;
 
         }
     }
