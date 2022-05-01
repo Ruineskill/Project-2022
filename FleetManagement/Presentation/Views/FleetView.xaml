@@ -7,19 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"  
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:vm="clr-namespace:Presentation.ViewModels" d:DataContext="{d:DesignInstance Type=vm:FleetViewModel}">
+             xmlns:vm="clr-namespace:Presentation.ViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:FleetViewModel}" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
 
 
-
+        <!-- Search field and sign out button -->
         <md:ColorZone Grid.Row="0" Mode="PrimaryMid" Padding="16">
             <DockPanel>
-                <ToggleButton Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center"  DockPanel.Dock="Right" />
-              
+                <Button Content="Sign Out" VerticalAlignment="Center"  DockPanel.Dock="Right" Command="{Binding SignOutCommand}"/>
+
                 <StackPanel HorizontalAlignment="center" Orientation="Horizontal"  md:RippleAssist.IsCentered="True">
 
                     <md:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2"  Panel.ZIndex="1" Margin="16 0 0 0" md:ShadowAssist.ShadowDepth="Depth1">
@@ -28,46 +29,43 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="400" />
                             </Grid.ColumnDefinitions>
-                            
-                            
-                            <Button  Style="{StaticResource MaterialDesignToolButton}" HorizontalAlignment="Left">
-                                <md:PackIcon Kind="Search" Opacity=".56" />
-                            </Button>
-                            <TextBox Grid.Column="1" Margin="8 0 0 0" md:HintAssist.Hint="Search" md:TextFieldAssist.DecorationVisibility="Hidden" 
-                                     BorderThickness="0" MinWidth="200"  VerticalAlignment="Center" md:TextFieldAssist.HasClearButton="True" Text="{Binding Search}" >
-                               
-                            </TextBox>
-                            
+
+                            <md:PackIcon Kind="Search" Opacity=".56" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                            <TextBox Grid.Column="1" Margin="8 0 0 0" md:HintAssist.Hint="Search" 
+                                     md:TextFieldAssist.DecorationVisibility="Hidden" 
+                                     BorderThickness="0" MinWidth="200"  VerticalAlignment="Center" 
+                                     md:TextFieldAssist.HasClearButton="True" 
+                                     Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" />
+
                         </Grid>
                     </md:ColorZone>
                 </StackPanel>
             </DockPanel>
         </md:ColorZone>
 
+        <!-- Tab control -->
+        <TabControl Grid.Row="1"  ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab}" Style="{StaticResource MaterialDesignTabControl}" >
+            <TabControl.Resources>
+                <DataTemplate DataType="{x:Type vm:CarListingViewModel}">
+                    <views:CarListingView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:PersonListingViewModel}">
+                    <views:PersonListingView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:FuelCardListingViewModel}">
+                    <views:FuelCardListingView />
+                </DataTemplate>
+            </TabControl.Resources>
 
 
-        <md:Card Grid.Row="1">
-            <TabControl  Style="{StaticResource  MaterialDesignTabControl}" HorizontalContentAlignment="Left">
-                <!--People-->
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:TabViewModelBase}">
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
 
-                <TabItem  Header="People" >
-                    <views:PersonsView/>
-                </TabItem>
-
-                <!--Cars-->
-                <TabItem Header="Cars">
-                    <views:CarsView/>
-                </TabItem>
-
-                <!--FuelCards-->
-                <TabItem Header="Fuel Cards">
-                    <views:FuelCardsView/>
-                </TabItem>
-
-
-
-            </TabControl>
-        </md:Card>
+        </TabControl>
 
     </Grid>
 
