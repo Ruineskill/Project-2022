@@ -7,15 +7,16 @@
         xmlns:vms="clr-namespace:Presentation.ViewModels" 
         d:DataContext="{d:DesignInstance Type=vms:MainViewModel}"
         mc:Ignorable="d"
-        Title="Fleet Management" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" 
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Fleet Management" WindowStartupLocation="CenterScreen"  
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
-        FontFamily="{materialDesign:MaterialDesignFont}" MinHeight="600" MinWidth="800">
+        FontFamily="{md:MaterialDesignFont}" 
+       Height="600" Width="800">
 
-    <Grid>
+    <Grid >
         <Grid.Resources>
             <DataTemplate DataType="{x:Type vms:LogInViewModel}">
                 <views:LogInView/>
@@ -25,7 +26,7 @@
             </DataTemplate>
         </Grid.Resources>
 
-        <ContentControl  Content="{Binding CurrentViewModel}" />
+        <ContentControl   Content="{Binding CurrentViewModel}" />
 
     </Grid>
 </Window>
