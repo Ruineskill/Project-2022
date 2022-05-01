@@ -6,6 +6,7 @@ using Presentation.Interfaces;
 using Presentation.Services;
 using Presentation.ViewModels;
 using System;
+using System.Net.Http;
 using System.Windows;
 
 namespace Presentation
@@ -34,16 +35,20 @@ namespace Presentation
             services.AddSingleton<INavigationService, MainNavigationService>();
             services.AddSingleton<IApiSecurityService, ApiSecurityService>();
             services.AddSingleton<ApiHttpClient>();
+            services.AddSingleton<HttpClient>();
             services.AddTransient<IHttpPersonService, HttpPersonService>();
             services.AddTransient<IHttpCarService, HttpCarService>();
             services.AddTransient<IHttpFuelCardService, HttpFuelCardService>();
 
             // Viewmodels
-            services.AddTransient<MainViewModel>();
-            services.AddTransient<LogInViewModel>();
-            services.AddTransient<FleetViewModel>();
             services.AddSingleton<MainWindow>();
-            services.AddSingleton<CarsViewModel>();
+            services.AddSingleton<MainViewModel>();
+            services.AddSingleton<LogInViewModel>();
+            services.AddSingleton<FleetViewModel>();
+            services.AddSingleton<CarListingViewModel>();
+            services.AddSingleton<PersonListingViewModel>();
+            services.AddSingleton<FuelCardListingViewModel>();
+
 
 
 
