@@ -35,10 +35,16 @@
                 <TextBox Grid.Row="0" Margin="0,0,0,25" FontSize="20"  md:HintAssist.Hint="Username" Text="{Binding Username}"/>
 
 
-                <PasswordBox  Grid.Row="1" Margin="0,0,0,25" FontSize="20"   md:HintAssist.Hint="Password" PasswordChanged="PasswordBox_PasswordChanged" />
+                <PasswordBox  Grid.Row="1" Margin="0,0,0,25" FontSize="20"   md:HintAssist.Hint="Password" PasswordChanged="PasswordBox_PasswordChanged" >
+                    <PasswordBox.InputBindings>
+                        <KeyBinding Command="{Binding LoginCommand}" Key="Enter" />
+                    </PasswordBox.InputBindings>
+                </PasswordBox>
 
 
-                <Button  Grid.Row ="2" Width="250"  Content="Login" FontSize="16" HorizontalAlignment="Center"  Command="{Binding LoginCommand}" />
+                <Button  Grid.Row ="2" Width="250"  Content="Log in" FontSize="16" HorizontalAlignment="Center"  Command="{Binding LoginCommand}" IsEnabled="{Binding IsLogInButtonEnabled}" />
+
+
 
 
             </Grid>
