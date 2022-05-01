@@ -11,5 +11,6 @@ namespace Presentation.HttpClients
         Task<T> PostAsync<T,O>(string uri, O payLoad);
         Task<T> PutAsync<T>(string uri, T payLoad);
         Task<HttpStatusCode> DeleteAsync(string uri, StringContent payLoad);
+        Task<HttpStatusCode> DeleteAsync(string uri);
     }
 }
