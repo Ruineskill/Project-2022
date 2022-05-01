@@ -1,31 +1,29 @@
-﻿using Presentation.Interfaces;
+﻿using Domain.Models;
+using Domain.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Models;
-using Domain.Models.Enums;
 
 namespace Presentation.ViewModels
 {
     public class CarViewModel : ViewModelBase
     {
+
         private readonly Car _car;
 
-        public int Id => _car.Id;
-        public string Brand =>_car.Brand;
-        public string Model =>_car.Model;
-        public string ChassisNumber =>_car.ChassisNumber;
-        public string LicensePlate=>_car.LicensePlate;
-        public FuelType FuelType => _car.FuelType;
-        public CarType Type =>_car.Type;
-        public Person? Person =>_car.Person;
-        public string? Color =>_car.Color;
-        public int NumberOfDoors => _car.NumberOfDoors;
-        public bool Delete => _car.Delete;
-        public DrivingLicenseType RequiredLicence => _car.RequiredLicence;
-
+        public int Id { get => _car.Id; }
+        public string Brand { get => _car.Brand; set => _car.Brand = value; }
+        public string Model { get => _car.Model; set => _car.Model = value; }
+        public string ChassisNumber { get => _car.ChassisNumber; set => _car.ChassisNumber = value; }
+        public string LicensePlate { get => _car.LicensePlate; set => _car.LicensePlate = value; }
+        public FuelType FuelType { get => _car.FuelType; set => _car.FuelType = value; }
+        public CarType Type { get => _car.Type; set => _car.Type = value; }
+        public Person? Person { get => _car.Person; set => _car.Person = value; }
+        public string? Color { get => _car.Color; set => _car.Color = value; }
+        public int NumberOfDoors { get => _car.NumberOfDoors; set => _car.NumberOfDoors = value; }
+        public DrivingLicenseType RequiredLicence { get => _car.RequiredLicence; }
 
 
         public CarViewModel(Car car)
