@@ -25,16 +25,15 @@ namespace RestAPI.Configurations
             services.AddTransient<IUserService, UserService>();
 
             // Services used by identity
-            services.AddSingleton<IUserValidator<IdentityUser>, UserValidator<IdentityUser>>();
-            services.AddSingleton<IPasswordValidator<IdentityUser>, PasswordValidator<IdentityUser>>();
-            services.AddSingleton<IPasswordHasher<IdentityUser>, PasswordHasher<IdentityUser>>();
-            services.AddSingleton<ILookupNormalizer, UpperInvariantLookupNormalizer>();
+            services.AddScoped<IUserValidator<IdentityUser>, UserValidator<IdentityUser>>();
+            services.AddScoped<IPasswordValidator<IdentityUser>, PasswordValidator<IdentityUser>>();
+            services.AddScoped<IPasswordHasher<IdentityUser>, PasswordHasher<IdentityUser>>();
+            services.AddScoped<ILookupNormalizer, UpperInvariantLookupNormalizer>();
 
-    
-            services.AddSingleton<IdentityErrorDescriber>();
-            services.AddSingleton<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser>>();
-            services.AddSingleton<UserManager<IdentityUser>>();
-            services.AddSingleton<RoleManager<IdentityRole>>();
+            services.AddScoped<IdentityErrorDescriber>();
+            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser>>();
+            services.AddScoped<UserManager<IdentityUser>>();
+            services.AddScoped<RoleManager<IdentityRole>>();
         }
     }
 }
