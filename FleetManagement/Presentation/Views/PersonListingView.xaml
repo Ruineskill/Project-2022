@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Presentation.Views.PersonListingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Presentation.Views" xmlns:viewmodels="clr-namespace:Presentation.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:PersonListingViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <DataGrid ItemsSource="{Binding People}" AutoGenerateColumns="False" 
+                  CellStyle="{StaticResource DataCells}" RowStyle="{StaticResource DataRows}"
+                  CanUserAddRows="False" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" 
+                  SelectedItem="{Binding SelectedPerson}">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Birth Date" Binding="{Binding DateOfBirth}"/>
+                <DataGridTextColumn Header="NationalID" Binding="{Binding NationalID}"/>
+                <DataGridTextColumn Header="License Type" Binding="{Binding DrivingLicenseType}"/>
+                <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="Car" Binding="{Binding Car}"/>
+                <DataGridTextColumn Header="Fuel Card" Binding="{Binding FuelCard}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
