@@ -45,7 +45,7 @@ namespace RestAPI.Controllers
 
             var reponse = await _userService.Refresh(user, refresh.Token);
 
-            return Ok();
+            return Ok(reponse);
         }
 
 
