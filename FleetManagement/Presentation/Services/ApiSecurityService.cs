@@ -1,8 +1,6 @@
 ﻿#nullable disable
 using Domain.Models;
 using System.Text.Json;
-using Presentation.Constants;
-using Presentation.Dto;
 using Presentation.HttpClients;
 using Presentation.Interfaces;
 
@@ -14,6 +12,8 @@ using System.Net.Http.Headers;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using Shared.Authentication;
+using Shared.ApiRoutes;
 
 namespace Presentation.Services
 {
@@ -34,7 +34,7 @@ namespace Presentation.Services
 
 
             _client.ClearRequestHeaders();
-            _client.AddRequestHeader("Accept", "application / json");
+            _client.AddRequestHeader("Accept", "application/json");
 
             var signin = new SignInRequest()
             {
@@ -45,7 +45,7 @@ namespace Presentation.Services
 
             try
             {
-                _authenticationInfo = await _client.PostAsync<AuthenticationReponse, SignInRequest>(HttpPaths.SignIn, signin);
+                _authenticationInfo = await _client.PostAsync<AuthenticationReponse, SignInRequest>(UserRoute.Base + UserRoute.SignIn, signin);
                 _client.AddRequestHeader("Authorization", "Bearer " + _authenticationInfo?.Token);
                 return _authenticationInfo.IsAuthenticated;
 
@@ -60,7 +60,7 @@ namespace Presentation.Services
 
         public async void SignOut()
         {
-            await _client.DeleteAsync(HttpPaths.SignOut);
+            await _client.DeleteAsync(UserRoute.Base + UserRoute.SignOut);
 
         }
     }

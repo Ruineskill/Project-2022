@@ -1,7 +1,8 @@
 ﻿using Domain.Models;
-using Presentation.Constants;
+
 using Presentation.HttpClients;
 using Presentation.Interfaces;
+using Shared.ApiRoutes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,8 +32,16 @@ namespace Presentation.Services
 
         public async Task<IEnumerable<Car>> GetAllAsync()
         {
-            return await  _client.GetAsync<IEnumerable<Car>>(HttpPaths.GetAllCars);
+            return await _client.GetAsync<IEnumerable<Car>>(CarRoute.Base + CarRoute.GetAll);
         }
+
+
+        public IAsyncEnumerable<Car> GetAllStream()
+        {
+            return _client.GetAllStream<Car>(CarRoute.Base + CarRoute.GetAllStream);
+
+        }
+
 
         public Task<Car> GetAsync(int id)
         {

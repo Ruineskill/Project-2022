@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RestAPI.Authentication;
 using RestAPI.Interfaces;
+using Shared.Authentication;
 
-namespace RestAPI.Controllers
+namespace Shared.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -19,8 +19,8 @@ namespace RestAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("SignIn")]
-        public async Task<ActionResult<AuthenticationReponse>> SignIn(SignInRequest login)
+        [HttpPost(ApiRoutes.UserRoute.SignIn)]
+        public async Task<ActionResult<AuthenticationReponse>> UserSignIn(SignInRequest login)
         {
             var reponse = await _userService.Authenticate(login);
 
@@ -33,8 +33,8 @@ namespace RestAPI.Controllers
         }
 
 
-        [HttpPost("Refresh")]
-        public async Task<ActionResult<AuthenticationReponse>> Refresh(RefreshRequest refresh)
+        [HttpPost(ApiRoutes.UserRoute.RefreshToken)]
+        public async Task<ActionResult<AuthenticationReponse>> RefreshToken(RefreshRequest refresh)
         {
 
             var user = await _userService.GetUser(User);
@@ -49,8 +49,8 @@ namespace RestAPI.Controllers
         }
 
 
-        [HttpDelete("Invalidate")]
-        public async Task<IActionResult> Invalidate()
+        [HttpDelete(ApiRoutes.UserRoute.SignOut)]
+        public async Task<IActionResult> UserSignOut()
         {
             var user = await _userService.GetUser(User);
             if (user == null) return BadRequest();

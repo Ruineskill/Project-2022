@@ -1,4 +1,4 @@
-﻿namespace RestAPI.Authentication
+﻿namespace Shared.Authentication
 {
     public class RefreshRequest
     {

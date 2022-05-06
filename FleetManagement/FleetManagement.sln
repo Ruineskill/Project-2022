@@ -11,9 +11,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "FleetTesting\Un
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestAPI", "RestAPI\RestAPI.csproj", "{50E5A6DA-F0A1-426A-9210-DA2C5C3C2992}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{ED917C70-7C90-41D1-A3A4-A43B8FADE4FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "Presentation\Presentation.csproj", "{ED917C70-7C90-41D1-A3A4-A43B8FADE4FB}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Shared\Shared.shproj", "{1559C448-3A55-4E37-9B94-7AB5DB0965B4}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\Shared.projitems*{1559c448-3a55-4e37-9b94-7ab5db0965b4}*SharedItemsImports = 13
+		Shared\Shared.projitems*{50e5a6da-f0a1-426a-9210-da2c5c3c2992}*SharedItemsImports = 5
+		Shared\Shared.projitems*{ed917c70-7c90-41d1-a3a4-a43b8fade4fb}*SharedItemsImports = 5
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

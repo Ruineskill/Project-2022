@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RestAPI.Authentication;
+using Shared.Authentication;
 using System.Security.Claims;
 
 namespace RestAPI.Interfaces

@@ -52,7 +52,7 @@ namespace Repository.DBInitializers
             new Car("Audi", "Q5", "1FMZU35P5XZA85048", "1-FMG-037", FuelType.Diesel, CarType.Jeep),
             new Car("Audi", "Q6", "1B3LC46K08N628032", "1-FMG-038", FuelType.Electric, CarType.Jeep),
             new Car("Audi", "Q7", "1GNCS13W7V2148338", "1-FMG-039", FuelType.Electric, CarType.Jeep),
-            new Car("Opel", "Vivaro", "2GCEC19X531207821", "1-FMG-40", FuelType.Electric, CarType.Jeep),
+            new Car("Opel", "Vivaro", "2GCEC19X531207821", "1-FMG-040", FuelType.Electric, CarType.Jeep),
             new Car("Opel", "Vivaro", "1GCEC14X29Z201563", "1-FMG-041", FuelType.Diesel, CarType.Jeep),
             new Car("Opel", "Vivaro", "1N4AL2AP7BN446273", "1-FMG-042", FuelType.Diesel, CarType.Jeep),
             new Car("Opel", "Vivaro", "1ZVFT82H575339964", "1-FMG-043", FuelType.Diesel, CarType.Jeep),
@@ -118,9 +118,10 @@ namespace Repository.DBInitializers
         {
             context.Database.EnsureCreated();
 
+
             foreach(var c in _cars)
             {
-                var result = context.Cars.Where(b => b.ChassisNumber == c.ChassisNumber && b.LicensePlate == c.LicensePlate).FirstOrDefault();
+                var result = context.Cars.Where(b => b.ChassisNumber == c.ChassisNumber || b.LicensePlate == c.LicensePlate).FirstOrDefault();
                 if(result == null)
                 {
                     context.Cars.Add(c);

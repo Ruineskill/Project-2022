@@ -1,5 +1,4 @@
-﻿#nullable disable
-using Presentation.Constants;
+﻿#nullable disable warnings
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,15 +21,18 @@ namespace Presentation.HttpClients
         {
 
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri(HttpPaths.Base);
-            _jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+            _httpClient.BaseAddress = new Uri(Shared.ApiRoutes.BaseRoute.Base);
+
+            _jsonOptions = new JsonSerializerOptions();
             _jsonOptions.Converters.Add(new DateOnlyConverter());
-          
+            _jsonOptions.PropertyNameCaseInsensitive = true;
+            _jsonOptions.DefaultBufferSize = 300;
+
         }
 
         public Task<T> GetAsync<T>(string uri)
         {
-            return _httpClient.GetFromJsonAsync<T>(HttpPaths.Base + uri, _jsonOptions);
+            return _httpClient.GetFromJsonAsync<T>(uri, _jsonOptions);
         }
 
         public async Task<T> PostAsync<T>(string uri, T payLoad)
@@ -80,6 +82,25 @@ namespace Presentation.HttpClients
         {
             var response = await _httpClient.DeleteAsync(uri);
             return response.StatusCode;
+        }
+
+
+        public async IAsyncEnumerable<T> GetAllStream<T>(string uri)
+        {
+            var response = await _httpClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
+            response.EnsureSuccessStatusCode();
+
+         
+          
+            var responseStream = await response.Content.ReadAsStreamAsync();
+            var items = JsonSerializer.DeserializeAsyncEnumerable<T>(responseStream, _jsonOptions);
+            
+            await foreach(var item in items)
+            {
+                yield return item;
+            }
+
+
         }
     }
 }

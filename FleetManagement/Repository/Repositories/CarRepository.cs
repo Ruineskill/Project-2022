@@ -80,5 +80,19 @@ namespace Repository.Repositories
             }
 
         }
+
+        public IAsyncEnumerable<Car> GetAllStream()
+        {
+            try
+            {
+
+                return _context.Cars.AsNoTracking().AsAsyncEnumerable();
+            }
+            catch(Exception ex)
+            {
+
+                throw new CarRepositoryException(nameof(GetAllStream), ex);
+            }
+        }
     }
 }

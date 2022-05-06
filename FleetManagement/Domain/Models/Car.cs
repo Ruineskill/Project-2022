@@ -152,7 +152,7 @@ namespace Domain.Models
 
             // License plate format are: N-LLL-NNN , N-NNN-LLL, LLL-NNN-N, NNN-LLL-N
             // where N is a digit and L is a letter
-            const string pattern = @"[1-9]-[A-Z]{3}-[1-9]{3}|[1-9]-[1-9]{3}-[A-Z]{3}|[A-Z]{3}-[1-9]{3}-[1-9]|[1-9]{3}-[A-Z]{3}-[1-9]";
+            const string pattern = @"[1-9]-[A-Z]{3}-[0-9]{3}|[1-9]-[0-9]{3}-[A-Z]{3}|[A-Z]{3}-[0-9]{3}-[1-9]|[0-9]{3}-[A-Z]{3}-[1-9]";
 
             return Regex.IsMatch(LicensePlate, pattern);
         }

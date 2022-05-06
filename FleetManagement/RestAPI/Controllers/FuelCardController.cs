@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
 using RestAPI.Authentication.Constants;
 
-namespace RestAPI.Controllers
+
+namespace Shared.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -21,14 +22,24 @@ namespace RestAPI.Controllers
         }
 
         // GET: api/FuelCard
-        [HttpGet]
+        [HttpGet(ApiRoutes.FuelCardRoute.GetAll)]
         public async Task<ActionResult<IEnumerable<FuelCard>>> GetAll()
         {
+
             return Ok(await _repo.GetAllAsync());
+
         }
 
+        // GET: api/FuelCard
+        [HttpGet(ApiRoutes.FuelCardRoute.GetAllStream)]
+        public IAsyncEnumerable<FuelCard> GetAllStream()
+        {
+            return _repo.GetAllStream();
+        }
+
+
         // GET: api/FuelCard/
-        [HttpGet("{id}")]
+        [HttpGet((ApiRoutes.FuelCardRoute.GetById))]
         public async Task<ActionResult<FuelCard>> Get(int id)
         {
             var fc = await _repo.FindAsync(id);
@@ -43,9 +54,9 @@ namespace RestAPI.Controllers
 
         // PUT: api/FuelCard/
         [Authorize(Policy = UserPolicies.Manager)]
-        [HttpPut]
+        [HttpPut(ApiRoutes.FuelCardRoute.Update)]
         public async Task<ActionResult<FuelCard>> Update(FuelCard fuelCard)
-        {        
+        {
             try
             {
                 return Ok(await _repo.UpdateAsync(fuelCard));
@@ -65,7 +76,7 @@ namespace RestAPI.Controllers
 
         // POST: api/FuelCard
         [Authorize(Policy = UserPolicies.Manager)]
-        [HttpPost]
+        [HttpPost(ApiRoutes.FuelCardRoute.Create)]
         public async Task<ActionResult<FuelCard>> Create(FuelCard fuelCard)
         {
             try
@@ -80,7 +91,7 @@ namespace RestAPI.Controllers
                 }
                 else
                 {
-                   return BadRequest(ex.Message);
+                    return BadRequest(ex.Message);
                 }
             }
 
@@ -89,7 +100,7 @@ namespace RestAPI.Controllers
 
         // DELETE: api/FuelCard/
         [Authorize(Policy = UserPolicies.Admin)]
-        [HttpDelete]
+        [HttpDelete(ApiRoutes.FuelCardRoute.Delete)]
         public async Task<IActionResult> Delete(FuelCard fuelCard)
         {
             if (await _repo.FindAsync(fuelCard.Id) == null)

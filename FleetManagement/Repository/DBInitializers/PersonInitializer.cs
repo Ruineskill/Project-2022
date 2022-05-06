@@ -102,7 +102,6 @@ namespace Repository.DBInitializers
             new Person("Morgan", "Elsbeth", new(1987, 10, 01), "87100100123", DrivingLicenseType.D) { Address = new("Koekkoekstreet", 91, "Melle", 9090) },
             new Person("Karyn", "Faro", new(1988, 01, 01), "88010100178", DrivingLicenseType.D) { Address = new("Koekkoekstreet", 11, "Melle", 9090) },
             new Person("Janus", "Greejatus", new(1989, 01, 08), "89010800183", DrivingLicenseType.D) { Address = new("Koekkoekstreet", 87, "Melle", 9090) },
-            new Person("Gideon", "Hask", new(1990, 10, 01), "90100100590", DrivingLicenseType.D) { Address = new("Koekkoekstreet", 21, "Melle", 9090) },
             new Person("Valin", "Hess", new(1991, 04, 11), "91041100156", DrivingLicenseType.D) { Address = new("Koekkoekstreet", 77, "Melle", 9090) },
             new Person("Tiaan", "Jerjerrod", new(1992, 08, 01), "92080100117", DrivingLicenseType.D) { Address = new("Koekkoekstreet", 55, "Melle", 9090) },
             new Person("Kassius", "Konstantine", new(1993, 07, 10), "93071000152", DrivingLicenseType.D1E) { Address = new("'T Zand", 1, "Kortrijk", 8500) },
@@ -131,10 +130,8 @@ namespace Repository.DBInitializers
 
             foreach(var p in _persons)
             {
-               var result= context.Persons.Where(b=>b.FirstName == p.FirstName &&
-                                                    b.LastName == p.LastName && 
-                                                    b.NationalRegistrationNumber == p.NationalRegistrationNumber).FirstOrDefault();
-                if(result ==null)
+                var result = context.Persons.Where(b => b.NationalRegistrationNumber == p.NationalRegistrationNumber).FirstOrDefault();
+                if(result == null)
                 {
                     context.Persons.Add(p);
                 }

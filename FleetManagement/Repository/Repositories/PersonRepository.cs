@@ -81,5 +81,19 @@ namespace Repository.Repositories
 
             return person;
         }
+
+        public IAsyncEnumerable<Person> GetAllStream()
+        {
+            try
+            {
+
+                return _context.Persons.AsNoTracking().AsAsyncEnumerable();
+            }
+            catch(Exception ex)
+            {
+
+                throw new PersonRepositoryException(nameof(GetAllStream), ex);
+            }
+        }
     }
 }

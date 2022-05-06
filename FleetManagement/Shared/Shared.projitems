@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>1559c448-3a55-4e37-9b94-7ab5db0965b4</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ApiRoutes\BaseRoute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApiRoutes\CarRoute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApiRoutes\FuelCardRoute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApiRoutes\PersonRoute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApiRoutes\UserRoute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationReponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\RefreshRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\SignInRequest.cs" />
+  </ItemGroup>
+</Project>

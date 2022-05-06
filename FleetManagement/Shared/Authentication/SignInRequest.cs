@@ -1,5 +1,5 @@
 ﻿#nullable disable
-namespace RestAPI.Authentication
+namespace Shared.Authentication
 {
     public class SignInRequest
     {

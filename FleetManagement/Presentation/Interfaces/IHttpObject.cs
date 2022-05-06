@@ -11,6 +11,7 @@ namespace Presentation.Interfaces
         Task<T> CreateAsync(T obj);
         void DeleteAsync(T obj);
         Task<IEnumerable<T>> GetAllAsync();
+        IAsyncEnumerable<T> GetAllStream();
         Task<T> GetAsync(int id);
         Task<T> UpdateAsync(T obj);
     }

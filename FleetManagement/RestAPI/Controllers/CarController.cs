@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
 using RestAPI.Authentication.Constants;
 
-namespace RestAPI.Controllers
+namespace Shared.Controllers
 {
 
     [Authorize]
@@ -22,14 +22,22 @@ namespace RestAPI.Controllers
         }
 
         // GET: api/Car
-        [HttpGet]
+        [HttpGet(ApiRoutes.CarRoute.GetAll)]
         public async Task<ActionResult<IEnumerable<Car>>> GetAll()
         {
+
             return Ok(await _repo.GetAllAsync());
         }
 
+        // GET: api/Car
+        [HttpGet(ApiRoutes.CarRoute.GetAllStream)]
+        public IAsyncEnumerable<Car> GetAllStream()
+        {
+            return _repo.GetAllStream();
+        }
+
         // GET: api/Car/
-        [HttpGet("{id}")]
+        [HttpGet(ApiRoutes.CarRoute.GetById)]
         public async Task<ActionResult<Car>> Get(int id)
         {
             var car = await _repo.FindAsync(id);
@@ -44,7 +52,7 @@ namespace RestAPI.Controllers
 
         // PUT: api/Car/
         [Authorize(Policy = UserPolicies.Manager)]
-        [HttpPut]
+        [HttpPut(ApiRoutes.CarRoute.Update)]
         public async Task<ActionResult<Car>> Update(Car car)
         {
             try
@@ -66,7 +74,7 @@ namespace RestAPI.Controllers
 
         // POST: api/Car
         [Authorize(Policy = UserPolicies.Manager)]
-        [HttpPost]
+        [HttpPost(ApiRoutes.CarRoute.Create)]
         public async Task<ActionResult<Car>> Create(Car car)
         {
             try
@@ -90,7 +98,7 @@ namespace RestAPI.Controllers
 
         // DELETE: api/Car/
         [Authorize(Policy = UserPolicies.Admin)]
-        [HttpDelete]
+        [HttpDelete(ApiRoutes.CarRoute.Delete)]
         public async Task<IActionResult> Delete(Car car)
         {
             if (await _repo.FindAsync(car.Id) == null)

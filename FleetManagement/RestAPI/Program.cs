@@ -68,26 +68,25 @@ ServicesConfiguration.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-// data seed
-using(var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var userManager = services.GetService<UserManager<IdentityUser>>();
-    var roleManager = services.GetService<RoleManager<IdentityRole>>();
-    UserInitializer.SeedData(userManager, roleManager);
-
-    using var context = services.GetService<Context>();
-    CarInitializer.SeedData(context);
-    FuelCardInitializer.SeedData(context);
-    PersonInitializer.SeedData(context);
-
-}
-
-
-
 // Configure the HTTP request pipeline.
 if(app.Environment.IsDevelopment())
 {
+    // data seed
+    using(var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var userManager = services.GetService<UserManager<IdentityUser>>();
+        var roleManager = services.GetService<RoleManager<IdentityRole>>();
+        UserInitializer.SeedData(userManager, roleManager);
+
+        using var context = services.GetService<Context>();
+        CarInitializer.SeedData(context);
+        FuelCardInitializer.SeedData(context);
+        PersonInitializer.SeedData(context);
+
+    }
+
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }

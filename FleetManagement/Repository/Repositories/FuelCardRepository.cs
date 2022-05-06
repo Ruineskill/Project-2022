@@ -80,5 +80,19 @@ namespace Repository.Repositories
 
             return fuelCard;
         }
+
+        public IAsyncEnumerable<FuelCard> GetAllStream()
+        {
+            try
+            {
+
+                return _context.FuelCards.AsNoTracking().AsAsyncEnumerable();
+            }
+            catch(Exception ex)
+            {
+
+                throw new FuelCardRepositoryException(nameof(GetAllStream), ex);
+            }
+        }
     }
 }

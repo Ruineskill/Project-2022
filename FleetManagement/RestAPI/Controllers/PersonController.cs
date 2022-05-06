@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
 using RestAPI.Authentication.Constants;
 
-namespace RestAPI.Controllers
+namespace Shared.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -21,14 +21,21 @@ namespace RestAPI.Controllers
         }
 
         // GET: api/Person
-        [HttpGet]
+        [HttpGet(ApiRoutes.PersonRoute.GetAll)]
         public async Task<ActionResult<IEnumerable<Person>>> GetAll()
         {
             return Ok(await _repo.GetAllAsync());
         }
 
+        // GET: api/Person
+        [HttpGet(ApiRoutes.PersonRoute.GetAllStream)]
+        public IAsyncEnumerable<Person> GetAllStream()
+        {
+            return _repo.GetAllStream();
+        }
+
         // GET: api/Person/
-        [HttpGet("{id}")]
+        [HttpGet(ApiRoutes.PersonRoute.GetById)]
         public async Task<ActionResult<Person>> Get(int id)
         {
             var car = await _repo.FindAsync(id);
@@ -43,7 +50,7 @@ namespace RestAPI.Controllers
 
         // PUT: api/Person/
         [Authorize(Policy = UserPolicies.Manager)]
-        [HttpPut("{id}")]
+        [HttpPut(ApiRoutes.PersonRoute.Update)]
         public async Task<IActionResult> Update(Person person)
         {
             try
@@ -65,7 +72,7 @@ namespace RestAPI.Controllers
 
         // POST: api/Person
         [Authorize(Policy = UserPolicies.Manager)]
-        [HttpPost]
+        [HttpPost(ApiRoutes.PersonRoute.Create)]
         public async Task<ActionResult<Person>> Create(Person person)
         {
             try
@@ -89,7 +96,7 @@ namespace RestAPI.Controllers
 
         // DELETE: api/Person/
         [Authorize(Policy = UserPolicies.Admin)]
-        [HttpDelete]
+        [HttpDelete(ApiRoutes.PersonRoute.Delete)]
         public async Task<IActionResult> Delete(Person person)
         {
             if (await _repo.FindAsync(person.Id) == null)
@@ -100,6 +107,6 @@ namespace RestAPI.Controllers
             _repo.Remove(person);
 
             return Ok();
-        }       
+        }
     }
 }

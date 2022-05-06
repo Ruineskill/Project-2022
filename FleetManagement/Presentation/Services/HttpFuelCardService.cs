@@ -1,7 +1,7 @@
 ﻿using Domain.Models;
-using Presentation.Constants;
 using Presentation.HttpClients;
 using Presentation.Interfaces;
+using Shared.ApiRoutes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,12 @@ namespace Presentation.Services
 
         public async Task<IEnumerable<FuelCard>> GetAllAsync()
         {
-            return await _client.GetAsync<IEnumerable<FuelCard>>(HttpPaths.GetAllFuelCards);
+            return await _client.GetAsync<IEnumerable<FuelCard>>(FuelCardRoute.Base + FuelCardRoute.GetAll);
+        }
+
+        public IAsyncEnumerable<FuelCard> GetAllStream()
+        {
+            return _client.GetAllStream<FuelCard>(FuelCardRoute.Base + FuelCardRoute.GetAllStream);
         }
 
         public Task<FuelCard> GetAsync(int id)
