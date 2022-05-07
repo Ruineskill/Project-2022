@@ -4,6 +4,6 @@ namespace RestAPI.Interfaces
 {
     public interface ITokenService
     {
-        string Generate(IdentityUser user);
+        Task<String> Generate(IdentityUser user);
     }
 }

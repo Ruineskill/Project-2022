@@ -40,7 +40,7 @@ namespace Shared.Controllers
             var user = await _userService.GetUser(User);
             if (user == null) return BadRequest();
 
-            var isValid = _userService.Validate(user, refresh.Token);
+            var isValid = await _userService.Validate(user, refresh.Token);
             if (!isValid) return BadRequest();
 
             var reponse = await _userService.Refresh(user, refresh.Token);
@@ -54,7 +54,7 @@ namespace Shared.Controllers
         {
             var user = await _userService.GetUser(User);
             if (user == null) return BadRequest();
-            _userService.RemoveRefreshToken(user);
+            await _userService.RemoveRefreshToken(user);
        
             
             return Ok();

@@ -25,11 +25,11 @@ namespace RestAPI.Services
             _tokenValidationService = tokenValidatorService;
         }
 
-        public bool Validate(IdentityUser user, string token)
+        public async Task<bool> Validate(IdentityUser user, string token)
         {
 
             if (!_tokenValidationService.Validate(token)) return false;
-            var refreshToken = GetRefreshToken(user);
+            var refreshToken = await GetRefreshToken(user);
             if (refreshToken == null) return false;
 
             if (refreshToken != token) return false;
@@ -57,7 +57,7 @@ namespace RestAPI.Services
                     return new AuthenticationReponse
                     {
                         IsAuthenticated = true,
-                        Token = _tokenService.Generate(user),
+                        Token = await _tokenService.Generate(user),
                         RefreshToken = refreshToken,
                         UserName = login.UserName,
                     };
@@ -76,7 +76,7 @@ namespace RestAPI.Services
             return new AuthenticationReponse
             {
                 IsAuthenticated = true,
-                Token = _tokenService.Generate(user),
+                Token = await _tokenService.Generate(user),
                 RefreshToken = refreshToken,
                 UserName = user.UserName,
             };
@@ -93,12 +93,12 @@ namespace RestAPI.Services
             await _userManger.SetAuthenticationTokenAsync(user, "JWT", "Refresh", refreshToken);
         }
 
-        private string GetRefreshToken(IdentityUser user)
+        private async Task<string> GetRefreshToken(IdentityUser user)
         {
-            return _userManger.GetAuthenticationTokenAsync(user, "JWT", "Refresh").Result;
+            return await _userManger.GetAuthenticationTokenAsync(user, "JWT", "Refresh");
         }
 
-        public async void RemoveRefreshToken(IdentityUser user)
+        public async Task RemoveRefreshToken(IdentityUser user)
         {
             await _userManger.RemoveAuthenticationTokenAsync(user, "JWT", "Refresh");
         }

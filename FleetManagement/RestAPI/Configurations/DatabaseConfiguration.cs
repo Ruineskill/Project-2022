@@ -24,8 +24,6 @@ namespace RestAPI.Configurations
                 options.Password.RequiredLength = 3;
             }).AddRoles<IdentityRole>().AddEntityFrameworkStores<AuthContext>().AddDefaultTokenProviders();
 
-
-
         }
     }
 }

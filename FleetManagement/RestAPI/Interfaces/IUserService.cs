@@ -11,8 +11,10 @@ namespace RestAPI.Interfaces
 
         Task<IdentityUser?> GetUser(ClaimsPrincipal principal);
 
-        bool Validate(IdentityUser user, string token);
+        Task<bool> Validate(IdentityUser user, string token);
+
         Task<AuthenticationReponse?> Refresh(IdentityUser user, string token);
-        void RemoveRefreshToken(IdentityUser user);
+
+        Task RemoveRefreshToken(IdentityUser user);
     }
 }

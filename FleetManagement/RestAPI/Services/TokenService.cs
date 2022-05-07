@@ -19,12 +19,12 @@ namespace RestAPI.Services
             _userManger = userManger;
         }
 
-        public string Generate(IdentityUser user)
+        public async Task<string> Generate(IdentityUser user)
         {
             var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.UserName) };
 
             // get role
-            var roles = _userManger.GetRolesAsync(user).Result;
+            var roles = await _userManger.GetRolesAsync(user);
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
