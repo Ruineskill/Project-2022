@@ -8,11 +8,11 @@ namespace Presentation.Interfaces
 {
     public  interface IHttpObject<T>
     {
-        Task<T> CreateAsync(T obj);
-        void DeleteAsync(T obj);
+        Task<bool> CreateAsync(T obj);
+        Task<bool>  DeleteAsync(T obj);
         Task<IEnumerable<T>> GetAllAsync();
         IAsyncEnumerable<T> GetAllStream();
         Task<T> GetAsync(int id);
-        Task<T> UpdateAsync(T obj);
+        Task<bool> UpdateAsync(T obj);
     }
 }
