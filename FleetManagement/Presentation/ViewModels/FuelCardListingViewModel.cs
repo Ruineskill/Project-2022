@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Domain.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Presentation.Interfaces;
+using Presentation.Mediators;
+using Presentation.ViewModels.Bases;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +19,8 @@ namespace Presentation.ViewModels
 
         private readonly IHttpFuelCardService _fuelCardService;
 
+        private readonly FuelCardMediator _fuelCardMediator;
+
         private ObservableCollection<FuelCardViewModel> _fuelCards;
 
         public ObservableCollection<FuelCardViewModel> FuelCards { get => _fuelCards; set => _fuelCards = value; }
@@ -27,18 +32,48 @@ namespace Presentation.ViewModels
             set => SetProperty(ref _selectedFuelCard, value);
         }
 
-        public FuelCardListingViewModel(IHttpFuelCardService fuelCardService)
+        public FuelCardListingViewModel(IHttpFuelCardService fuelCardService, FuelCardMediator fuelCardMediator)
         {
             _fuelCards = new();
             _fuelCardService = fuelCardService;
-            LoadFuelCard();
+            _fuelCardMediator = fuelCardMediator;
+            _ = LoadFuelCards();
+
+            _fuelCardMediator.Created += OnFuelCardCreated;
         }
 
 
-        private async void LoadFuelCard()
+        private async Task LoadFuelCards()
         {
-                var fuelCards = await _fuelCardService.GetAllAsync();
-                foreach(var f in fuelCards) _fuelCards.Add(new FuelCardViewModel(f));
+           
+            await foreach(var fuelCard in _fuelCardService.GetAllStream())
+            {
+                _fuelCards.Add(new FuelCardViewModel(fuelCard));
+            }
+
+        }
+
+        private async void OnFuelCardCreated(FuelCard obj)
+        {
+            if(await _fuelCardService.CreateAsync(obj))
+            {
+                _fuelCards.Add(new FuelCardViewModel(obj));
+            }
+        }
+
+        public override void ReadItemHandler()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void EditItemHandler()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DeleteItemHandler()
+        {
+            throw new NotImplementedException();
         }
     }
 }

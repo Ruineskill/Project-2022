@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Presentation.ViewModels.Bases;
 
 namespace Presentation.ViewModels
 {
@@ -51,23 +52,42 @@ namespace Presentation.ViewModels
             {
                 App.Current.Services.GetService<CarListingViewModel>(),
                 App.Current.Services.GetService<PersonListingViewModel>(),
-                 App.Current.Services.GetService<FuelCardListingViewModel>(),
+                App.Current.Services.GetService<FuelCardListingViewModel>(),
             };
 
 
             _selectedTab = _tabs.First();
+
+
+           
+            //EditItemCommand = new RelayCommand(EditItemHandler);
+            //DeleteItemCommand = new RelayCommand(DeleteItemHandler);
         }
 
 
 
         public ICommand SignOutCommand { get; }
-      
-        public void SignOutHandler()
+        private void SignOutHandler()
         {
             var apiService = App.Current.Services.GetService<IApiSecurityService>();
             apiService.SignOut();
 
             _navigationService.Navigate(App.Current.Services.GetService<LogInViewModel>());
+           
         }
+
+     
+
+        //public ICommand EditItemCommand { get; }
+        //private void EditItemHandler()
+        //{
+
+        //}
+
+        //public ICommand DeleteItemCommand { get; }
+        //private void DeleteItemHandler()
+        //{
+
+        //}
     }
 }

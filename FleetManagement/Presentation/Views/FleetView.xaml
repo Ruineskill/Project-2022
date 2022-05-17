@@ -8,7 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800"  
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:Presentation.ViewModels"
-             d:DataContext="{d:DesignInstance Type=vm:FleetViewModel}" >
+             xmlns:vmb="clr-namespace:Presentation.ViewModels.Bases"
+             d:DataContext="{d:DesignInstance Type=vm:FleetViewModel}">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -47,6 +49,7 @@
         <!-- Tab control -->
         <TabControl Grid.Row="1"  ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab}" Style="{StaticResource MaterialDesignTabControl}" >
             <TabControl.Resources>
+              <!-- context maping-->
                 <DataTemplate DataType="{x:Type vm:CarListingViewModel}">
                     <views:CarListingView />
                 </DataTemplate>
@@ -58,10 +61,13 @@
                 </DataTemplate>
             </TabControl.Resources>
 
-
+            
+            
             <TabControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type vm:TabViewModelBase}">
-                    <TextBlock Text="{Binding Name}"/>
+                <DataTemplate DataType="{x:Type vmb:TabViewModelBase}">
+                    <StackPanel  >
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
                 </DataTemplate>
             </TabControl.ItemTemplate>
 
