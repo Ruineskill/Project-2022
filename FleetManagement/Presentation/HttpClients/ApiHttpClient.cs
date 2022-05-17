@@ -1,4 +1,4 @@
-﻿#nullable disable warnings
+﻿#nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace Presentation.HttpClients
             _jsonOptions = new JsonSerializerOptions();
             _jsonOptions.Converters.Add(new DateOnlyConverter());
             _jsonOptions.PropertyNameCaseInsensitive = true;
-            _jsonOptions.DefaultBufferSize = 300;
+            _jsonOptions.DefaultBufferSize = 500;
 
         }
 
@@ -35,12 +35,21 @@ namespace Presentation.HttpClients
             return _httpClient.GetFromJsonAsync<T>(uri, _jsonOptions);
         }
 
-        public async Task<T> PostAsync<T>(string uri, T payLoad)
+        public async Task<HttpStatusCode> PostAsync<T>(string uri, T payLoad)
         {
             var response = await _httpClient.PostAsJsonAsync(uri, payLoad, _jsonOptions);
-
-            return await HttpContentJsonExtensions.ReadFromJsonAsync<T>(response.Content);
+            return response.StatusCode;
         }
+
+        public async Task<R> PostAsync<R, T>(string uri, T payLoad)
+        {
+            var response = await _httpClient.PostAsJsonAsync(uri, payLoad, _jsonOptions);
+            response.EnsureSuccessStatusCode();
+
+
+            return await HttpContentJsonExtensions.ReadFromJsonAsync<R>(response.Content);
+        }
+
 
         public void AddRequestHeader(string attributeName, string attributeContent)
         {
@@ -52,30 +61,11 @@ namespace Presentation.HttpClients
             _httpClient.DefaultRequestHeaders.Clear();
         }
 
-        public async Task<T> PostAsync<T, O>(string uri, O payLoad)
-        {
-            var response = await _httpClient.PostAsJsonAsync(uri, payLoad, _jsonOptions);
-
-            return await HttpContentJsonExtensions.ReadFromJsonAsync<T>(response.Content);
-        }
-
-        public async Task<T> PutAsync<T>(string uri, T payLoad)
+        public async Task<HttpStatusCode> PutAsync<T>(string uri, T payLoad)
         {
             var response = await _httpClient.PutAsJsonAsync(uri, payLoad, _jsonOptions);
 
-            return await HttpContentJsonExtensions.ReadFromJsonAsync<T>(response.Content);
-        }
-
-        public async Task<System.Net.HttpStatusCode> DeleteAsync(string uri, StringContent payLoad)
-        {
-            var httpMessage = new HttpRequestMessage(HttpMethod.Delete, _httpClient.BaseAddress + uri)
-            {
-                Content = payLoad,
-            };
-
-            var result = await _httpClient.SendAsync(httpMessage);
-
-            return result.StatusCode;
+            return response.StatusCode;
         }
 
         public async Task<HttpStatusCode> DeleteAsync(string uri)
@@ -89,12 +79,11 @@ namespace Presentation.HttpClients
         {
             var response = await _httpClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
-
-         
-          
+     
             var responseStream = await response.Content.ReadAsStreamAsync();
             var items = JsonSerializer.DeserializeAsyncEnumerable<T>(responseStream, _jsonOptions);
-            
+
+
             await foreach(var item in items)
             {
                 yield return item;
