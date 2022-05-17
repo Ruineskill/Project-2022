@@ -1,10 +1,12 @@
-﻿#nullable disable
+﻿#nullable disable warnings
 
 using Microsoft.Extensions.DependencyInjection;
 using Presentation.HttpClients;
 using Presentation.Interfaces;
+using Presentation.Mediators;
 using Presentation.Services;
 using Presentation.ViewModels;
+using Presentation.Windows;
 using System;
 using System.Net.Http;
 using System.Windows;
@@ -23,7 +25,6 @@ namespace Presentation
         public App()
         {
             Services = ConfigureServices();
-
         }
 
         private static IServiceProvider ConfigureServices()
@@ -31,25 +32,35 @@ namespace Presentation
 
             var services = new ServiceCollection();
 
-            // Services
+            // Navigation
             services.AddSingleton<INavigationService, MainNavigationService>();
+            services.AddSingleton<IDetailNavigationService, DetailNavigationService>();
+            services.AddSingleton<IDetailDialogService, DetailDialogService>();
+            // Http Api
             services.AddSingleton<IApiSecurityService, ApiSecurityService>();
-            services.AddSingleton<ApiHttpClient>();
             services.AddSingleton<HttpClient>();
-            services.AddTransient<IHttpPersonService, HttpPersonService>();
-            services.AddTransient<IHttpCarService, HttpCarService>();
-            services.AddTransient<IHttpFuelCardService, HttpFuelCardService>();
+            services.AddSingleton<ApiHttpClient>();
+            services.AddScoped<IHttpPersonService, HttpPersonService>();
+            services.AddScoped<IHttpCarService, HttpCarService>();
+            services.AddScoped<IHttpFuelCardService, HttpFuelCardService>();
 
-            // Viewmodels
+            // Mediators
+            services.AddSingleton<CarMediator>();
+            services.AddSingleton<FuelCardMediator>();
+            services.AddSingleton<PersonMediator>();
+
+
+            // Viewmodels/windows
             services.AddSingleton<MainWindow>();
             services.AddSingleton<MainViewModel>();
-            services.AddSingleton<LogInViewModel>();
-            services.AddSingleton<FleetViewModel>();
+            services.AddScoped<LogInViewModel>();
+            services.AddScoped<FleetViewModel>();
             services.AddSingleton<CarListingViewModel>();
             services.AddSingleton<PersonListingViewModel>();
             services.AddSingleton<FuelCardListingViewModel>();
-
-
+            services.AddScoped<DetailViewModel>();
+          
+            
 
 
             return services.BuildServiceProvider();
@@ -62,7 +73,8 @@ namespace Presentation
 
             MainWindow.DataContext = Services.GetService<MainViewModel>();
 
-            var  navigationService = Services.GetRequiredService<INavigationService>();
+            var navigationService = Services.GetRequiredService<INavigationService>();
+
             navigationService.Navigate(Services.GetService<LogInViewModel>());
 
             MainWindow.Show();

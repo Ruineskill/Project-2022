@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using RestAPI.Authentication;
-using RestAPI.Interfaces;
 using Shared.Authentication;
+using RestAPI.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -39,7 +38,7 @@ namespace RestAPI.Services
 
       
 
-        public async Task<AuthenticationReponse?> Authenticate(SignInRequest login)
+        public async Task<AuthenticationResponse?> Authenticate(SignInRequest login)
         {
             // username
             var user = await _userManger.FindByNameAsync(login.UserName);
@@ -54,7 +53,7 @@ namespace RestAPI.Services
 
                     await SaveRefreshToken(user, refreshToken);
 
-                    return new AuthenticationReponse
+                    return new AuthenticationResponse
                     {
                         IsAuthenticated = true,
                         Token = await _tokenService.Generate(user),
@@ -67,13 +66,13 @@ namespace RestAPI.Services
             return null;
         }  
 
-        public async Task<AuthenticationReponse?> Refresh(IdentityUser user, string token)
+        public async Task<AuthenticationResponse?> Refresh(IdentityUser user, string token)
         {
             var refreshToken = _refreshTokenService.Generate();
 
             await SaveRefreshToken(user, refreshToken);
 
-            return new AuthenticationReponse
+            return new AuthenticationResponse
             {
                 IsAuthenticated = true,
                 Token = await _tokenService.Generate(user),

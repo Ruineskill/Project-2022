@@ -4,10 +4,10 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
-using Shared.Authentication.Constants;
+using RestAPI.Authentication.Constants;
 using System.Collections.Generic;
 
-namespace Shared.Controllers
+namespace RestAPI.Controllers
 {
 
     [Authorize]
@@ -23,21 +23,21 @@ namespace Shared.Controllers
         }
 
         // GET: api/Car
-        [HttpGet(ApiRoutes.CarRoute.GetAll)]
+        [HttpGet(Shared.ApiRoutes.CarRoute.GetAll)]
         public async Task<ActionResult<IEnumerable<Car>>> GetAll()
         {
             return Ok(await _repo.GetAllAsync());
         }
 
         // GET: api/Car
-        [HttpGet(ApiRoutes.CarRoute.GetAllStream)]
+        [HttpGet(Shared.ApiRoutes.CarRoute.GetAllStream)]
         public IAsyncEnumerable<Car> GetAllStream()
         {
             return _repo.GetAllStream();
         }
 
         // GET: api/Car/
-        [HttpGet(ApiRoutes.CarRoute.GetById + "{id}")]
+        [HttpGet(Shared.ApiRoutes.CarRoute.GetById + "{id}")]
         public async Task<ActionResult<Car>> Get(int id)
         {
             var car = await _repo.FindAsync(id);
@@ -52,7 +52,7 @@ namespace Shared.Controllers
 
         // PUT: api/Car/
         [Authorize(Policy = UserPolicies.Manager)]
-        [HttpPut(ApiRoutes.CarRoute.Update)]
+        [HttpPut(Shared.ApiRoutes.CarRoute.Update)]
         public async Task<IActionResult> Update(Car car)
         {
             try
@@ -76,7 +76,7 @@ namespace Shared.Controllers
 
         // POST: api/Car
         [Authorize(Policy = UserPolicies.Manager)]
-        [HttpPost(ApiRoutes.CarRoute.Create)]
+        [HttpPost(Shared.ApiRoutes.CarRoute.Create)]
         public async Task<IActionResult> Create(Car car)
         {
             try
@@ -100,7 +100,7 @@ namespace Shared.Controllers
 
         // DELETE: api/Car/
         [Authorize(Policy = UserPolicies.Admin)]
-        [HttpDelete(ApiRoutes.CarRoute.Delete + "{id}")]
+        [HttpDelete(Shared.ApiRoutes.CarRoute.Delete + "{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try

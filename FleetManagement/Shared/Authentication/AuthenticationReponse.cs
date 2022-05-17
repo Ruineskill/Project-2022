@@ -3,7 +3,7 @@
 
 namespace Shared.Authentication
 {
-    public class AuthenticationReponse
+    public class AuthenticationResponse
     {
         public string UserName { get; set; }  = string.Empty;
 
@@ -16,8 +16,8 @@ namespace Shared.Authentication
         public string Message { get; set; } = string.Empty;
 
 
-        public AuthenticationReponse() { }
-        public AuthenticationReponse(string message)
+        public AuthenticationResponse() { }
+        public AuthenticationResponse(string message)
         {
             Message = message;
         }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Presentation.Views
 {
     /// <summary>
-    /// Interaction logic for CarsView.xaml
+    /// Interaction logic for FuelCardView.xaml
     /// </summary>
-    public partial class CarsView : UserControl
+    public partial class FuelCardView : UserControl
     {
-        public CarsView()
+        public FuelCardView()
         {
             InitializeComponent();
         }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestAPI.Authentication;
+using RestAPI.Interfaces;
+using Shared.ApiRoutes;
 using Shared.Authentication;
-using Shared.Interfaces;
 
-namespace Shared.Controllers
+namespace RestAPI.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -19,7 +21,7 @@ namespace Shared.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost(ApiRoutes.UserRoute.SignIn)]
+        [HttpPost(UserRoute.SignIn)]
         public async Task<ActionResult<AuthenticationResponse>> UserSignIn(SignInRequest login)
         {
             // Because this is authentication method(s),
@@ -43,7 +45,7 @@ namespace Shared.Controllers
         }
 
 
-        [HttpPost(ApiRoutes.UserRoute.RefreshToken)]
+        [HttpPost(UserRoute.RefreshToken)]
         public async Task<ActionResult<AuthenticationResponse>> RefreshToken(RefreshRequest refresh)
         {
             // Because this is authentication method(s),
@@ -70,7 +72,7 @@ namespace Shared.Controllers
         }
 
 
-        [HttpDelete(ApiRoutes.UserRoute.SignOut)]
+        [HttpDelete(UserRoute.SignOut)]
         public async Task<IActionResult> UserSignOut()
         {
             // Because this is authentication method(s),

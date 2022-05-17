@@ -11,7 +11,7 @@ using Repository.Contexts;
 namespace Repository.Migrations.Auth
 {
     [DbContext(typeof(AuthContext))]
-    [Migration("20220506212450_initial")]
+    [Migration("20220517161727_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

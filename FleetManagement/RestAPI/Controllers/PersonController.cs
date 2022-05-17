@@ -4,9 +4,9 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
-using Shared.Authentication.Constants;
+using RestAPI.Authentication.Constants;
 
-namespace Shared.Controllers
+namespace RestAPI.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -21,14 +21,14 @@ namespace Shared.Controllers
         }
 
         // GET: api/Person
-        [HttpGet(ApiRoutes.PersonRoute.GetAll)]
+        [HttpGet(Shared.ApiRoutes.PersonRoute.GetAll)]
         public async Task<ActionResult<IEnumerable<Person>>> GetAll()
         {
             return Ok(await _repo.GetAllAsync());
         }
 
         // GET: api/Person
-        [HttpGet(ApiRoutes.PersonRoute.GetAllStream)]
+        [HttpGet(Shared.ApiRoutes.PersonRoute.GetAllStream)]
         public IAsyncEnumerable<Person> GetAllStream()
         {
             return _repo.GetAllStream();
@@ -36,7 +36,7 @@ namespace Shared.Controllers
 
 
         // GET: api/Person/
-        [HttpGet(ApiRoutes.PersonRoute.GetById + "{id}")]
+        [HttpGet(Shared.ApiRoutes.PersonRoute.GetById + "{id}")]
         public async Task<ActionResult<Person>> Get(int id)
         {
             var car = await _repo.FindAsync(id);
@@ -51,7 +51,7 @@ namespace Shared.Controllers
 
         // PUT: api/Person/
         [Authorize(Policy = UserPolicies.Manager)]
-        [HttpPut(ApiRoutes.PersonRoute.Update)]
+        [HttpPut(Shared.ApiRoutes.PersonRoute.Update)]
         public async Task<IActionResult> Update(Person person)
         {
             try
@@ -74,7 +74,7 @@ namespace Shared.Controllers
 
         // POST: api/Person
         [Authorize(Policy = UserPolicies.Manager)]
-        [HttpPost(ApiRoutes.PersonRoute.Create)]
+        [HttpPost(Shared.ApiRoutes.PersonRoute.Create)]
         public async Task<IActionResult> Create(Person person)
         {
             try
@@ -98,7 +98,7 @@ namespace Shared.Controllers
 
         // DELETE: api/Person/
         [Authorize(Policy = UserPolicies.Admin)]
-        [HttpDelete(ApiRoutes.PersonRoute.Delete + "{id}")]
+        [HttpDelete(Shared.ApiRoutes.PersonRoute.Delete + "{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try

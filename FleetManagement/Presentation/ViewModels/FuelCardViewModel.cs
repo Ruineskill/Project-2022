@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Domain.Models.Enums;
+using Presentation.ViewModels.Bases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.ViewModels
 {
-    public class FuelCardViewModel
+    public class FuelCardViewModel: DetailViewModelBase
     {
         private readonly FuelCard _fuelCard;
 
@@ -21,6 +22,11 @@ namespace Presentation.ViewModels
         public FuelCardViewModel(FuelCard fuelCard)
         {
             _fuelCard = fuelCard;
+        }
+
+        public override void Save()
+        {
+            throw new NotImplementedException();
         }
     }
 }

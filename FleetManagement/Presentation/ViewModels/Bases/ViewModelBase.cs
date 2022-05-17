@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Presentation.ViewModels
+namespace Presentation.ViewModels.Bases
 {
     public class ViewModelBase : ObservableObject
     {

@@ -1,4 +1,4 @@
-﻿#nullable disable
+﻿#nullable disable warnings
 using Domain.Models;
 using System.Text.Json;
 using Presentation.HttpClients;
@@ -14,12 +14,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared.Authentication;
 using Shared.ApiRoutes;
+using System.Net;
 
 namespace Presentation.Services
 {
     public class ApiSecurityService : IApiSecurityService
     {
-        private AuthenticationReponse _authenticationInfo;
+        private AuthenticationResponse _authenticationInfo;
 
         private readonly ApiHttpClient _client;
 
@@ -27,6 +28,7 @@ namespace Presentation.Services
         public ApiSecurityService(ApiHttpClient httpClient)
         {
             _client = httpClient;
+            _authenticationInfo = new AuthenticationResponse();
         }
 
         public async Task<bool> SignIn(string username, SecureString password)
@@ -39,29 +41,31 @@ namespace Presentation.Services
             var signin = new SignInRequest()
             {
                 UserName = username,
-                Password = new System.Net.NetworkCredential(string.Empty, password).Password
+                Password = new NetworkCredential(string.Empty, password).Password
             };
-
 
             try
             {
-                _authenticationInfo = await _client.PostAsync<AuthenticationReponse, SignInRequest>(UserRoute.Base + UserRoute.SignIn, signin);
+                _authenticationInfo = await _client.PostAsync<AuthenticationResponse, SignInRequest>(UserRoute.Base + UserRoute.SignIn, signin);
                 _client.AddRequestHeader("Authorization", "Bearer " + _authenticationInfo?.Token);
+                signin.Password = string.Empty;
+                password.Dispose();
                 return _authenticationInfo.IsAuthenticated;
 
             }
             catch(Exception)
             {
-
+                signin.Password = string.Empty;
                 return false;
             }
 
         }
 
-        public async void SignOut()
+        public async Task<bool> SignOut()
         {
-            await _client.DeleteAsync(UserRoute.Base + UserRoute.SignOut);
+            var result = await _client.DeleteAsync(UserRoute.Base + UserRoute.SignOut);
 
+            return result == HttpStatusCode.OK;
         }
     }
 }

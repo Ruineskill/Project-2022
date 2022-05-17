@@ -68,10 +68,9 @@ ServicesConfiguration.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if(app.Environment.IsDevelopment())
 {
-    // data seed
     using(var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
@@ -85,8 +84,14 @@ if(app.Environment.IsDevelopment())
         PersonInitializer.SeedData(context);
 
     }
+}
 
 
+
+
+// Configure the HTTP request pipeline.
+if(app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
 }

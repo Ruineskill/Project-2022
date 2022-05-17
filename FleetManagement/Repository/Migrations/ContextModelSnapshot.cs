@@ -41,11 +41,11 @@ namespace Repository.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Delete")
-                        .HasColumnType("bit");
-
                     b.Property<int>("FuelType")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LicensePlate")
                         .IsRequired()

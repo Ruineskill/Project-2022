@@ -6,30 +6,20 @@
              xmlns:local="clr-namespace:Presentation.Views" 
              xmlns:vm="clr-namespace:Presentation.ViewModels" 
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DataContext="{d:DesignInstance Type=vm:CarListingViewModel}"
-             
+             d:DataContext="{d:DesignInstance Type=vm:CarListingViewModel}"             
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid >
+             d:DesignHeight="450" d:DesignWidth="800" >
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    
+    
+    <Grid>
 
-        <Button Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0" Padding="5,0,5,0" Grid.IsSharedSizeScope="True">
-            <TextBlock>Add new Car</TextBlock>
-        </Button>
-
-        <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding Cars}" AutoGenerateColumns="False" 
+        <DataGrid ItemsSource="{Binding Cars}" AutoGenerateColumns="False" 
                   CanUserAddRows="False" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" 
                   CellStyle="{StaticResource DataCells}" RowStyle="{StaticResource DataRows}"
-                  SelectedItem="{Binding SelectedCar}" Padding="5,0,5,0" Grid.IsSharedSizeScope="True"
-                  ScrollViewer.CanContentScroll="True" 
-                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            
+                  SelectedItem="{Binding SelectedCar}" 
+                  ContextMenu="{StaticResource DataListingContext}">
+
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Brand" Binding="{Binding Brand}"/>
@@ -43,7 +33,6 @@
                 <DataGridTextColumn Header="Person" Binding="{Binding Person}"/>
 
             </DataGrid.Columns>
-
 
         </DataGrid>
 

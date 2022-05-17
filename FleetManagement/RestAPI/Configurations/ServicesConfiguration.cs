@@ -23,7 +23,7 @@ namespace RestAPI.Configurations
             services.AddScoped<IRefreshTokenService, RefreshTokenService>();
             services.AddScoped<ITokenValidationService, TokenValidationService>();
             services.AddScoped<IUserService, UserService>();
-
+           
         }
     }
 }

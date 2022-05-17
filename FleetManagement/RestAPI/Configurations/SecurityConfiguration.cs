@@ -65,9 +65,11 @@ namespace RestAPI.Configurations
                     policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
                     policy.RequireAuthenticatedUser();
                     policy.Requirements.Add(new UserRequirement());
+                   
                 });
 
                 options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+               
             });
 
 

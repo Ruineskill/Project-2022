@@ -72,7 +72,7 @@ namespace Repository.Migrations
                     PersonId = table.Column<int>(type: "int", nullable: true),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NumberOfDoors = table.Column<int>(type: "int", nullable: false),
-                    Delete = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     RequiredLicence = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

@@ -12,7 +12,7 @@ using Repository.Contexts;
 namespace Repository.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220506212418_initial")]
+    [Migration("20220517161716_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,11 +43,11 @@ namespace Repository.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Delete")
-                        .HasColumnType("bit");
-
                     b.Property<int>("FuelType")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LicensePlate")
                         .IsRequired()

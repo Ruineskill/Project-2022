@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Domain.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Presentation.Interfaces;
+using Presentation.Mediators;
+using Presentation.ViewModels.Bases;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +19,8 @@ namespace Presentation.ViewModels
 
         private readonly IHttpPersonService _personService;
 
+        private readonly PersonMediator _personMediator;
+
         private ObservableCollection<PersonViewModel> _people;
 
         public ObservableCollection<PersonViewModel> People { get => _people; set => _people = value; }
@@ -28,26 +33,47 @@ namespace Presentation.ViewModels
         }
 
 
-        public PersonListingViewModel(IHttpPersonService personService)
+        public PersonListingViewModel(IHttpPersonService personService, PersonMediator personMediator)
         {
             _people = new();
             _personService = personService;
-            LoadPeople();
+            _personMediator = personMediator;
+            _ = LoadPeople();
+
+            _personMediator.Created += OnPersonCreated;
         }
 
-        private async void LoadPeople()
+        private async Task LoadPeople()
         {
-            try
+           
+            await foreach(var person in _personService.GetAllStream())
             {
-                var people = await _personService.GetAllAsync();
-                foreach(var p in people) _people.Add(new PersonViewModel(p));
+                _people.Add(new PersonViewModel(person));
             }
-            catch(Exception e)
+ 
+        }
+
+        private async void OnPersonCreated(Person obj)
+        {
+           if( await _personService.CreateAsync(obj))
             {
-
-                MessageBox.Show(e.Message);
+                _people.Add(new PersonViewModel(obj));
             }
+        }
 
+        public override void ReadItemHandler()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void EditItemHandler()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DeleteItemHandler()
+        {
+            throw new NotImplementedException();
         }
     }
 }

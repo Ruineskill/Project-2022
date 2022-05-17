@@ -37,13 +37,11 @@
 
                 <ResourceDictionary>
 
-
+                    <!--Datagrid style-->
                     <Style x:Key="DataCells" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                     </Style>
-
-
 
                     <Style x:Key="DataRows" TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MaterialDesignDataGridRow}">
                         <Style.Triggers>
@@ -55,26 +53,37 @@
                     </Style>
 
 
+                    <!--Context menu style-->
+                    <Style TargetType="ContextMenu" BasedOn="{StaticResource MaterialDesignContextMenu}">
+                        <Setter Property="Background" Value="AntiqueWhite"/>
+                    </Style>
+
                 </ResourceDictionary>
 
-
-
+                <ResourceDictionary>
+                    <!-- datagrid context menu for listing views-->
+                    <ContextMenu x:Key="DataListingContext">
+                        <MenuItem Header="Read" Command="{Binding ReadItemCommand}" />
+                        <MenuItem Header="Edit" Command="{Binding EditItemCommand}" />
+                        <MenuItem Header="Delete" Command="{Binding DeleteItemCommand}" />
+                    </ContextMenu>
+                </ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>
 
 
-         
-            
-            
+
+
+
         </ResourceDictionary>
 
-   
-            
-           
-  
-        
+
+
+
+
+
     </Application.Resources>
 
-    
-    
+
+
 </Application>

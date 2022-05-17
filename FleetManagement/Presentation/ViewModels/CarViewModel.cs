@@ -1,5 +1,7 @@
 ﻿using Domain.Models;
 using Domain.Models.Enums;
+using Presentation.Mediators;
+using Presentation.ViewModels.Bases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +10,11 @@ using System.Threading.Tasks;
 
 namespace Presentation.ViewModels
 {
-    public class CarViewModel : ViewModelBase
+    public class CarViewModel : DetailViewModelBase
     {
 
         private readonly Car _car;
 
-        public int Id { get => _car.Id; }
         public string Brand { get => _car.Brand; set => _car.Brand = value; }
         public string Model { get => _car.Model; set => _car.Model = value; }
         public string ChassisNumber { get => _car.ChassisNumber; set => _car.ChassisNumber = value; }
@@ -29,6 +30,12 @@ namespace Presentation.ViewModels
         public CarViewModel(Car car)
         {
             _car = car;
+          
+        }
+
+        public override void Save()
+        {
+            return;
         }
     }
 }
