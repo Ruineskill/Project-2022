@@ -21,6 +21,8 @@ namespace Presentation.ViewModels
 
         private readonly FuelCardMediator _fuelCardMediator;
 
+        private readonly IDetailDialogService _detailDialogService;
+
         private ObservableCollection<FuelCardViewModel> _fuelCards;
 
         public ObservableCollection<FuelCardViewModel> FuelCards { get => _fuelCards; set => _fuelCards = value; }
@@ -32,11 +34,12 @@ namespace Presentation.ViewModels
             set => SetProperty(ref _selectedFuelCard, value);
         }
 
-        public FuelCardListingViewModel(IHttpFuelCardService fuelCardService, FuelCardMediator fuelCardMediator)
+        public FuelCardListingViewModel(IHttpFuelCardService fuelCardService, FuelCardMediator fuelCardMediator, IDetailDialogService detailDialogService)
         {
             _fuelCards = new();
             _fuelCardService = fuelCardService;
             _fuelCardMediator = fuelCardMediator;
+            _detailDialogService = detailDialogService;
             _ = LoadFuelCards();
 
             _fuelCardMediator.Created += OnFuelCardCreated;
@@ -63,7 +66,11 @@ namespace Presentation.ViewModels
 
         public override void ReadItemHandler()
         {
-            throw new NotImplementedException();
+            if(_selectedFuelCard != null)
+            {
+                _detailDialogService.SetContent(_selectedFuelCard);
+                _detailDialogService.Show();
+            }
         }
 
         public override void EditItemHandler()

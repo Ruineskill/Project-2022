@@ -21,6 +21,9 @@ namespace Presentation.ViewModels
 
         private readonly PersonMediator _personMediator;
 
+
+        private readonly IDetailDialogService _detailDialogService;
+
         private ObservableCollection<PersonViewModel> _people;
 
         public ObservableCollection<PersonViewModel> People { get => _people; set => _people = value; }
@@ -33,11 +36,12 @@ namespace Presentation.ViewModels
         }
 
 
-        public PersonListingViewModel(IHttpPersonService personService, PersonMediator personMediator)
+        public PersonListingViewModel(IHttpPersonService personService, PersonMediator personMediator, IDetailDialogService detailDialogService)
         {
             _people = new();
             _personService = personService;
             _personMediator = personMediator;
+            _detailDialogService = detailDialogService;
             _ = LoadPeople();
 
             _personMediator.Created += OnPersonCreated;
@@ -63,7 +67,11 @@ namespace Presentation.ViewModels
 
         public override void ReadItemHandler()
         {
-            throw new NotImplementedException();
+            if(_selectedPerson != null)
+            {
+                _detailDialogService.SetContent(_selectedPerson);
+                _detailDialogService.Show();
+            }
         }
 
         public override void EditItemHandler()
