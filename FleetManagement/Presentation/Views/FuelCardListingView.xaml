@@ -14,7 +14,7 @@
                   CellStyle="{StaticResource DataCells}" RowStyle="{StaticResource DataRows}"
                   CanUserAddRows="False" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" 
                   SelectedItem="{Binding SelectedFuelCard}"
-                  ContextMenu="{DynamicResource DataGridContext}">
+                   ContextMenu="{StaticResource DataListingContext}">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Card Number" Binding="{Binding CardNumber}"/>
