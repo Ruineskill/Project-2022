@@ -13,7 +13,7 @@ namespace Repository.Repositories
 
         public FuelCardRepository(Context context) => _context = context;
 
-        public async Task<FuelCard> AddAsync(FuelCard fuelCard)
+        public async Task<bool> AddAsync(FuelCard fuelCard)
         {
             try
             {
@@ -22,14 +22,13 @@ namespace Repository.Repositories
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex);
                 throw new FuelCardRepositoryException(nameof(AddAsync), ex);
             }
 
-            return fuelCard;
+            return true;
         }
 
-        public void Remove(FuelCard fuelCard)
+        public bool Remove(FuelCard fuelCard)
         {
             try
             {
@@ -40,6 +39,8 @@ namespace Repository.Repositories
             {
                 throw new FuelCardRepositoryException(nameof(Remove), ex);
             }
+
+            return true;
         }
 
         public async Task<IEnumerable<FuelCard>> GetAllAsync()
@@ -66,7 +67,7 @@ namespace Repository.Repositories
             }
         }
 
-        public async Task<FuelCard> UpdateAsync(FuelCard fuelCard)
+        public async Task<bool> UpdateAsync(FuelCard fuelCard)
         {
             try
             {
@@ -78,7 +79,7 @@ namespace Repository.Repositories
                 throw new FuelCardRepositoryException(nameof(UpdateAsync), ex);
             }
 
-            return fuelCard;
+            return true;
         }
 
         public IAsyncEnumerable<FuelCard> GetAllStream()

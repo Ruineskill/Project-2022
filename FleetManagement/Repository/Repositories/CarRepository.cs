@@ -13,22 +13,21 @@ namespace Repository.Repositories
 
         public CarRepository(Context context) => _context = context;
 
-        public async Task<Car> AddAsync(Car car)
+        public async Task<bool> AddAsync(Car car)
         {
             try
             {
                 await _context.Cars.AddAsync(car);
                 await _context.SaveChangesAsync();
-                return car;
             }
             catch(Exception ex)
             {
                 throw new CarRepositoryException(nameof(AddAsync), ex);
             }
-
+            return true;
         }
 
-        public void Remove(Car car)
+        public bool Remove(Car car)
         {
             try
             {
@@ -39,6 +38,7 @@ namespace Repository.Repositories
             {
                 throw new CarRepositoryException(nameof(Remove), ex);
             }
+            return true;   
         }
 
         public async Task<IEnumerable<Car>> GetAllAsync()
@@ -65,27 +65,25 @@ namespace Repository.Repositories
             }
         }
 
-        public async Task<Car> UpdateAsync(Car car)
+        public async Task<bool> UpdateAsync(Car car)
         {
             try
             {
                 _context.Cars.Update(car);
                 await _context.SaveChangesAsync();
-
-                return car;
             }
             catch(Exception ex)
             {
                 throw new CarRepositoryException(nameof(UpdateAsync), ex);
             }
 
+            return true;
         }
 
         public IAsyncEnumerable<Car> GetAllStream()
         {
             try
             {
-
                 return _context.Cars.AsNoTracking().AsAsyncEnumerable();
             }
             catch(Exception ex)
