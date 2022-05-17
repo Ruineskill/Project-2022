@@ -5,6 +5,7 @@ using Shared.ApiRoutes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,34 +21,37 @@ namespace Presentation.Services
             _client = client;
         }
 
-        public Task<FuelCard> CreateAsync(FuelCard obj)
+        public async Task<bool> CreateAsync(FuelCard obj)
         {
-            throw new NotImplementedException();
+            var result = await _client.PostAsync(FuelCardRoute.CreatePath, obj);
+            return result == HttpStatusCode.OK;
         }
 
-        public void DeleteAsync(FuelCard obj)
+        public async Task<bool> DeleteAsync(FuelCard obj)
         {
-            throw new NotImplementedException();
+            var result = await _client.DeleteAsync(FuelCardRoute.DeletePath(obj.Id));
+            return result == HttpStatusCode.OK;
         }
 
         public async Task<IEnumerable<FuelCard>> GetAllAsync()
         {
-            return await _client.GetAsync<IEnumerable<FuelCard>>(FuelCardRoute.Base + FuelCardRoute.GetAll);
+            return await _client.GetAsync<IEnumerable<FuelCard>>(FuelCardRoute.GetAllPath);
         }
 
         public IAsyncEnumerable<FuelCard> GetAllStream()
         {
-            return _client.GetAllStream<FuelCard>(FuelCardRoute.Base + FuelCardRoute.GetAllStream);
+            return _client.GetAllStream<FuelCard>(FuelCardRoute.GetAllStreamPath);
         }
 
-        public Task<FuelCard> GetAsync(int id)
+        public async Task<FuelCard> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _client.GetAsync<FuelCard>(FuelCardRoute.GetByIdPath(id));
         }
 
-        public Task<FuelCard> UpdateAsync(FuelCard obj)
+        public async Task<bool> UpdateAsync(FuelCard obj)
         {
-            throw new NotImplementedException();
+            var result = await _client.PutAsync(FuelCardRoute.UpdatePath, obj);
+            return result == HttpStatusCode.OK;
         }
     }
 }

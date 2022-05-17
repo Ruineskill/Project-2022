@@ -1,5 +1,6 @@
 ﻿
 using Presentation.Interfaces;
+using Presentation.ViewModels.Bases;
 
 namespace Presentation.ViewModels
 {

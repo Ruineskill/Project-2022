@@ -6,6 +6,7 @@ using Shared.ApiRoutes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,37 +21,40 @@ namespace Presentation.Services
             _client = client;
         }
 
-        public Task<Car> CreateAsync(Car obj)
+        public async Task<bool> CreateAsync(Car obj)
         {
-            throw new NotImplementedException();
+            var result = await _client.PostAsync(CarRoute.CreatePath, obj);
+            return result == HttpStatusCode.OK;
         }
 
-        public void DeleteAsync(Car obj)
+        public async Task<bool> DeleteAsync(Car obj)
         {
-            throw new NotImplementedException();
+          
+            var result  = await _client.DeleteAsync(CarRoute.DeletePath(obj.Id));
+            return result == HttpStatusCode.OK;
         }
 
         public async Task<IEnumerable<Car>> GetAllAsync()
         {
-            return await _client.GetAsync<IEnumerable<Car>>(CarRoute.Base + CarRoute.GetAll);
+            return await _client.GetAsync<IEnumerable<Car>>(CarRoute.GetAllPath);
         }
 
 
         public IAsyncEnumerable<Car> GetAllStream()
         {
-            return _client.GetAllStream<Car>(CarRoute.Base + CarRoute.GetAllStream);
+            return _client.GetAllStream<Car>(CarRoute.GetAllStreamPath);
 
         }
 
-
-        public Task<Car> GetAsync(int id)
+        public async Task<Car> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _client.GetAsync<Car>(CarRoute.GetByIdPath(id));
         }
 
-        public Task<Car> UpdateAsync(Car obj)
+        public async Task<bool> UpdateAsync(Car obj)
         {
-            throw new NotImplementedException();
+            var result = await _client.PutAsync(CarRoute.UpdatePath, obj);
+            return result == HttpStatusCode.OK;
         }
     }
 }

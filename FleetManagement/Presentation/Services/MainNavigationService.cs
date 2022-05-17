@@ -1,6 +1,6 @@
-﻿#nullable disable
+﻿#nullable disable warnings
 using Presentation.Interfaces;
-using Presentation.ViewModels;
+using Presentation.ViewModels.Bases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace Presentation.Services
 
         public ViewModelBase CurrentViewModel { get => _currentViewModel; }
 
-        private event Action CurrentViewModelChanged;
+        public event Action CurrentViewModelChanged;
 
         public void Navigate(ViewModelBase viewModel)
         {

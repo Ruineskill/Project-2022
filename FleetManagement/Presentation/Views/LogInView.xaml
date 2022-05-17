@@ -42,7 +42,12 @@
                 </PasswordBox>
 
 
-                <Button  Grid.Row ="2" Width="250"  Content="Log in" FontSize="16" HorizontalAlignment="Center"  Command="{Binding LoginCommand}" IsEnabled="{Binding IsLogInButtonEnabled}" />
+                <Button  Grid.Row ="2" Width="250"  Content="Log in" FontSize="16" HorizontalAlignment="Center"  
+                         Command="{Binding LoginCommand}" 
+                         IsEnabled="{Binding IsSignInButtonEnabled}" 
+                         md:ButtonProgressAssist.Value="-1" 
+                         md:ButtonProgressAssist.IsIndicatorVisible="{Binding IsSigningIn}"
+                         md:ButtonProgressAssist.IsIndeterminate="True"/>
 
 
 

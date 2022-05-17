@@ -5,6 +5,7 @@ using Shared.ApiRoutes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,34 +20,37 @@ namespace Presentation.Services
             _client = client;
         }
 
-        public Task<Person> CreateAsync(Person obj)
+        public async Task<bool> CreateAsync(Person obj)
         {
-            throw new NotImplementedException();
+            var result = await _client.PostAsync(PersonRoute.CreatePath, obj);
+            return result == HttpStatusCode.OK;
         }
 
-        public void DeleteAsync(Person obj)
+        public async Task<bool> DeleteAsync(Person obj)
         {
-            throw new NotImplementedException();
+            var result = await _client.DeleteAsync(PersonRoute.DeletePath(obj.Id));
+            return result == HttpStatusCode.OK;
         }
 
         public async Task<IEnumerable<Person>> GetAllAsync()
         {
-            return await _client.GetAsync<IEnumerable<Person>>(PersonRoute.Base + PersonRoute.GetAll);
+            return await _client.GetAsync<IEnumerable<Person>>(PersonRoute.GetAllPath);
         }
 
         public IAsyncEnumerable<Person> GetAllStream()
         {
-            return _client.GetAllStream<Person>(PersonRoute.Base + PersonRoute.GetAllStream);
+            return _client.GetAllStream<Person>(PersonRoute.GetAllStreamPath);
         }
 
-        public Task<Person> GetAsync(int id)
+        public async Task<Person> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _client.GetAsync<Person>(PersonRoute.GetByIdPath(id));
         }
 
-        public Task<Person> UpdateAsync(Person obj)
+        public async Task<bool> UpdateAsync(Person obj)
         {
-            throw new NotImplementedException();
+            var result = await _client.PutAsync(PersonRoute.UpdatePath, obj);
+            return result == HttpStatusCode.OK;
         }
     }
 }

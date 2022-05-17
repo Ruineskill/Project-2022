@@ -1,17 +1,10 @@
-﻿using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Interfaces
+﻿namespace Domain.Interfaces
 {
     public interface IRepository<T>
     {
-        Task<T> AddAsync(T value);
+        Task<bool> AddAsync(T value);
 
-        void Remove(T value);
+        bool Remove(T value);
 
         Task<IEnumerable<T>> GetAllAsync();
 
@@ -19,6 +12,7 @@ namespace Domain.Interfaces
 
         Task<T> FindAsync(int id);
 
-        Task<T> UpdateAsync(T value);
+        Task<bool> UpdateAsync(T value);
+
     }
 }

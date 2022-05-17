@@ -9,5 +9,6 @@ namespace Presentation.Interfaces
 {
     public interface IHttpCarService : IHttpObject<Car>
     {
+        
     }
 }
