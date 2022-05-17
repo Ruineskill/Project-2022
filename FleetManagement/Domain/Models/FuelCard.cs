@@ -1,11 +1,7 @@
-﻿using Domain.Exceptions;
+﻿#nullable disable warnings
+using Domain.Exceptions;
 using Domain.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Domain.Models
 {
@@ -69,16 +65,11 @@ namespace Domain.Models
         [JsonConstructor]
         public FuelCard(int id, long cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes)
         {
-
-            if(cardNumber <= 0) throw new ArgumentOutOfRangeException(nameof(cardNumber));
-            if(!IsValidExpirationDate(expirationDate)) throw new InvalidFuelCardExpirationDateException();
-            if(pinCode <= 0) throw new ArgumentOutOfRangeException(nameof(pinCode));
-
             _id = id;
-            _cardNumber = cardNumber;
-            _expirationDate = expirationDate;
-            _pinCode = pinCode;
-            _usableFuelTypes = usableFuelTypes;
+            CardNumber = cardNumber;
+            ExpirationDate = expirationDate;
+            PinCode = pinCode;
+            UsableFuelTypes = usableFuelTypes;
         }
 
         public bool CanRefuel(Car? car)

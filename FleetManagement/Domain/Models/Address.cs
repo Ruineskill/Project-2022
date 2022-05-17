@@ -1,9 +1,5 @@
-﻿using Domain.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#nullable disable warnings
+using Domain.Exceptions;
 
 namespace Domain.Models
 {
@@ -41,14 +37,10 @@ namespace Domain.Models
 
         public Address(string street, int number, string city, int zipCode)
         {
-            if(string.IsNullOrEmpty(street)) throw new ArgumentNullException(nameof(street));
-            if(string.IsNullOrEmpty(city)) throw new ArgumentNullException(nameof(city));
-            if(!IsValidPostalCode(zipCode)) throw new InvalidPostalCodeException();
-
-            _street = street;
-            _number = number;
-            _city = city;
-            _zipCode = zipCode;
+            Street = street;
+            Number = number;
+            City = city;
+            ZipCode = zipCode;
         }
 
 

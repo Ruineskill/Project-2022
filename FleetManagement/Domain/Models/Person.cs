@@ -1,4 +1,5 @@
-﻿using Domain.Exceptions;
+﻿#nullable disable warnings
+using Domain.Exceptions;
 using Domain.Models.Enums;
 using System.Text.Json.Serialization;
 
@@ -92,17 +93,12 @@ namespace Domain.Models
         [JsonConstructor]
         public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType)
         {
-            if(string.IsNullOrEmpty(firstName)) throw new ArgumentNullException(nameof(firstName));
-            if(string.IsNullOrEmpty(lastName)) throw new ArgumentNullException(nameof(lastName));
-            if(!IsValidDateOfBirth(dateOfBirth)) throw new InvalidDateOfBirthException();
-            if(!IsValidNationalRegistrationNumber(nationalRegistrationNumber)) throw new InvalidNationRegistrationNumberException();
-
             _id = id;
-            _firstName = firstName;
-            _lastName = lastName;
-            _dateOfBirth = dateOfBirth;
-            _nationalRegistrationNumber = nationalRegistrationNumber;
-            _drivingLicenseType = drivingLicenseType;
+           FirstName = firstName;
+           LastName = lastName;
+           DateOfBirth = dateOfBirth;
+           NationalRegistrationNumber = nationalRegistrationNumber;
+           DrivingLicenseType = drivingLicenseType;
         }
 
         public bool CanDrive(Car car)

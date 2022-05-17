@@ -1,16 +1,13 @@
-﻿using Domain.Exceptions;
+﻿#nullable disable warnings
+using Domain.Exceptions;
 using Domain.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 
 namespace Domain.Models
 {
+
     public class Car
     {
         private int _id;
@@ -23,7 +20,7 @@ namespace Domain.Models
         private Person? _person = null;
         private string? _color = null;
         private int _numberOfDoors;
-        private bool _delete = false;
+        private bool _isDelete = false;
         private DrivingLicenseType _requiredLicence;
 
         public int Id { get => _id; private set => _id = value; }
@@ -83,7 +80,7 @@ namespace Domain.Models
         }
         public string? Color { get => _color; set => _color = value; }
         public int NumberOfDoors { get => _numberOfDoors; set => _numberOfDoors = value; }
-        public bool Delete { get => _delete; set => _delete = value; }
+        public bool IsDeleted { get => _isDelete; set => _isDelete = value; }
         public DrivingLicenseType RequiredLicence { get => _requiredLicence; private set => _requiredLicence = value; }
 
         public Car(string brand, string model, string chassisNumber, string licensePlate,
@@ -94,21 +91,16 @@ namespace Domain.Models
         public Car(int id, string brand, string model, string chassisNumber, string licensePlate,
                    FuelType fuelType, CarType type, string? color, int numberOfDoors)
         {
-            if(string.IsNullOrEmpty(brand)) throw new ArgumentNullException(nameof(brand));
-            if(string.IsNullOrEmpty(model)) throw new ArgumentNullException(nameof(model));
-            if(!IsValidChassisNumber(chassisNumber)) throw new InvalidChassisNumberException();
-            if(!IsValidLicensePlate(licensePlate)) throw new InvalidLicensePlateException();
-
             _id = id;
-            _brand = brand;
-            _model = model;
-            _chassisNumber = chassisNumber;
-            _licensePlate = licensePlate;
-            _fuelType = fuelType;
-            _type = type;
-            _color = color;
-            _numberOfDoors = numberOfDoors;
-            _requiredLicence = GetLicenceForCarType(_type);
+            Brand = brand;
+            Model = model;
+            ChassisNumber = chassisNumber;
+            LicensePlate = licensePlate;
+            FuelType = fuelType;
+            Type = type;
+            Color = color;
+            NumberOfDoors = numberOfDoors;
+            RequiredLicence = GetLicenceForCarType(_type);
         }
 
 
