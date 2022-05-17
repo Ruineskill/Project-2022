@@ -1,4 +1,4 @@
-﻿
+﻿using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +12,7 @@ namespace Presentation.Interfaces
     {
         Task<bool> SignIn(string username, SecureString password);
 
-        void SignOut();
-
+        Task<bool> SignOut();
 
     }
 }
