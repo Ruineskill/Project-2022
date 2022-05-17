@@ -4,7 +4,8 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
-using RestAPI.Authentication.Constants;
+using Shared.Authentication.Constants;
+using System.Collections.Generic;
 
 namespace Shared.Controllers
 {
@@ -25,7 +26,6 @@ namespace Shared.Controllers
         [HttpGet(ApiRoutes.CarRoute.GetAll)]
         public async Task<ActionResult<IEnumerable<Car>>> GetAll()
         {
-
             return Ok(await _repo.GetAllAsync());
         }
 
@@ -37,7 +37,7 @@ namespace Shared.Controllers
         }
 
         // GET: api/Car/
-        [HttpGet(ApiRoutes.CarRoute.GetById)]
+        [HttpGet(ApiRoutes.CarRoute.GetById + "{id}")]
         public async Task<ActionResult<Car>> Get(int id)
         {
             var car = await _repo.FindAsync(id);
@@ -47,17 +47,17 @@ namespace Shared.Controllers
                 return NotFound();
             }
 
-            return car;
+            return Ok(car);
         }
 
         // PUT: api/Car/
         [Authorize(Policy = UserPolicies.Manager)]
         [HttpPut(ApiRoutes.CarRoute.Update)]
-        public async Task<ActionResult<Car>> Update(Car car)
+        public async Task<IActionResult> Update(Car car)
         {
             try
             {
-                return Ok(await _repo.UpdateAsync(car));
+                await _repo.UpdateAsync(car);
             }
             catch (CarRepositoryException ex)
             {
@@ -70,12 +70,14 @@ namespace Shared.Controllers
                     return BadRequest(ex.Message);
                 }
             }
+
+            return Ok();
         }
 
         // POST: api/Car
         [Authorize(Policy = UserPolicies.Manager)]
         [HttpPost(ApiRoutes.CarRoute.Create)]
-        public async Task<ActionResult<Car>> Create(Car car)
+        public async Task<IActionResult> Create(Car car)
         {
             try
             {
@@ -93,20 +95,27 @@ namespace Shared.Controllers
                 }
             }
 
-            return CreatedAtAction(nameof(Get), new { id = car.Id }, car);
+            return Ok();
         }
 
         // DELETE: api/Car/
         [Authorize(Policy = UserPolicies.Admin)]
-        [HttpDelete(ApiRoutes.CarRoute.Delete)]
-        public async Task<IActionResult> Delete(Car car)
+        [HttpDelete(ApiRoutes.CarRoute.Delete + "{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (await _repo.FindAsync(car.Id) == null)
+            try
             {
-                return NotFound();
-            }
+                var car = await _repo.FindAsync(id);
 
-            _repo.Remove(car);
+                if (car == null) return NotFound();
+
+                _repo.Remove(car);
+            }
+            catch (CarRepositoryException ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
 
             return Ok();
         }

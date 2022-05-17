@@ -4,8 +4,7 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
-using RestAPI.Authentication.Constants;
-
+using Shared.Authentication.Constants;
 
 namespace Shared.Controllers
 {
@@ -39,8 +38,8 @@ namespace Shared.Controllers
 
 
         // GET: api/FuelCard/
-        [HttpGet((ApiRoutes.FuelCardRoute.GetById))]
-        public async Task<ActionResult<FuelCard>> Get(int id)
+        [HttpGet((ApiRoutes.FuelCardRoute.GetById + "{id}"))]
+        public async Task<IActionResult> Get(int id)
         {
             var fc = await _repo.FindAsync(id);
 
@@ -49,17 +48,17 @@ namespace Shared.Controllers
                 return NotFound();
             }
 
-            return fc;
+            return Ok(fc);
         }
 
         // PUT: api/FuelCard/
         [Authorize(Policy = UserPolicies.Manager)]
         [HttpPut(ApiRoutes.FuelCardRoute.Update)]
-        public async Task<ActionResult<FuelCard>> Update(FuelCard fuelCard)
+        public async Task<IActionResult> Update(FuelCard fuelCard)
         {
             try
             {
-                return Ok(await _repo.UpdateAsync(fuelCard));
+                await _repo.UpdateAsync(fuelCard);
             }
             catch (FuelCardRepositoryException ex)
             {
@@ -72,12 +71,13 @@ namespace Shared.Controllers
                     return BadRequest(ex.Message);
                 }
             }
+            return Ok();
         }
 
         // POST: api/FuelCard
         [Authorize(Policy = UserPolicies.Manager)]
         [HttpPost(ApiRoutes.FuelCardRoute.Create)]
-        public async Task<ActionResult<FuelCard>> Create(FuelCard fuelCard)
+        public async Task<IActionResult> Create(FuelCard fuelCard)
         {
             try
             {
@@ -94,21 +94,27 @@ namespace Shared.Controllers
                     return BadRequest(ex.Message);
                 }
             }
-
-            return CreatedAtAction(nameof(Get), new { id = fuelCard.Id }, fuelCard);
+            return Ok();
         }
 
         // DELETE: api/FuelCard/
         [Authorize(Policy = UserPolicies.Admin)]
-        [HttpDelete(ApiRoutes.FuelCardRoute.Delete)]
-        public async Task<IActionResult> Delete(FuelCard fuelCard)
+        [HttpDelete(ApiRoutes.FuelCardRoute.Delete + "{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (await _repo.FindAsync(fuelCard.Id) == null)
+            try
             {
-                return NotFound();
-            }
+                var fuelCard = await _repo.FindAsync(id);
 
-            _repo.Remove(fuelCard);
+                if (fuelCard == null) return NotFound();
+
+                _repo.Remove(fuelCard);
+            }
+            catch (CarRepositoryException ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
 
             return Ok();
         }

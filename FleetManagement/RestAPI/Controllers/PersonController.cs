@@ -4,7 +4,7 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Exceptions;
-using RestAPI.Authentication.Constants;
+using Shared.Authentication.Constants;
 
 namespace Shared.Controllers
 {
@@ -34,8 +34,9 @@ namespace Shared.Controllers
             return _repo.GetAllStream();
         }
 
+
         // GET: api/Person/
-        [HttpGet(ApiRoutes.PersonRoute.GetById)]
+        [HttpGet(ApiRoutes.PersonRoute.GetById + "{id}")]
         public async Task<ActionResult<Person>> Get(int id)
         {
             var car = await _repo.FindAsync(id);
@@ -45,7 +46,7 @@ namespace Shared.Controllers
                 return NotFound();
             }
 
-            return car;
+            return Ok(car);
         }
 
         // PUT: api/Person/
@@ -55,7 +56,7 @@ namespace Shared.Controllers
         {
             try
             {
-                return Ok(await _repo.UpdateAsync(person));
+                await _repo.UpdateAsync(person);
             }
             catch (PersonRepositoryException ex)
             {
@@ -68,12 +69,13 @@ namespace Shared.Controllers
                     return BadRequest(ex.Message);
                 }
             }
+            return Ok();
         }
 
         // POST: api/Person
         [Authorize(Policy = UserPolicies.Manager)]
         [HttpPost(ApiRoutes.PersonRoute.Create)]
-        public async Task<ActionResult<Person>> Create(Person person)
+        public async Task<IActionResult> Create(Person person)
         {
             try
             {
@@ -91,22 +93,29 @@ namespace Shared.Controllers
                 }
             }
 
-            return CreatedAtAction(nameof(Get), new { id = person.Id }, person);
+            return Ok();
         }
 
         // DELETE: api/Person/
         [Authorize(Policy = UserPolicies.Admin)]
-        [HttpDelete(ApiRoutes.PersonRoute.Delete)]
-        public async Task<IActionResult> Delete(Person person)
+        [HttpDelete(ApiRoutes.PersonRoute.Delete + "{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (await _repo.FindAsync(person.Id) == null)
+            try
             {
-                return NotFound();
+                var person = await _repo.FindAsync(id);
+
+                if (person == null) return NotFound();
+
+                _repo.Remove(person);
+            }
+            catch (CarRepositoryException ex)
+            {
+
+                return BadRequest(ex.Message);
             }
 
-            _repo.Remove(person);
-
-            return Ok();
+            return Ok(true);
         }
     }
 }

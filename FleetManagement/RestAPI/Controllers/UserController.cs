@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RestAPI.Interfaces;
 using Shared.Authentication;
+using Shared.Interfaces;
 
 namespace Shared.Controllers
 {
@@ -20,43 +20,76 @@ namespace Shared.Controllers
 
         [AllowAnonymous]
         [HttpPost(ApiRoutes.UserRoute.SignIn)]
-        public async Task<ActionResult<AuthenticationReponse>> UserSignIn(SignInRequest login)
+        public async Task<ActionResult<AuthenticationResponse>> UserSignIn(SignInRequest login)
         {
-            var reponse = await _userService.Authenticate(login);
+            // Because this is authentication method(s),
+            // no exception messages are returned, which could reveal inner structures of the API security.
 
-            if (reponse == null)
+            try
             {
-                return BadRequest(new AuthenticationReponse("Username/password is incorrect"));
-            }
+                var reponse = await _userService.Authenticate(login);
 
-            return Ok(reponse);
+                if (reponse == null)
+                {
+                    return BadRequest(new AuthenticationResponse("Username/password is incorrect"));
+                }
+
+                return Ok(reponse);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred");
+            }
         }
 
 
         [HttpPost(ApiRoutes.UserRoute.RefreshToken)]
-        public async Task<ActionResult<AuthenticationReponse>> RefreshToken(RefreshRequest refresh)
+        public async Task<ActionResult<AuthenticationResponse>> RefreshToken(RefreshRequest refresh)
         {
+            // Because this is authentication method(s),
+            // no exception messages are returned, which could reveal inner structures of the API security.
 
-            var user = await _userService.GetUser(User);
-            if (user == null) return BadRequest();
+            try
+            {
+                var user = await _userService.GetUser(User);
+                if (user == null) return BadRequest();
 
-            var isValid = await _userService.Validate(user, refresh.Token);
-            if (!isValid) return BadRequest();
+                var isValid = await _userService.Validate(user, refresh.Token);
+                if (!isValid) return BadRequest();
 
-            var reponse = await _userService.Refresh(user, refresh.Token);
+                var reponse = await _userService.Refresh(user, refresh.Token);
 
-            return Ok(reponse);
+                return Ok(reponse);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred");
+            }
+
+           
         }
 
 
         [HttpDelete(ApiRoutes.UserRoute.SignOut)]
         public async Task<IActionResult> UserSignOut()
         {
-            var user = await _userService.GetUser(User);
-            if (user == null) return BadRequest();
-            await _userService.RemoveRefreshToken(user);
-       
-            
+            // Because this is authentication method(s),
+            // no exception messages are returned, which could reveal inner structures of the API security.
+
+            try
+            {
+                var user = await _userService.GetUser(User);
+
+                if (user == null) return BadRequest();
+
+                await _userService.RemoveRefreshToken(user);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest("Unexpected error occurred");
+            }
+
             return Ok();
         }
 
