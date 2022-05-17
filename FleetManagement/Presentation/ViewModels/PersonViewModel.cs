@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Domain.Models.Enums;
+using Presentation.ViewModels.Bases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.ViewModels
 {
-    public class PersonViewModel : ViewModelBase
+    public class PersonViewModel : DetailViewModelBase
     {
         private readonly Person _person;
 
@@ -25,6 +26,11 @@ namespace Presentation.ViewModels
         public PersonViewModel(Person person)
         {
             _person = person;
+        }
+
+        public override void Save()
+        {
+            throw new NotImplementedException();
         }
     }
 }
