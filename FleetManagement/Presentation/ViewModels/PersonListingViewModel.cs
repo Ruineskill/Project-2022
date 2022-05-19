@@ -76,12 +76,19 @@ namespace Presentation.ViewModels
 
         public override void EditItemHandler()
         {
-            throw new NotImplementedException();
+            if (_selectedPerson != null)
+            {
+                _detailDialogService.SetContent(_selectedPerson);
+                _detailDialogService.Show();
+            }
         }
 
-        public override void DeleteItemHandler()
+        public override async void DeleteItemHandler()
         {
-            throw new NotImplementedException();
+            if (_selectedPerson != null)
+            {
+                await _personService.DeleteAsync(_selectedPerson.Person);
+            }
         }
 
         public override void AddItemHandler()

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
+    /// <summary>
+    /// Exception for invalid license plate
+    /// </summary>
     [Serializable]
     public class InvalidLicensePlateException : Exception
     {

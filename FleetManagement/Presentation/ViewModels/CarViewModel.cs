@@ -13,23 +13,23 @@ namespace Presentation.ViewModels
     public class CarViewModel : DetailViewModelBase
     {
 
-        private readonly Car _car;
+        public readonly Car Car;
 
-        public string Brand { get => _car.Brand; set => _car.Brand = value; }
-        public string Model { get => _car.Model; set => _car.Model = value; }
-        public string ChassisNumber { get => _car.ChassisNumber; set => _car.ChassisNumber = value; }
-        public string LicensePlate { get => _car.LicensePlate; set => _car.LicensePlate = value; }
-        public FuelType FuelType { get => _car.FuelType; set => _car.FuelType = value; }
-        public CarType Type { get => _car.Type; set => _car.Type = value; }
-        public Person? Person { get => _car.Person; set => _car.Person = value; }
-        public string? Color { get => _car.Color; set => _car.Color = value; }
-        public int NumberOfDoors { get => _car.NumberOfDoors; set => _car.NumberOfDoors = value; }
-        public DrivingLicenseType RequiredLicence { get => _car.RequiredLicence; }
+        public string Brand { get => Car.Brand; set => Car.Brand = value; }
+        public string Model { get => Car.Model; set => Car.Model = value; }
+        public string ChassisNumber { get => Car.ChassisNumber; set => Car.ChassisNumber = value; }
+        public string LicensePlate { get => Car.LicensePlate; set => Car.LicensePlate = value; }
+        public FuelType FuelType { get => Car.FuelType; set => Car.FuelType = value; }
+        public CarType Type { get => Car.Type; set => Car.Type = value; }
+        public Person? Person { get => Car.Person; set => Car.Person = value; }
+        public string? Color { get => Car.Color; set => Car.Color = value; }
+        public int NumberOfDoors { get => Car.NumberOfDoors; set => Car.NumberOfDoors = value; }
+        public DrivingLicenseType RequiredLicence { get => Car.RequiredLicence; }
 
 
         public CarViewModel(Car car)
         {
-            _car = car;
+            Car = car;
           
         }
 

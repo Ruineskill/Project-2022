@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
+    /// <summary>
+    /// Exception for invalid  national registration number
+    /// </summary>
     [Serializable]
     public class InvalidNationRegistrationNumberException: Exception
     {

@@ -7,7 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace Domain.Models
 {
-
+    /// <summary>
+    /// Models domains Car
+    /// </summary>
     public class Car
     {
         private int _id;
@@ -27,7 +29,6 @@ namespace Domain.Models
         public string Brand
         {
             get => _brand;
-            //  set => _brand = string.IsNullOrEmpty(value) ? value : throw new ArgumentNullException(nameof(Brand)); does not work
             set
             {
                 if(string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Brand));
@@ -37,7 +38,6 @@ namespace Domain.Models
         public string Model
         {
             get => _model;
-            //set => _model = string.IsNullOrEmpty(value) ? value : throw new ArgumentNullException(nameof(Model)); does not work
             set
             {
                 if(string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Model));
@@ -72,8 +72,11 @@ namespace Domain.Models
             {
                 if(value != null)
                 {
-                    if(value.Car != this) value.Car = this;
-                    _person = value;
+                    AssignPerson(value); 
+                }
+                else
+                {
+                    _person = null;
                 }
 
             }
@@ -127,6 +130,7 @@ namespace Domain.Models
             }
             return map[sum % 11];
         }
+
         /// <summary>
         /// translates a letter or number to a specific number (the matrix can be found in the documentation)
         /// </summary>
@@ -163,6 +167,13 @@ namespace Domain.Models
             return DrivingLicenseType.B;
         }
 
+
+        private void AssignPerson(Person person)
+        {
+            if(_person != null) throw new InvalidCarException("This car belongs to someone else!");
+            if(person.Car != this) person.Car = this;
+            _person = person;
+        }
 
 
     }

@@ -11,21 +11,21 @@ namespace Presentation.ViewModels
 {
     public class PersonViewModel : DetailViewModelBase
     {
-        private readonly Person _person;
+        public readonly Person Person;
 
-        public string FirstName { get => _person.FirstName; set => _person.FirstName = value; }
-        public string LastName { get => _person.LastName; set => _person.LastName = value; }
-        public DateOnly DateOfBirth { get => _person.DateOfBirth; set => _person.DateOfBirth = value; }
-        public string NationalID { get => _person.NationalRegistrationNumber; set => _person.NationalRegistrationNumber = value; }
-        public DrivingLicenseType DrivingLicenseType { get => _person.DrivingLicenseType; set => _person.DrivingLicenseType = value; }
-        public Address? Address { get => _person.Address; set => _person.Address = value; }
-        public Car? Car { get => _person.Car; set => _person.Car = Car; }
-        public FuelCard? FuelCard { get => _person.FuelCard; set => _person.FuelCard = value; }
+        public string FirstName { get => Person.FirstName; set => Person.FirstName = value; }
+        public string LastName { get => Person.LastName; set => Person.LastName = value; }
+        public DateOnly DateOfBirth { get => Person.DateOfBirth; set => Person.DateOfBirth = value; }
+        public string NationalID { get => Person.NationalRegistrationNumber; set => Person.NationalRegistrationNumber = value; }
+        public DrivingLicenseType DrivingLicenseType { get => Person.DrivingLicenseType; set => Person.DrivingLicenseType = value; }
+        public Address? Address { get => Person.Address; set => Person.Address = value; }
+        public Car? Car { get => Person.Car; set => Person.Car = Car; }
+        public FuelCard? FuelCard { get => Person.FuelCard; set => Person.FuelCard = value; }
 
 
         public PersonViewModel(Person person)
         {
-            _person = person;
+            Person = person;
         }
 
         public override void Save()

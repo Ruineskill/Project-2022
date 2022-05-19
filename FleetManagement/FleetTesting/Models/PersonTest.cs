@@ -211,7 +211,7 @@ namespace UnitTest.Models
 
 
 
-            Assert.Throws<InvalidLicenceTypeRequirementException>(() => person.Car = car);
+            Assert.Throws<InvalidLicenseTypeRequirementException>(() => person.Car = car);
 
         }
 

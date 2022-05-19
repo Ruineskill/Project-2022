@@ -5,6 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace Domain.Models
 {
+    /// <summary>
+    /// Models domains Person
+    /// </summary>
     public class Person
     {
         private int _id;
@@ -57,30 +60,27 @@ namespace Domain.Models
             {
                 if(value != null)
                 {
-                    if(value.Person != null) throw new InvalidCarException("The car is already in use!");
-                    if(!CanDrive(value)) throw new InvalidLicenceTypeRequirementException("Person's car licence does not meet the car's required license type");
-                    if(_fuelCard != null && !_fuelCard.CanRefuel(value)) throw new InvalidFuelCardRequirementException("The Person's fuel card does not support the car's fuel type");
-
-                    _car = value;
-                    if(_car.Person != this) _car.Person = this;
-
+                    AssignCar(value);
+                }
+                else
+                {
+                    _car = null;
                 }
             }
         }
 
-        public FuelCard? FuelCard 
-        { 
+        public FuelCard? FuelCard
+        {
             get => _fuelCard;
             set
             {
                 if(value != null)
                 {
-                    if(value.Person != null) throw new InvalidFuelCardException("The fuel card is already in use!");
-                    if(_car !=null && !value.CanRefuel(_car)) throw new InvalidFuelCardRequirementException("Fuel card does not support person's car fuel type!");
-                  
-                    _fuelCard = value;
-                    if(_fuelCard.Person != this) _fuelCard.Person = this;
-
+                    AssignFuelCard(value);
+                }
+                else
+                {
+                    _fuelCard = null;
                 }
             }
         }
@@ -88,22 +88,63 @@ namespace Domain.Models
 
         public Person(string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber,
             DrivingLicenseType drivingLicenseType)
-            : this(0, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType){}
+            : this(0, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType) { }
 
         [JsonConstructor]
         public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType)
         {
             _id = id;
-           FirstName = firstName;
-           LastName = lastName;
-           DateOfBirth = dateOfBirth;
-           NationalRegistrationNumber = nationalRegistrationNumber;
-           DrivingLicenseType = drivingLicenseType;
+            FirstName = firstName;
+            LastName = lastName;
+            DateOfBirth = dateOfBirth;
+            NationalRegistrationNumber = nationalRegistrationNumber;
+            DrivingLicenseType = drivingLicenseType;
         }
 
-        public bool CanDrive(Car car)
+
+   
+        /// <summary>
+        /// Assigns car with validation
+        /// </summary>
+        /// <param name="car">Car to assign to</param>
+        /// <exception cref="InvalidCarException">Throws if car has already a owner </exception>
+        /// <exception cref="InvalidLicenseTypeRequirementException"> Throws if person does not have license type to drive the car</exception>
+        /// <exception cref="InvalidFuelCardRequirementException">Throws if person has a FuelCard and can't refuel the car</exception>
+        private void AssignCar(Car car)
         {
-            if(car.RequiredLicence <= _drivingLicenseType)
+            if(car.Person != null) throw new InvalidCarException("The car is already in use!");
+            if(!CanPersonDrive(this, car)) throw new InvalidLicenseTypeRequirementException("Person's car license does not meet the car's required license type");
+            if(_fuelCard != null && !FuelCard.CanFuelCardRefuel(_fuelCard, car)) throw new InvalidFuelCardRequirementException("The Person's fuel card does not support the car's fuel type");
+
+            _car = car;
+            _car.Person = this;
+        }
+
+        /// <summary>
+        /// Assigns FuelCard with validation
+        /// </summary>
+        /// <param name="fuelCard">FuelCard to assign</param>
+        /// <exception cref="InvalidFuelCardException">Throws if FuelCard is already in use</exception>
+        /// <exception cref="InvalidFuelCardRequirementException">Throws if person has a car and FuelCard can't refuel</exception>
+        private void AssignFuelCard(FuelCard fuelCard)
+        {
+            if(fuelCard.Person != null) throw new InvalidFuelCardException("The fuel card is already in use!");
+            if(_car != null && !FuelCard.CanFuelCardRefuel(fuelCard, _car)) throw new InvalidFuelCardRequirementException("Fuel card does not support person's car fuel type!");
+
+            _fuelCard = fuelCard;
+            _fuelCard.Person = this;
+        }
+
+
+        /// <summary>
+        /// Checks if person has required licensee type to drive car
+        /// </summary>
+        /// <param name="person">Person to check against</param>
+        /// <param name="car">Car to check for</param>
+        /// <returns>True if person can drive</returns>
+        public static bool CanPersonDrive(Person person, Car car)
+        {
+            if(car.RequiredLicence <= person._drivingLicenseType)
             {
                 return true;
             }
@@ -111,6 +152,11 @@ namespace Domain.Models
             return false;
         }
 
+        /// <summary>
+        /// Checks if is valid Belgium National Registration Number
+        /// </summary>
+        /// <param name="nrn">National Registration Number</param>
+        /// <returns>True if is valid else False</returns>
         public static bool IsValidNationalRegistrationNumber(string nrn)
         {
             //Last 2 digits of NationRegistration Number
@@ -133,7 +179,7 @@ namespace Domain.Models
             // we calculate the expected checksum. again
             checksum = 97 - (Convert.ToInt64(partToCalculate) % 97);
 
-            // we compare the excisting checksum with the calculated, again
+            // we compare the existing checksum with the calculated, again
             if(nrnChecksum == checksum)
             {
                 // we have a good checksum. Person born between 2000 and now
@@ -146,7 +192,11 @@ namespace Domain.Models
             }
         }
 
-
+        /// <summary>
+        /// Checks if persons Age is at least 18
+        /// </summary>
+        /// <param name="dateOfBirth">Persons Birth date</param>
+        /// <returns>True if person is 18+</returns>
         public static bool IsValidDateOfBirth(DateOnly dateOfBirth)
         {
             return dateOfBirth.Year < DateTime.Now.Year - 18;

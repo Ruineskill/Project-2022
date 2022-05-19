@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
+    /// <summary>
+    /// Exception for invalid FuelCard
+    /// </summary>
     [Serializable]
     public class InvalidFuelCardException:Exception
     {

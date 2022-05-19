@@ -10,7 +10,16 @@
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding People}" AutoGenerateColumns="False" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0" Padding="5,0,5,0" Grid.IsSharedSizeScope="True">
+            <TextBlock>Add new Person</TextBlock>
+        </Button>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding People}" AutoGenerateColumns="False" 
                   CellStyle="{StaticResource DataCells}" RowStyle="{StaticResource DataRows}"
                   CanUserAddRows="False" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" 
                   SelectedItem="{Binding SelectedPerson}"

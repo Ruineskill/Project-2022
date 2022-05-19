@@ -80,18 +80,23 @@ namespace Presentation.ViewModels
                 _detailDialogService.SetContent(_selectedCar);
                 _detailDialogService.Show();
             }
-
-          
         }
 
         public override void EditItemHandler()
         {
-            throw new NotImplementedException();
+            if (_selectedCar != null)
+            {
+                _detailDialogService.SetContent(_selectedCar);
+                _detailDialogService.Show();
+            }
         }
 
-        public override void DeleteItemHandler()
+        public override async void DeleteItemHandler()
         {
-            throw new NotImplementedException();
+            if (_selectedCar != null)
+            {
+                await _carService.DeleteAsync(_selectedCar.Car);
+            }
         }
 
         public override void AddItemHandler()

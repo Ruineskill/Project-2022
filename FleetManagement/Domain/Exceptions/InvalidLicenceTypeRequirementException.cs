@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
+    /// <summary>
+    /// Exception for invalid license type Requirement
+    /// </summary>
     [Serializable]
-    public class InvalidLicenceTypeRequirementException : Exception
+    public class InvalidLicenseTypeRequirementException : Exception
     {
-        public InvalidLicenceTypeRequirementException() : base() { }
-        public InvalidLicenceTypeRequirementException(string message) : base(message) { }
-        public InvalidLicenceTypeRequirementException(string message, Exception inner) : base(message, inner) { }
+        public InvalidLicenseTypeRequirementException() : base() { }
+        public InvalidLicenseTypeRequirementException(string message) : base(message) { }
+        public InvalidLicenseTypeRequirementException(string message, Exception inner) : base(message, inner) { }
     }
 }

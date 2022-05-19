@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
+    /// <summary>
+    /// Exception for invalid chassis number 
+    /// </summary>
     [Serializable]
     public class InvalidChassisNumberException : Exception
     {
