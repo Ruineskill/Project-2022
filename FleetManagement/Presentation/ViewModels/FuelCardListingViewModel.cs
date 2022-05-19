@@ -82,13 +82,18 @@ namespace Presentation.ViewModels
             }
         }
 
+        public override void AddItemHandler()
+        {
+            _detailDialogService.SetContent(null);
+            _detailDialogService.Show();
+        }
+
         public override async void DeleteItemHandler()
         {
             if (_selectedFuelCard != null)
             {
                 await _fuelCardService.DeleteAsync(_selectedFuelCard.FuelCard);
-            }
-            
+            }  
         }
     }
 }

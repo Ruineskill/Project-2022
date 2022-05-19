@@ -18,18 +18,21 @@ namespace Presentation.ViewModels.Bases
         public ICommand EditItemCommand { get; }
 
         public ICommand DeleteItemCommand { get; }
+        public ICommand AddItemCommand { get; }
 
         public TabViewModelBase()
         {
             ReadItemCommand = new RelayCommand(ReadItemHandler);
             EditItemCommand = new RelayCommand(EditItemHandler);
             DeleteItemCommand = new RelayCommand(DeleteItemHandler);
+            AddItemCommand = new RelayCommand(AddItemHandler);
         }
 
 
         public abstract void ReadItemHandler();
         public abstract void EditItemHandler();
         public abstract void DeleteItemHandler();
+        public abstract void AddItemHandler();
 
     }
 }

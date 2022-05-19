@@ -83,5 +83,10 @@ namespace Presentation.ViewModels
         {
             throw new NotImplementedException();
         }
+
+        public override void AddItemHandler()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
