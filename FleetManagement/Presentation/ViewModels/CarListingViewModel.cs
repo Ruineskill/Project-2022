@@ -98,10 +98,5 @@ namespace Presentation.ViewModels
                 await _carService.DeleteAsync(_selectedCar.Car);
             }
         }
-
-        public override void AddItemHandler()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

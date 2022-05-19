@@ -90,10 +90,5 @@ namespace Presentation.ViewModels
                 await _personService.DeleteAsync(_selectedPerson.Person);
             }
         }
-
-        public override void AddItemHandler()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
