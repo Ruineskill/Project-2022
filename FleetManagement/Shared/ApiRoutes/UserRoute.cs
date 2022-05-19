@@ -11,5 +11,7 @@ namespace Shared.ApiRoutes
         public const string SignIn =  nameof(SignIn);
         public const string SignOut = nameof(SignOut);
         public const string RefreshToken =  nameof(RefreshToken);
+
+
     }
 }

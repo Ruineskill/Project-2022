@@ -51,7 +51,7 @@ namespace Presentation.ViewModels
            
             await foreach(var fuelCard in _fuelCardService.GetAllStream())
             {
-                _fuelCards.Add(new FuelCardViewModel(fuelCard));
+                _fuelCards.Add(new FuelCardViewModel(fuelCard, _fuelCardService));
             }
 
         }
@@ -60,7 +60,7 @@ namespace Presentation.ViewModels
         {
             if(await _fuelCardService.CreateAsync(obj))
             {
-                _fuelCards.Add(new FuelCardViewModel(obj));
+                _fuelCards.Add(new FuelCardViewModel(obj, _fuelCardService));
             }
         }
 
@@ -75,12 +75,20 @@ namespace Presentation.ViewModels
 
         public override void EditItemHandler()
         {
-            throw new NotImplementedException();
+            if (_selectedFuelCard != null)
+            {
+                _detailDialogService.SetContent(_selectedFuelCard);
+                _detailDialogService.Show();
+            }
         }
 
-        public override void DeleteItemHandler()
+        public override async void DeleteItemHandler()
         {
-            throw new NotImplementedException();
+            if (_selectedFuelCard != null)
+            {
+                await _fuelCardService.DeleteAsync(_selectedFuelCard.FuelCard);
+            }
+            
         }
     }
 }
