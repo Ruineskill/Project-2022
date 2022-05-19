@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Domain.JsonConverters
 {
+    /// <summary>
+    /// Json converter used for DateOnly serialization 
+    /// </summary>
     public class DateOnlyConverter : JsonConverter<DateOnly>
     {
         private readonly string serializationFormat;

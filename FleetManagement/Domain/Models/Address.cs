@@ -3,6 +3,9 @@ using Domain.Exceptions;
 
 namespace Domain.Models
 {
+    /// <summary>
+    /// Models Persons Address
+    /// </summary>
     public record Address
     {
         private string _street;
@@ -43,7 +46,11 @@ namespace Domain.Models
             ZipCode = zipCode;
         }
 
-
+        /// <summary>
+        /// Checks if given postal code is valid
+        /// </summary>
+        /// <param name="code">Postal code</param>
+        /// <returns>True if code is valid otherwise False</returns>
         public static bool IsValidPostalCode(int code)
         {
             return code >= 1000 && code <= 9992;

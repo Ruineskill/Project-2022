@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Models.Enums
+﻿namespace Domain.Models.Enums
 {
+    /// <summary>
+    /// Specifies Type of Car for Car
+    /// </summary>
     public enum CarType
     {
         Car,

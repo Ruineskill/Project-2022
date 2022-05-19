@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.TypeConvertors
 {
+    /// <summary>
+    /// Converter for EF core to convert ENUM flags to collection and collection to ENUM flags
+    /// </summary>
     public class EnumListConverter : ValueConverter<ICollection<FuelType>, int>
     {
         public EnumListConverter() : base(
@@ -28,6 +31,9 @@ namespace Domain.Models.TypeConvertors
         }
     }
 
+    /// <summary>
+    /// Comparer for EF Core to compare for Enum Collection
+    /// </summary>
     public class EnumListComparer : ValueComparer<ICollection<FuelType>>
     {
         public EnumListComparer() : base(

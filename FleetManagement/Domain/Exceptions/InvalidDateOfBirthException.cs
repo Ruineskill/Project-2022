@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
+    /// <summary>
+    /// Exception for invalid DateOfBirth
+    /// </summary>
     [Serializable]
     public class InvalidDateOfBirthException : Exception
     {

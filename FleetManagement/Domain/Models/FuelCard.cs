@@ -5,6 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace Domain.Models
 {
+    /// <summary>
+    /// Models domains FuelCard
+    /// </summary>
     public class FuelCard
     {
         private int _id;
@@ -49,8 +52,11 @@ namespace Domain.Models
             {
                 if(value != null)
                 {
-                    if(value.FuelCard != this) value.FuelCard = this;
-                    _person = value;
+                    AssignPerson(value);
+                }
+                else
+                {
+                    _person = null;
                 }
             }
         }
@@ -72,17 +78,25 @@ namespace Domain.Models
             UsableFuelTypes = usableFuelTypes;
         }
 
-        public bool CanRefuel(Car? car)
+        public static bool CanFuelCardRefuel(FuelCard fuelCard,Car? car)
         {
             if(car != null)
             {
-                if(!_usableFuelTypes.Contains(car.FuelType))
+                if(!fuelCard.UsableFuelTypes.Contains(car.FuelType))
                 {
                     return false;
                 }
             }
 
             return true;
+        }
+
+
+        private void AssignPerson(Person person)
+        {
+            if(_person != null) throw new InvalidFuelCardException("This fuel card already belongs to someone else!");
+            if(person.FuelCard != this) person.FuelCard = this;
+            _person = person;
         }
 
         public static bool IsValidExpirationDate(DateOnly expirationDate)

@@ -130,7 +130,7 @@ namespace UnitTest.Models
 
             var car = new Car("Mercedes", "Class C", "5GZCZ43D13S812715", "1-ABC-235", FuelType.Hydrogen, CarType.Truck);
 
-            Assert.Throws<InvalidLicenceTypeRequirementException>(() => car.Person = person);
+            Assert.Throws<InvalidLicenseTypeRequirementException>(() => car.Person = person);
 
         }
 
