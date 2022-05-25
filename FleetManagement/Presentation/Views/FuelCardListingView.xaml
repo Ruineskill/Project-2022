@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <Button Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0" Padding="5,0,5,0" Grid.IsSharedSizeScope="True">
-            <TextBlock>Add new Fuelcard</TextBlock>
+            <TextBlock>Add Fuelcard</TextBlock>
         </Button>
         <DataGrid Grid.Row="1" ItemsSource="{Binding FuelCards}" AutoGenerateColumns="False" 
                   CellStyle="{StaticResource DataCells}" RowStyle="{StaticResource DataRows}"

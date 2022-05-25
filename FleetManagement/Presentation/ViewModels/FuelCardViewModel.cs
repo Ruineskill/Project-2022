@@ -23,6 +23,7 @@ namespace Presentation.ViewModels
         public DateTime ExpDate { get => ExpirationDate.ToDateTime(TimeOnly.MinValue); set => ExpirationDate = DateOnly.FromDateTime(value); }
 
         public int PinCode { get => FuelCard.PinCode; set => FuelCard.PinCode=value; }
+
         public ICollection<FuelType> UsableFuelTypes { get => FuelCard.UsableFuelTypes; set => FuelCard.UsableFuelTypes=value; }
 
         public ICollection<FuelValue> FuelValues { get; set; } = new List<FuelValue>();
@@ -57,7 +58,7 @@ namespace Presentation.ViewModels
 
     public class FuelValue
     {
-       public FuelType FuelType { get; }
+        public FuelType FuelType { get; }
 
         public String Label => FuelType.ToString();
         public bool IsSelected { get; set; }

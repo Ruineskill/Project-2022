@@ -56,7 +56,7 @@ namespace Presentation.ViewModels
 
             await foreach(var car in _carService.GetAllStream())
             {
-                _cars.Add(new CarViewModel(car));
+                _cars.Add(new CarViewModel(car, _carService));
             }
         }
 
@@ -65,7 +65,7 @@ namespace Presentation.ViewModels
         {
             if(await _carService.CreateAsync(obj))
             {
-                _cars.Add(new CarViewModel(obj));
+                _cars.Add(new CarViewModel(obj, _carService));
             }
         }
 

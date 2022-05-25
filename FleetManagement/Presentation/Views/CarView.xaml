@@ -12,6 +12,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -22,7 +30,31 @@
 
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Brand" />
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Brand}"/>
-
-
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Model" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Model}"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Chassis Number" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ChassisNumber}"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="LicensePlate" />
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding LicensePlate}"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Fuel Type" />
+        <ComboBox  Grid.Row="4" Grid.Column="1" ItemsSource="{Binding FuelType}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FuelTypes}" Width="100" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="" />
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Brand}"/>
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="" />
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Brand}"/>
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="Color" />
+        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Color}"/>
+        <TextBlock Grid.Row="8" Grid.Column="0" Text="Number of doors" />
+        <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding NumberOfDoors}"/>
+        <TextBlock Grid.Row="9" Grid.Column="0" Text="" />
+        <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Brand}"/>
     </Grid>
 </UserControl>
