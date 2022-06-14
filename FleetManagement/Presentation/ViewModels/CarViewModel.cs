@@ -1,7 +1,6 @@
-﻿using Domain.Models;
+﻿#nullable disable warnings
 using Domain.Models.Enums;
-using Presentation.Interfaces;
-using Presentation.Mediators;
+using Presentation.DTO;
 using Presentation.ViewModels.Bases;
 using System;
 using System.Collections.Generic;
@@ -11,39 +10,80 @@ using System.Threading.Tasks;
 
 namespace Presentation.ViewModels
 {
-    public class CarViewModel : DetailViewModelBase
+    public class CarViewModel : ViewModelBase
     {
 
-        public readonly Car Car;
+    
 
-        IHttpCarService _httpCarService;
-        public string Brand { get => Car.Brand; set => Car.Brand = value; }
-        public string Model { get => Car.Model; set => Car.Model = value; }
-        public string ChassisNumber { get => Car.ChassisNumber; set => Car.ChassisNumber = value; }
-        public string LicensePlate { get => Car.LicensePlate; set => Car.LicensePlate = value; }
-        public FuelType FuelType { get => Car.FuelType; set => Car.FuelType = value; }
-        public ICollection<FuelType> FuelTypes { get; set; } = new List<FuelType>();
-        public CarType Type { get => Car.Type; set => Car.Type = value; }
-        public Person? Person { get => Car.Person; set => Car.Person = value; }
-        public string? Color { get => Car.Color; set => Car.Color = value; }
-        public int NumberOfDoors { get => Car.NumberOfDoors; set => Car.NumberOfDoors = value; }
-        public DrivingLicenseType RequiredLicence { get => Car.RequiredLicence; }
+        public int Id { get; private set; }
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public string ChassisNumber { get; set; }
+        public string LicensePlate { get; set; }
+        public FuelType FuelType { get; set; }
+        public CarType Type { get; set; }
+        public string Color { get; set; }
+        public int NumberOfDoors { get; set; }
+        public DrivingLicenseType RequiredLicence { get; private set; }
+
+        private PersonViewModel? _person;
+        public PersonViewModel? Person 
+        { 
+            get => _person; 
+            set => SetProperty(ref _person, value); 
+        }
 
 
-        public CarViewModel(Car car, IHttpCarService httpCarService)
+
+
+        public static implicit operator CarDto(CarViewModel from)
         {
-            Car = car;
-            _httpCarService = httpCarService;
-
-            foreach (var fuelType in Enum.GetValues<FuelType>())
+            if(from == null) return null;
+            return new CarDto
             {
-                FuelTypes.Add(fuelType);
-            }
+                Id = from.Id,
+                Brand = from.Brand,
+                Model = from.Model,
+                ChassisNumber = from.ChassisNumber,
+                LicensePlate = from.LicensePlate,
+                FuelType = from.FuelType,
+                Type = from.Type,
+                Person = from.Person,
+                Color = from.Color,
+                NumberOfDoors = from.NumberOfDoors,
+                RequiredLicence = from.RequiredLicence,
+            };
         }
 
-        public override void Save()
+        public static implicit operator CarViewModel(CarDto from)
         {
-            return;
+            if(from == null) return null;
+            return new CarViewModel
+            {
+                Id = from.Id,
+                Brand = from.Brand,
+                Model = from.Model,
+                ChassisNumber = from.ChassisNumber,
+                LicensePlate = from.LicensePlate,
+                FuelType = from.FuelType,
+                Type = from.Type,
+                Person = from.Person,
+                Color = from.Color,
+                NumberOfDoors = from.NumberOfDoors,
+                RequiredLicence = from.RequiredLicence,
+            };
         }
+
+        public override string ToString()
+        {
+            return $"Brand: {Brand} Model: {Model}";
+        }
+
+        public CarViewModel ShallowCopy()
+        {
+            return (CarViewModel)this.MemberwiseClone();
+        }
+
+       
     }
 }
