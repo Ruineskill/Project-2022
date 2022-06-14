@@ -8,6 +8,10 @@ namespace Repository.EntityTypeConfigurations
 {
     public class PersonEntityTypeConfiguration : IEntityTypeConfiguration<Person>
     {
+        /// <summary>
+        /// EntityType configuration for a Person
+        /// </summary>
+        /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<Person> builder)
         {
 

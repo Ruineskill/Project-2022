@@ -10,6 +10,7 @@ namespace Domain.Models
     /// </summary>
     public class FuelCard
     {
+        #region Properties
         private int _id;
         private long _cardNumber;
         private DateOnly _expirationDate;
@@ -18,14 +19,16 @@ namespace Domain.Models
         private Person? _person;
         private bool _blocked = false;
         private bool _delete = false;
+        #endregion
 
+        #region Getters & Setters
         public int Id { get => _id; private set => _id = value; }
         public long CardNumber
         {
             get => _cardNumber;
             set
             {
-                if(value <= 0) throw new ArgumentOutOfRangeException(nameof(CardNumber));
+                if (value <= 0) throw new ArgumentOutOfRangeException(nameof(CardNumber));
                 _cardNumber = value;
             }
         }
@@ -39,18 +42,18 @@ namespace Domain.Models
             get => _pinCode;
             set
             {
-                if(value <= 0) throw new ArgumentOutOfRangeException(nameof(PinCode));
+                if (value <= 0) throw new ArgumentOutOfRangeException(nameof(PinCode));
                 _pinCode = value;
             }
         }
         public ICollection<FuelType> UsableFuelTypes { get => _usableFuelTypes; set => _usableFuelTypes = value; }
 
-        public Person? Person 
-        { 
-            get => _person; 
+        public Person? Person
+        {
+            get => _person;
             set
             {
-                if(value != null)
+                if (value != null)
                 {
                     AssignPerson(value);
                 }
@@ -62,12 +65,27 @@ namespace Domain.Models
         }
 
         public bool Blocked { get => _blocked; set => _blocked = value; }
-        public bool Delete { get => _delete; set => _delete = value; }
+        public bool Delete { get => _delete; set => _delete = value; } 
+        #endregion
 
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="cardNumber"></param>
+        /// <param name="expirationDate"></param>
+        /// <param name="pinCode"></param>
+        /// <param name="usableFuelTypes"></param>
         public FuelCard(long cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes)
             : this(0, cardNumber, expirationDate, pinCode, usableFuelTypes) {}
 
+        /// <summary>
+        /// Json Constructor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cardNumber"></param>
+        /// <param name="expirationDate"></param>
+        /// <param name="pinCode"></param>
+        /// <param name="usableFuelTypes"></param>
         [JsonConstructor]
         public FuelCard(int id, long cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes)
         {
@@ -78,6 +96,12 @@ namespace Domain.Models
             UsableFuelTypes = usableFuelTypes;
         }
 
+        /// <summary>
+        /// Checks if the fuelcard can be used for the specific fuel of a car
+        /// </summary>
+        /// <param name="fuelCard"></param>
+        /// <param name="car"></param>
+        /// <returns>boolean</returns>
         public static bool CanFuelCardRefuel(FuelCard fuelCard,Car? car)
         {
             if(car != null)
@@ -91,7 +115,11 @@ namespace Domain.Models
             return true;
         }
 
-
+        /// <summary>
+        /// Assigns a person to a fuelcard
+        /// </summary>
+        /// <param name="person"></param>
+        /// <exception cref="InvalidFuelCardException"></exception>
         private void AssignPerson(Person person)
         {
             if(_person != null) throw new InvalidFuelCardException("This fuel card already belongs to someone else!");
@@ -99,6 +127,11 @@ namespace Domain.Models
             _person = person;
         }
 
+        /// <summary>
+        /// Checks the experiationDate of the fuelcard
+        /// </summary>
+        /// <param name="expirationDate"></param>
+        /// <returns>boolean</returns>
         public static bool IsValidExpirationDate(DateOnly expirationDate)
         {
             var localDate = expirationDate.ToDateTime(TimeOnly.MinValue);

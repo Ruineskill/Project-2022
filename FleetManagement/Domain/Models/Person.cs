@@ -10,6 +10,7 @@ namespace Domain.Models
     /// </summary>
     public class Person
     {
+        #region Properties
         private int _id;
         private string _firstName;
         private string _lastName;
@@ -20,14 +21,16 @@ namespace Domain.Models
         private Car? _car;
         private FuelCard? _fuelCard;
         private bool _delete = false;
+        #endregion
 
+        #region Getters & Setters
         public int Id { get => _id; private set => _id = value; }
         public string FirstName
         {
             get => _firstName;
             set
             {
-                if(string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(FirstName));
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(FirstName));
                 _firstName = value;
             }
         }
@@ -36,7 +39,7 @@ namespace Domain.Models
             get => _lastName;
             set
             {
-                if(string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(LastName));
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(LastName));
                 _lastName = value;
             }
         }
@@ -58,7 +61,7 @@ namespace Domain.Models
             get => _car;
             set
             {
-                if(value != null)
+                if (value != null)
                 {
                     AssignCar(value);
                 }
@@ -74,7 +77,7 @@ namespace Domain.Models
             get => _fuelCard;
             set
             {
-                if(value != null)
+                if (value != null)
                 {
                     AssignFuelCard(value);
                 }
@@ -84,12 +87,30 @@ namespace Domain.Models
                 }
             }
         }
-        public bool Delete { get => _delete; set => _delete = value; }
+        public bool Delete { get => _delete; set => _delete = value; } 
+        #endregion
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="dateOfBirth"></param>
+        /// <param name="nationalRegistrationNumber"></param>
+        /// <param name="drivingLicenseType"></param>
         public Person(string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber,
             DrivingLicenseType drivingLicenseType)
             : this(0, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType) { }
 
+        /// <summary>
+        /// Json constructor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="dateOfBirth"></param>
+        /// <param name="nationalRegistrationNumber"></param>
+        /// <param name="drivingLicenseType"></param>
         [JsonConstructor]
         public Person(int id, string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber, DrivingLicenseType drivingLicenseType)
         {

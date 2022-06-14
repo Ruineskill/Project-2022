@@ -11,6 +11,10 @@ namespace Repository.EntityTypeConfigurations
 {
     internal class UserEntityTypeConfiguration : IEntityTypeConfiguration<IdentityUser>
     {
+        /// <summary>
+        /// EntityType configuration for a user
+        /// </summary>
+        /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<IdentityUser> builder)
         {
             builder.Ignore(u => u.NormalizedUserName);

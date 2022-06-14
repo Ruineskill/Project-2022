@@ -13,13 +13,24 @@ namespace RestAPI.Controllers
     [ApiController]
     public class FuelCardController : ControllerBase
     {
+        /// <summary>
+        /// readonly property
+        /// </summary>
         private readonly IFuelCardRepository _repo;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="repo"></param>
         public FuelCardController(IFuelCardRepository repo)
         {
             _repo = repo;
         }
 
+        /// <summary>
+        /// Get a list of all the fuelcards
+        /// </summary>
+        /// <returns>Enumerable<FuelCard></returns>
         // GET: api/FuelCard
         [HttpGet(Shared.ApiRoutes.FuelCardRoute.GetAll)]
         public async Task<ActionResult<IEnumerable<FuelCard>>> GetAll()
@@ -29,6 +40,10 @@ namespace RestAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Get a list of all the fuelcards without tracking
+        /// </summary>
+        /// <returns>Enumerable<FuelCard></returns>
         // GET: api/FuelCard
         [HttpGet(Shared.ApiRoutes.FuelCardRoute.GetAllStream)]
         public IAsyncEnumerable<FuelCard> GetAllStream()

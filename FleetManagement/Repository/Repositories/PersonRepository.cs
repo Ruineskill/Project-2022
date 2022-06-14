@@ -9,11 +9,23 @@ namespace Repository.Repositories
 {
     public class PersonRepository : IPersonRepository
     { 
+        /// <summary>
+        /// readonly property
+        /// </summary>
         private readonly Context _context;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="context"></param>
         public PersonRepository(Context context) => _context = context;
 
-
+        /// <summary>
+        /// Add person to the db
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns>boolean</returns>
+        /// <exception cref="PersonRepositoryException"></exception>
         public async Task<bool> AddAsync(Person person)
         {
             try
@@ -29,6 +41,11 @@ namespace Repository.Repositories
            
         }
 
+        /// <summary>
+        /// Get all persons from the db
+        /// </summary>
+        /// <returns>Enumerable<Person></returns>
+        /// <exception cref="PersonRepositoryException"></exception>
         public async Task<IEnumerable<Person>> GetAllAsync()
         {
             try
@@ -41,6 +58,12 @@ namespace Repository.Repositories
             }
         }
 
+        /// <summary>
+        /// Find one person with specific id in the db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>person</returns>
+        /// <exception cref="PersonRepositoryException"></exception>
         public async Task<Person> FindAsync(int id)
         {
             try
@@ -53,6 +76,12 @@ namespace Repository.Repositories
             }
         }
 
+        /// <summary>
+        /// Remove one person from the db
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns>boolean</returns>
+        /// <exception cref="PersonRepositoryException"></exception>
         public  bool Remove(Person person)
         {
             try
@@ -68,6 +97,12 @@ namespace Repository.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Update one person in the db
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns>boolean</returns>
+        /// <exception cref="PersonRepositoryException"></exception>
         public async Task<bool> UpdateAsync(Person person)
         {
             try
@@ -83,6 +118,11 @@ namespace Repository.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Get all persons from the db without possibility to alter them
+        /// </summary>
+        /// <returns>Enumerable<Person></returns>
+        /// <exception cref="PersonRepositoryException"></exception>
         public IAsyncEnumerable<Person> GetAllStream()
         {
             try

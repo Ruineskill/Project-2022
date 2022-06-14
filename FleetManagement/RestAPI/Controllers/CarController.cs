@@ -15,13 +15,23 @@ namespace RestAPI.Controllers
     [ApiController]
     public class CarController : ControllerBase
     {
+        /// <summary>
+        /// readonly property
+        /// </summary>
         private readonly ICarRepository _repo;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="repo"></param>
         public CarController(ICarRepository repo)
         {
             _repo = repo;
         }
-
+        /// <summary>
+        /// Get a list of all the cars
+        /// </summary>
+        /// <returns>IEnumerable<Car></returns>
         // GET: api/Car
         [HttpGet(Shared.ApiRoutes.CarRoute.GetAll)]
         public async Task<ActionResult<IEnumerable<Car>>> GetAll()
@@ -29,6 +39,10 @@ namespace RestAPI.Controllers
             return Ok(await _repo.GetAllAsync());
         }
 
+        /// <summary>
+        /// Get a list of all the cars without tracking
+        /// </summary>
+        /// <returns>IEnumerable<Car></returns>
         // GET: api/Car
         [HttpGet(Shared.ApiRoutes.CarRoute.GetAllStream)]
         public IAsyncEnumerable<Car> GetAllStream()
@@ -36,6 +50,10 @@ namespace RestAPI.Controllers
             return _repo.GetAllStream();
         }
 
+        /// <summary>
+        /// Get a car by specific id
+        /// </summary>
+        /// <returns>car</returns>
         // GET: api/Car/
         [HttpGet(Shared.ApiRoutes.CarRoute.GetById + "{id}")]
         public async Task<ActionResult<Car>> Get(int id)
@@ -50,6 +68,11 @@ namespace RestAPI.Controllers
             return Ok(car);
         }
 
+        /// <summary>
+        /// Update a specific car
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>Status: OK 200</returns>
         // PUT: api/Car/
         [Authorize(Policy = UserPolicies.Manager)]
         [HttpPut(Shared.ApiRoutes.CarRoute.Update)]
@@ -74,6 +97,11 @@ namespace RestAPI.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Creates a new car
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>Status: OK 200</returns>
         // POST: api/Car
         [Authorize(Policy = UserPolicies.Manager)]
         [HttpPost(Shared.ApiRoutes.CarRoute.Create)]
@@ -98,6 +126,11 @@ namespace RestAPI.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Deletes a specific car
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>Status: OK 200</returns>
         // DELETE: api/Car/
         [Authorize(Policy = UserPolicies.Admin)]
         [HttpDelete(Shared.ApiRoutes.CarRoute.Delete + "{id}")]

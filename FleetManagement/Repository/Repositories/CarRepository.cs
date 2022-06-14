@@ -9,10 +9,23 @@ namespace Repository.Repositories
 {
     public class CarRepository : ICarRepository
     {
+        /// <summary>
+        /// readonly property
+        /// </summary>
         private readonly Context _context;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="context"></param>
         public CarRepository(Context context) => _context = context;
 
+        /// <summary>
+        /// Add a car to the db
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>boolean</returns>
+        /// <exception cref="CarRepositoryException"></exception>
         public async Task<bool> AddAsync(Car car)
         {
             try
@@ -26,7 +39,13 @@ namespace Repository.Repositories
             }
             return true;
         }
-
+        
+        /// <summary>
+        /// Remove a car from the db
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>boolean</returns>
+        /// <exception cref="CarRepositoryException"></exception>
         public bool Remove(Car car)
         {
             try
@@ -41,6 +60,11 @@ namespace Repository.Repositories
             return true;   
         }
 
+        /// <summary>
+        /// Get all the cars from the db
+        /// </summary>
+        /// <returns>Enumerable<Car></returns>
+        /// <exception cref="CarRepositoryException"></exception>
         public async Task<IEnumerable<Car>> GetAllAsync()
         {
             try
@@ -53,6 +77,12 @@ namespace Repository.Repositories
             }
         }
 
+        /// <summary>
+        /// Find a car by id in the db
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>car</returns>
+        /// <exception cref="CarRepositoryException"></exception>
         public async Task<Car> FindAsync(int id)
         {
             try
@@ -65,6 +95,12 @@ namespace Repository.Repositories
             }
         }
 
+        /// <summary>
+        /// Update a car in the db
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>boolean</returns>
+        /// <exception cref="CarRepositoryException"></exception>
         public async Task<bool> UpdateAsync(Car car)
         {
             try
@@ -80,6 +116,11 @@ namespace Repository.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Get all cars from the db without possibility to alter them
+        /// </summary>
+        /// <returns>Enumerable<Car></returns>
+        /// <exception cref="CarRepositoryException"></exception>
         public IAsyncEnumerable<Car> GetAllStream()
         {
             try

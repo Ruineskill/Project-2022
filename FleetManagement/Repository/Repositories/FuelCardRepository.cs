@@ -9,10 +9,24 @@ namespace Repository.Repositories
 {
     public class FuelCardRepository : IFuelCardRepository
     {
+        /// <summary>
+        /// readonly property
+        /// </summary>
         private readonly Context _context;
 
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="context"></param>
         public FuelCardRepository(Context context) => _context = context;
 
+        /// <summary>
+        /// Adds a new fuelcard to the db
+        /// </summary>
+        /// <param name="fuelCard"></param>
+        /// <returns>boolean</returns>
+        /// <exception cref="FuelCardRepositoryException"></exception>
         public async Task<bool> AddAsync(FuelCard fuelCard)
         {
             try
@@ -28,6 +42,12 @@ namespace Repository.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Removes a new fuelcard from the db
+        /// </summary>
+        /// <param name="fuelCard"></param>
+        /// <returns>boolean</returns>
+        /// <exception cref="FuelCardRepositoryException"></exception>
         public bool Remove(FuelCard fuelCard)
         {
             try
@@ -43,6 +63,11 @@ namespace Repository.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Get all the fuelcards from the db
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>IEnumerable<FuelCard></returns>
         public async Task<IEnumerable<FuelCard>> GetAllAsync()
         {
             try
@@ -55,6 +80,11 @@ namespace Repository.Repositories
             }
         }
 
+        /// <summary>
+        /// Get a specific fuelcard from the db
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>fuelcard</returns>
         public async Task<FuelCard> FindAsync(int id)
         {
             try
@@ -67,6 +97,11 @@ namespace Repository.Repositories
             }
         }
 
+        /// <summary>
+        /// Updates a fuelcard from the db
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>boolean</returns>
         public async Task<bool> UpdateAsync(FuelCard fuelCard)
         {
             try
@@ -82,6 +117,11 @@ namespace Repository.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Get all the fuelcards from the db without possiblity to alter them
+        /// </summary>
+        /// <param name="car"></param>
+        /// <returns>Enumerable<FuelCard></returns>
         public IAsyncEnumerable<FuelCard> GetAllStream()
         {
             try

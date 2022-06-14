@@ -8,14 +8,17 @@ namespace Domain.Models
     /// </summary>
     public record Address
     {
+        #region Properties
         private string _street;
         private int _number;
         private string _city;
         private int _zipCode;
+        #endregion
 
-        public string Street 
-        { 
-            get => _street; 
+        #region Getters & Setters
+        public string Street
+        {
+            get => _street;
             set
             {
                 if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Street));
@@ -23,9 +26,9 @@ namespace Domain.Models
             }
         }
         public int Number { get => _number; set => _number = value; }
-        public string City 
-        { 
-            get => _city; 
+        public string City
+        {
+            get => _city;
             set
             {
                 if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(City));
@@ -34,10 +37,18 @@ namespace Domain.Models
         }
         public int ZipCode
         {
-            get => _zipCode; 
-            set => _zipCode = IsValidPostalCode(value) ? value: throw new InvalidPostalCodeException(); 
-        }
+            get => _zipCode;
+            set => _zipCode = IsValidPostalCode(value) ? value : throw new InvalidPostalCodeException();
+        } 
+        #endregion
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="street"></param>
+        /// <param name="number"></param>
+        /// <param name="city"></param>
+        /// <param name="zipCode"></param>
         public Address(string street, int number, string city, int zipCode)
         {
             Street = street;

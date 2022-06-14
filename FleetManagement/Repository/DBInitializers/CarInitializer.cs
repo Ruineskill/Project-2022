@@ -10,6 +10,9 @@ namespace Repository.DBInitializers
 {
     public class CarInitializer
     {
+        /// <summary>
+        /// DB data initializer for car
+        /// </summary>
         public static readonly List<Car> _cars = new()
         {
             new Car("BMW", "X1", "5GZCZ43D13S812715", "1-FMG-000", FuelType.Diesel, CarType.Jeep),

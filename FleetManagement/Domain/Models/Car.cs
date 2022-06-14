@@ -12,6 +12,7 @@ namespace Domain.Models
     /// </summary>
     public class Car
     {
+        #region Properties
         private int _id;
         private string _brand;
         private string _model;
@@ -24,14 +25,16 @@ namespace Domain.Models
         private int _numberOfDoors;
         private bool _isDelete = false;
         private DrivingLicenseType _requiredLicence;
+        #endregion
 
+        #region Getters & Setters
         public int Id { get => _id; private set => _id = value; }
         public string Brand
         {
             get => _brand;
             set
             {
-                if(string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Brand));
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Brand));
                 _brand = value;
             }
         }
@@ -40,7 +43,7 @@ namespace Domain.Models
             get => _model;
             set
             {
-                if(string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Model));
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(Model));
                 _model = value;
             }
         }
@@ -70,9 +73,9 @@ namespace Domain.Models
             get => _person;
             set
             {
-                if(value != null)
+                if (value != null)
                 {
-                    AssignPerson(value); 
+                    AssignPerson(value);
                 }
                 else
                 {
@@ -84,12 +87,36 @@ namespace Domain.Models
         public string? Color { get => _color; set => _color = value; }
         public int NumberOfDoors { get => _numberOfDoors; set => _numberOfDoors = value; }
         public bool IsDeleted { get => _isDelete; set => _isDelete = value; }
-        public DrivingLicenseType RequiredLicence { get => _requiredLicence; private set => _requiredLicence = value; }
-
+        public DrivingLicenseType RequiredLicence
+        {
+            get => _requiredLicence; private set => _requiredLicence = value; 
+    #endregion }
+            /// <summary>
+            /// constructor
+            /// </summary>
+            /// <param name="brand"></param>
+            /// <param name="model"></param>
+            /// <param name="chassisNumber"></param>
+            /// <param name="licensePlate"></param>
+            /// <param name="fuelType"></param>
+            /// <param name="type"></param>
+            /// <param name="color"></param>
+            /// <param name="numberOfDoors"></param>
         public Car(string brand, string model, string chassisNumber, string licensePlate,
                    FuelType fuelType, CarType type, string? color = null, int numberOfDoors = 4)
             : this(0, brand, model, chassisNumber, licensePlate, fuelType, type, color, numberOfDoors) { }
-
+        /// <summary>
+        /// Constructor for json data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="brand"></param>
+        /// <param name="model"></param>
+        /// <param name="chassisNumber"></param>
+        /// <param name="licensePlate"></param>
+        /// <param name="fuelType"></param>
+        /// <param name="type"></param>
+        /// <param name="color"></param>
+        /// <param name="numberOfDoors"></param>
         [JsonConstructor]
         public Car(int id, string brand, string model, string chassisNumber, string licensePlate,
                    FuelType fuelType, CarType type, string? color, int numberOfDoors)
@@ -107,7 +134,11 @@ namespace Domain.Models
         }
 
 
-
+        /// <summary>
+        /// Checks if the chassisNumer is valid
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns>boolean</returns>
         public static bool IsValidChassisNumber(string number)
         {
             if(number.Length != 17)
@@ -115,7 +146,11 @@ namespace Domain.Models
 
             return GetCheckDigit(number) == number[8];
         }
-
+        /// <summary>
+        /// checks the input chassisnumber using the transliterate function.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns>Map</returns>
         private static char GetCheckDigit(string number)
         {
             //list of the possible check numbers
@@ -135,13 +170,17 @@ namespace Domain.Models
         /// translates a letter or number to a specific number (the matrix can be found in the documentation)
         /// </summary>
         /// <param name="c"></param>
-        /// <returns></returns>
+        /// <returns>integer</returns>
         private static int Transliterate(char c)
         {
             return "0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ".IndexOf(c) % 10;
         }
 
-
+        /// <summary>
+        /// checks if the license plate is valid
+        /// </summary>
+        /// <param name="LicensePlate"></param>
+        /// <returns>boolean</returns>
         public static bool IsValidLicensePlate(string LicensePlate)
         {
             if(string.IsNullOrEmpty(LicensePlate) || LicensePlate.Length > 9) return false;
@@ -153,6 +192,11 @@ namespace Domain.Models
             return Regex.IsMatch(LicensePlate, pattern);
         }
 
+        /// <summary>
+        /// Gets the specific licence for a car type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>Enum.DrivingLicenseType</returns>
         public static DrivingLicenseType GetLicenceForCarType(CarType type)
         {
             if(type == CarType.Truck)
@@ -167,7 +211,11 @@ namespace Domain.Models
             return DrivingLicenseType.B;
         }
 
-
+        /// <summary>
+        /// Assign a person to a specific car
+        /// </summary>
+        /// <param name="person"></param>
+        /// <exception cref="InvalidCarException"></exception>
         private void AssignPerson(Person person)
         {
             if(_person != null) throw new InvalidCarException("This car belongs to someone else!");

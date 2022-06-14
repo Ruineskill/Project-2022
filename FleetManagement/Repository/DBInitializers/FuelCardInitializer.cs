@@ -10,6 +10,9 @@ namespace Repository.DBInitializers
 {
     public class FuelCardInitializer
     {
+        /// <summary>
+        /// DB data initializer for fuelcard
+        /// </summary>
         public static readonly List<FuelCard> _fuelCards = new()
         {
             new FuelCard(12194188829240000, new DateOnly(2024, 07, 25), 1111, new List<FuelType> { FuelType.Electric, FuelType.HybridBenzine }),

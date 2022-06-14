@@ -7,6 +7,10 @@ namespace Repository.EntityTypeConfigurations
 {
     public class FuelCardEntityTypeConfiguration : IEntityTypeConfiguration<FuelCard>
     {
+        /// <summary>
+        /// EntityType configuration for a fuelcard
+        /// </summary>
+        /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<FuelCard> builder)
         {
             builder.HasIndex(u => u.CardNumber).IsUnique();

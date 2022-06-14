@@ -10,6 +10,9 @@ namespace Repository.DBInitializers
 {
     public class PersonInitializer
     {
+        /// <summary>
+        /// DB data initializer for person
+        /// </summary>
         public static readonly List<Person> _persons = new()
         {
             new Person("Padmé", "Amidala", new(1960, 06, 18), "60061812456", DrivingLicenseType.B) { Address = new("Skystreet", 08, "Brussel", 1000) },

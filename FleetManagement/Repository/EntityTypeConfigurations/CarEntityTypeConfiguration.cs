@@ -12,6 +12,10 @@ namespace Repository.EntityTypeConfigurations
 {
     public class CarEntityTypeConfiguration : IEntityTypeConfiguration<Car>
     {
+        /// <summary>
+        /// EntityType configuration for a car
+        /// </summary>
+        /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<Car> builder)
         {
             //builder.HasIndex(u => new { u.ChassisNumber, u.LicensePlate }).IsUnique(); // this is for joint index only
