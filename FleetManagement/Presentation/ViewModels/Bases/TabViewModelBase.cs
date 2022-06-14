@@ -9,27 +9,13 @@ using System.Windows.Input;
 
 namespace Presentation.ViewModels.Bases
 {
-    public abstract class TabViewModelBase : ViewModelBase, IListingContextMenuCommands
+    public abstract class TabViewModelBase : ViewModelBase
     {
         public abstract string Name { get; set; }
 
-        public ICommand ReadItemCommand { get; }
+        public abstract ViewModelBase? SelectedItem { get; set; }
 
-        public ICommand EditItemCommand { get; }
-
-        public ICommand DeleteItemCommand { get; }
-
-        public TabViewModelBase()
-        {
-            ReadItemCommand = new RelayCommand(ReadItemHandler);
-            EditItemCommand = new RelayCommand(EditItemHandler);
-            DeleteItemCommand = new RelayCommand(DeleteItemHandler);
-        }
-
-
-        public abstract void ReadItemHandler();
-        public abstract void EditItemHandler();
-        public abstract void DeleteItemHandler();
+      
 
     }
 }

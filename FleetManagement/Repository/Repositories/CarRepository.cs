@@ -20,13 +20,7 @@ namespace Repository.Repositories
         /// <param name="context"></param>
         public CarRepository(Context context) => _context = context;
 
-        /// <summary>
-        /// Add a car to the db
-        /// </summary>
-        /// <param name="car"></param>
-        /// <returns>boolean</returns>
-        /// <exception cref="CarRepositoryException"></exception>
-        public async Task<bool> AddAsync(Car car)
+        public async Task<Car> AddAsync(Car car)
         {
             try
             {
@@ -37,15 +31,9 @@ namespace Repository.Repositories
             {
                 throw new CarRepositoryException(nameof(AddAsync), ex);
             }
-            return true;
+            return car;
         }
-        
-        /// <summary>
-        /// Remove a car from the db
-        /// </summary>
-        /// <param name="car"></param>
-        /// <returns>boolean</returns>
-        /// <exception cref="CarRepositoryException"></exception>
+
         public bool Remove(Car car)
         {
             try
@@ -57,7 +45,7 @@ namespace Repository.Repositories
             {
                 throw new CarRepositoryException(nameof(Remove), ex);
             }
-            return true;   
+
         }
 
         /// <summary>
@@ -95,12 +83,6 @@ namespace Repository.Repositories
             }
         }
 
-        /// <summary>
-        /// Update a car in the db
-        /// </summary>
-        /// <param name="car"></param>
-        /// <returns>boolean</returns>
-        /// <exception cref="CarRepositoryException"></exception>
         public async Task<bool> UpdateAsync(Car car)
         {
             try
@@ -113,7 +95,7 @@ namespace Repository.Repositories
                 throw new CarRepositoryException(nameof(UpdateAsync), ex);
             }
 
-            return true;
+
         }
 
         /// <summary>

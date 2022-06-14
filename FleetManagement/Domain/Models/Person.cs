@@ -20,8 +20,6 @@ namespace Domain.Models
         private Address? _address;
         private Car? _car;
         private FuelCard? _fuelCard;
-        private bool _delete = false;
-        #endregion
 
         #region Getters & Setters
         public int Id { get => _id; private set => _id = value; }
@@ -87,17 +85,8 @@ namespace Domain.Models
                 }
             }
         }
-        public bool Delete { get => _delete; set => _delete = value; } 
-        #endregion
+        public bool Delete { get => _delete; set => _delete = value; }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="firstName"></param>
-        /// <param name="lastName"></param>
-        /// <param name="dateOfBirth"></param>
-        /// <param name="nationalRegistrationNumber"></param>
-        /// <param name="drivingLicenseType"></param>
         public Person(string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber,
             DrivingLicenseType drivingLicenseType)
             : this(0, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType) { }

@@ -75,11 +75,11 @@ namespace RestAPI.Controllers
         // POST: api/Person
         [Authorize(Policy = UserPolicies.Manager)]
         [HttpPost(Shared.ApiRoutes.PersonRoute.Create)]
-        public async Task<IActionResult> Create(Person person)
+        public async Task<ActionResult<Person>> Create(Person person)
         {
             try
             {
-                await _repo.AddAsync(person);
+                return Ok(await _repo.AddAsync(person));
             }
             catch (PersonRepositoryException ex)
             {
@@ -93,7 +93,7 @@ namespace RestAPI.Controllers
                 }
             }
 
-            return Ok();
+
         }
 
         // DELETE: api/Person/

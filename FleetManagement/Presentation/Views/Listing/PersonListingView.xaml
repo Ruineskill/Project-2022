@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="Presentation.Views.PersonListingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Presentation.Views" 
+             xmlns:vm="clr-namespace:Presentation.ViewModels" 
+              xmlns:listing="clr-namespace:Presentation.ViewModels.Listing"
+             d:DataContext="{d:DesignInstance Type=listing:PersonListingViewModel}"
+             mc:Ignorable="d"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:Presentation.Converters" 
+            
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.Resources>
+            <converters:CarConverter x:Key="CarConverter"/>
+            <converters:FuelCardConverter x:Key="FuelCardConverter"/>
+        </Grid.Resources>
+
+        <DataGrid ItemsSource="{Binding People}" AutoGenerateColumns="False" 
+                  CellStyle="{StaticResource DataCells}" RowStyle="{StaticResource DataRows}"
+                  CanUserAddRows="False" SelectionUnit="FullRow" SelectionMode="Single" IsReadOnly="True" 
+                  SelectedItem="{Binding SelectedItem}"
+                  ContextMenu="{DynamicResource DataListingContextMenu}">
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.OpenItemCommand, ElementName=FleetData}"/>
+            </DataGrid.InputBindings>
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Birth Date" Binding="{Binding DateOfBirth}"/>
+                <DataGridTextColumn Header="NationalID" Binding="{Binding NationalID}"/>
+                <DataGridTextColumn Header="License Type" Binding="{Binding DrivingLicenseType}"/>
+                <DataGridTemplateColumn Header="Address" Width="auto"  >
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <md:PopupBox>
+                                <md:PopupBox.ToggleContent>
+                                    <StackPanel Orientation="Horizontal">
+                                        <md:PackIcon Kind="Home" Margin="5,0,0,0" />
+                                        <md:PackIcon Kind="ChevronDown" Margin="5,0,0,0" />
+                                    </StackPanel>
+                                </md:PopupBox.ToggleContent>
+
+                                <Grid Margin="10,5,10,5" TextBlock.FontSize="15" >
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock  Grid.Row="0" Grid.Column="0" Margin="0,0,5,0" Text="City: "/>
+                                    <TextBlock  Grid.Row="0" Grid.Column="1" Text="{Binding Address.City}"/>
+
+
+                                    <TextBlock  Grid.Row="1" Grid.Column="0" Margin="0,0,5,0" Text="ZipCode: "/>
+                                    <TextBlock  Grid.Row="1" Grid.Column="1" Text="{Binding Address.ZipCode}"/>
+
+
+                                    <TextBlock  Grid.Row="2" Grid.Column="0" Margin="0,0,5,0" Text="Street: "/>
+                                    <TextBlock  Grid.Row="2" Grid.Column="1" Text="{Binding Address.Street}"/>
+
+
+                                    <TextBlock  Grid.Row="3" Grid.Column="0" Margin="0,0,5,0" Text="Number: "/>
+                                    <TextBlock  Grid.Row="3" Grid.Column="1" Text="{Binding Address.Number}"/>
+
+
+                                </Grid>
+
+
+                            </md:PopupBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Car"  Binding="{Binding Car, Converter={StaticResource CarConverter}}" />
+                <DataGridTextColumn Header="Fuel Card"  Binding="{Binding FuelCard, Converter={StaticResource FuelCardConverter}}" />
+
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -23,7 +23,6 @@ namespace Domain.Models
         private Person? _person = null;
         private string? _color = null;
         private int _numberOfDoors;
-        private bool _isDelete = false;
         private DrivingLicenseType _requiredLicence;
         #endregion
 
@@ -86,22 +85,8 @@ namespace Domain.Models
         }
         public string? Color { get => _color; set => _color = value; }
         public int NumberOfDoors { get => _numberOfDoors; set => _numberOfDoors = value; }
-        public bool IsDeleted { get => _isDelete; set => _isDelete = value; }
-        public DrivingLicenseType RequiredLicence
-        {
-            get => _requiredLicence; private set => _requiredLicence = value; 
-    #endregion }
-            /// <summary>
-            /// constructor
-            /// </summary>
-            /// <param name="brand"></param>
-            /// <param name="model"></param>
-            /// <param name="chassisNumber"></param>
-            /// <param name="licensePlate"></param>
-            /// <param name="fuelType"></param>
-            /// <param name="type"></param>
-            /// <param name="color"></param>
-            /// <param name="numberOfDoors"></param>
+        public DrivingLicenseType RequiredLicence { get => _requiredLicence; private set => _requiredLicence = value; }
+
         public Car(string brand, string model, string chassisNumber, string licensePlate,
                    FuelType fuelType, CarType type, string? color = null, int numberOfDoors = 4)
             : this(0, brand, model, chassisNumber, licensePlate, fuelType, type, color, numberOfDoors) { }

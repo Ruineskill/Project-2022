@@ -20,13 +20,8 @@ namespace Repository.Repositories
         /// <param name="context"></param>
         public PersonRepository(Context context) => _context = context;
 
-        /// <summary>
-        /// Add person to the db
-        /// </summary>
-        /// <param name="person"></param>
-        /// <returns>boolean</returns>
-        /// <exception cref="PersonRepositoryException"></exception>
-        public async Task<bool> AddAsync(Person person)
+
+        public async Task<Person> AddAsync(Person person)
         {
             try
             {
@@ -37,7 +32,7 @@ namespace Repository.Repositories
             {
                 throw new PersonRepositoryException(nameof(AddAsync), ex);
             }
-            return true;
+            return person;
            
         }
 
@@ -76,12 +71,6 @@ namespace Repository.Repositories
             }
         }
 
-        /// <summary>
-        /// Remove one person from the db
-        /// </summary>
-        /// <param name="person"></param>
-        /// <returns>boolean</returns>
-        /// <exception cref="PersonRepositoryException"></exception>
         public  bool Remove(Person person)
         {
             try
@@ -93,16 +82,8 @@ namespace Repository.Repositories
             {
                 throw new PersonRepositoryException(nameof(Remove), ex);
             }
-
-            return true;
         }
 
-        /// <summary>
-        /// Update one person in the db
-        /// </summary>
-        /// <param name="person"></param>
-        /// <returns>boolean</returns>
-        /// <exception cref="PersonRepositoryException"></exception>
         public async Task<bool> UpdateAsync(Person person)
         {
             try
@@ -114,8 +95,6 @@ namespace Repository.Repositories
             {
                 throw new PersonRepositoryException(nameof(UpdateAsync), ex);
             }
-
-            return true;
         }
 
         /// <summary>

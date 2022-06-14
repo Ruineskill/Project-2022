@@ -6,44 +6,110 @@
              xmlns:local="clr-namespace:Presentation.Views"
              xmlns:vms="clr-namespace:Presentation.ViewModels" 
              d:DataContext="{d:DesignInstance Type=vms:FuelCardViewModel}"
+              xmlns:converters="clr-namespace:Presentation.Converters"
+             xmlns:ld="clr-namespace:Domain.Models.Enums;assembly=Domain"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    
-    <Grid Margin="0,50,0,50" HorizontalAlignment="Center" VerticalAlignment="Center">
+             d:DesignHeight="450" d:DesignWidth="800"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="17"
+             FontFamily="{md:MaterialDesignFont}"
+              xmlns:enums="clr-namespace:Presentation.Enums" 
+               xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="FuelEnum"  MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ld:FuelType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <converters:PersonConverter x:Key="PersonConverter"/>
+        <converters:CheckBoxToListConverter x:Key="ToListConverter"/>
+    </UserControl.Resources>
+    
+    <Grid Grid.IsSharedSizeScope="True" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid.Resources>
+            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <Setter Property="Margin" Value="0,0,0,20"/>
+            </Style>
+            <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <Setter Property="Margin" Value="0,0,0,20"/>
+            </Style>
+
+            <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                <Setter Property="Margin" Value="0,0,0,20"/>
+            </Style>
+          
+        </Grid.Resources>
+        
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Cardnumber" />
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CardNumber}"/>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Expiration Date" />
-        <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding ExpDate, Mode=TwoWay}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition SharedSizeGroup="Default"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition SharedSizeGroup="Default"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Pin Code" />
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PinCode}"/>
+            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding CardNumber}" md:HintAssist.Hint="Card Number" />
+            <DatePicker Grid.Row="1" Grid.Column="0" Text="{Binding ExpirationDate}" md:HintAssist.Hint="Expiration Date" md:TextFieldAssist.HasClearButton="True"/>
+            <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding CardNumber}" md:HintAssist.Hint="Card Number" />
+            <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Person, Converter={StaticResource PersonConverter}}" md:HintAssist.Hint="Person" />
+            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding PinCode}" md:HintAssist.Hint="Pincode" />
+            <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding Blocked}" Content="Blocked" />
+            
+            <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal">
+                <Button Content="Pick" Margin="5,0,10,0"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    Command="{Binding DataContext.PickCommand, ElementName= Detail}"
+                    CommandParameter="{x:Static enums:ModelType.Person}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Usable Fuel Types" />
+                <Button  Content="Remove" Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                         Command="{Binding DataContext.RemoveCommand, ElementName= Detail}"
+                         CommandParameter="{x:Static enums:ModelType.Person}"/>
+            </StackPanel>
+        </Grid>
+       
+        <GroupBox Grid.Row="1" Header="Supported Fuels">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-        <ComboBox  Grid.Row="3" Grid.Column="1" ItemsSource="{Binding FuelValues}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding IsSelected}" />
-                        <TextBlock Text="{Binding Label}" Width="100" />
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
+
+                <CheckBox Grid.Row="0" Grid.Column="0" Content="Benzine" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Benzine}}"/>
+                <CheckBox Grid.Row="1" Grid.Column="0" Content="Diesel" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Diesel}}"/>
+                <CheckBox Grid.Row="2" Grid.Column="0" Content="Hydrogen" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Hydrogen}}"/>
+
+                <CheckBox Grid.Row="0" Grid.Column="1" Content="Hybrid Benzine" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.HybridBenzine}}"/>
+                <CheckBox Grid.Row="1" Grid.Column="1" Content="Hybrid Diesel" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.HybridDiesel}}"/>
+                <CheckBox Grid.Row="2" Grid.Column="1" Content="Electric" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Electric}}"/>
+
+                <CheckBox Grid.Row="0" Grid.Column="2" Content="Liquid Petrol Gas" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.LiquidPetrolGas}}"/>
+
+            </Grid>
+
+        </GroupBox>
     </Grid>
 </UserControl>

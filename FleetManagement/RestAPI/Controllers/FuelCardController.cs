@@ -92,11 +92,11 @@ namespace RestAPI.Controllers
         // POST: api/FuelCard
         [Authorize(Policy = UserPolicies.Manager)]
         [HttpPost(Shared.ApiRoutes.FuelCardRoute.Create)]
-        public async Task<IActionResult> Create(FuelCard fuelCard)
+        public async Task<ActionResult<FuelCard>> Create(FuelCard fuelCard)
         {
             try
             {
-                await _repo.AddAsync(fuelCard);
+                return Ok(await _repo.AddAsync(fuelCard));
             }
             catch (FuelCardRepositoryException ex)
             {
@@ -109,7 +109,6 @@ namespace RestAPI.Controllers
                     return BadRequest(ex.Message);
                 }
             }
-            return Ok();
         }
 
         // DELETE: api/FuelCard/

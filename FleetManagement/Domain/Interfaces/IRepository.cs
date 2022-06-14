@@ -1,14 +1,10 @@
 ﻿namespace Domain.Interfaces
 {
-    /// <summary>
-    /// base interface for repository interfaces 
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     public interface IRepository<T>
     {
-        Task<bool> AddAsync(T value);
+        Task<T> AddAsync(T value);
 
-        bool Remove(T value);
+        void Remove(T value);
 
         Task<IEnumerable<T>> GetAllAsync();
 
@@ -16,7 +12,7 @@
 
         Task<T> FindAsync(int id);
 
-        Task<bool> UpdateAsync(T value);
+        Task UpdateAsync(T value);
 
     }
 }

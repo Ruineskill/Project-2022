@@ -1,72 +1,69 @@
-﻿using Domain.Models;
+﻿#nullable disable warnings
 using Domain.Models.Enums;
+using Presentation.DTO;
 using Presentation.ViewModels.Bases;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Presentation.Interfaces;
 
 namespace Presentation.ViewModels
 {
-    public class FuelCardViewModel: DetailViewModelBase
+    public class FuelCardViewModel : ViewModelBase
     {
-        public readonly FuelCard FuelCard;
 
-        IHttpFuelCardService _httpFuelCardService;
-
-        public long CardNumber { get=> FuelCard.CardNumber; set => FuelCard.CardNumber =value; }
-
-        public DateOnly ExpirationDate { get => FuelCard.ExpirationDate; set => FuelCard.ExpirationDate=value; }
-
-        public DateTime ExpDate { get => ExpirationDate.ToDateTime(TimeOnly.MinValue); set => ExpirationDate = DateOnly.FromDateTime(value); }
-
-        public int PinCode { get => FuelCard.PinCode; set => FuelCard.PinCode=value; }
-
-        public ICollection<FuelType> UsableFuelTypes { get => FuelCard.UsableFuelTypes; set => FuelCard.UsableFuelTypes=value; }
-
-        public ICollection<FuelValue> FuelValues { get; set; } = new List<FuelValue>();
-
-        public FuelCardViewModel(FuelCard fuelCard, IHttpFuelCardService httpFuelCardService)
+        public int Id { get; private set; }
+        public long CardNumber { get; set; }
+        public DateOnly ExpirationDate { get; set; }
+        public int PinCode { get; set; }
+        public bool Blocked { get; set; } = false;
+        public ICollection<FuelType> UsableFuelTypes { get; set; } = new List<FuelType>();
+        private PersonViewModel _person;
+        public PersonViewModel? Person
         {
-            FuelCard = fuelCard;
-            _httpFuelCardService = httpFuelCardService;
+            get => _person;
+            set => SetProperty(ref _person, value);
+        }
 
 
-            foreach (var fuelType in Enum.GetValues<FuelType>())
+
+        public static implicit operator FuelCardDto(FuelCardViewModel from)
+        {
+            if(from == null) return null;
+            return new FuelCardDto
             {
-                FuelValues.Add(new FuelValue(fuelType, UsableFuelTypes.Contains(fuelType)));
-            }
+                Id = from.Id,
+                CardNumber = from.CardNumber,
+                ExpirationDate = from.ExpirationDate,
+                PinCode = from.PinCode,
+                UsableFuelTypes = from.UsableFuelTypes,
+                Person = from.Person
+            };
         }
-
-        public override async void Save()
+        public static implicit operator FuelCardViewModel(FuelCardDto from)
         {
-            UsableFuelTypes = new List<FuelType>();
-
-            foreach (var fuel in FuelValues)
+            if(from == null) return null;
+            return new FuelCardViewModel
             {
-                if (fuel.IsSelected)
-                    UsableFuelTypes.Add(fuel.FuelType);
-            }
-
-            FuelCard.UsableFuelTypes = UsableFuelTypes;
-
-           await _httpFuelCardService.UpdateAsync(FuelCard);
+                Id = from.Id,
+                CardNumber = from.CardNumber,
+                ExpirationDate = from.ExpirationDate,
+                PinCode = from.PinCode,
+                UsableFuelTypes = from.UsableFuelTypes,
+                Person = from.Person,
+                Blocked = from.Blocked,
+            };
         }
-    }
 
-    public class FuelValue
-    {
-        public FuelType FuelType { get; }
-
-        public String Label => FuelType.ToString();
-        public bool IsSelected { get; set; }
-
-        public FuelValue(FuelType fuelType, bool isSelected)
+        public override string ToString()
         {
-            FuelType = fuelType;
-            IsSelected = isSelected;
+            return CardNumber.ToString();
         }
+
+
+        public FuelCardViewModel ShallowCopy()
+        {
+            return (FuelCardViewModel)this.MemberwiseClone();
+        }
+
+       
     }
 }

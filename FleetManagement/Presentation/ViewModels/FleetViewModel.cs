@@ -13,6 +13,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Presentation.ViewModels.Bases;
+using Presentation.Mediators;
+using Presentation.Interfaces.ApiHttp;
+using Presentation.Interfaces.Navigation;
+using Presentation.ViewModels.Listing;
+using Presentation.Enums;
 
 namespace Presentation.ViewModels
 {
@@ -20,6 +25,8 @@ namespace Presentation.ViewModels
     {
 
         private readonly INavigationService _navigationService;
+
+        private readonly IDetailService _detailService;
 
         private string _search = string.Empty;
 
@@ -42,16 +49,17 @@ namespace Presentation.ViewModels
         }
 
 
-        public FleetViewModel(INavigationService navigationService)
+        public FleetViewModel(INavigationService navigationService, IDetailService detailService)
         {
             _navigationService = navigationService;
+            _detailService = detailService;
 
             SignOutCommand = new RelayCommand(SignOutHandler);
 
             _tabs = new()
             {
-                App.Current.Services.GetService<CarListingViewModel>(),
                 App.Current.Services.GetService<PersonListingViewModel>(),
+                App.Current.Services.GetService<CarListingViewModel>(),
                 App.Current.Services.GetService<FuelCardListingViewModel>(),
             };
 
@@ -59,9 +67,11 @@ namespace Presentation.ViewModels
             _selectedTab = _tabs.First();
 
 
-           
-            //EditItemCommand = new RelayCommand(EditItemHandler);
-            //DeleteItemCommand = new RelayCommand(DeleteItemHandler);
+
+            OpenItemCommand = new AsyncRelayCommand(OpenItemHandler);
+            DeleteItemCommand = new AsyncRelayCommand(DeleteItemHandler);
+            CreateItemCommand = new AsyncRelayCommand<bool>(CreateItemHandler);
+
         }
 
 
@@ -73,21 +83,58 @@ namespace Presentation.ViewModels
             apiService.SignOut();
 
             _navigationService.Navigate(App.Current.Services.GetService<LogInViewModel>());
+
+        }
+
+
+
+        public ICommand OpenItemCommand { get; }
+        private async Task OpenItemHandler()
+        {
+            if(_selectedTab?.SelectedItem != null)
+            {
+                await _detailService.Open(_selectedTab?.SelectedItem);
+            }
+        }
+
+        public ICommand DeleteItemCommand { get; }
+        private async Task DeleteItemHandler()
+        {
+            if(_selectedTab?.SelectedItem != null)
+            {
+               await  _detailService.Delete(_selectedTab?.SelectedItem);
+            }
+
+        }
+
+        public ICommand CreateItemCommand { get; }
+        private async Task CreateItemHandler(bool fromSelection)
+        {
+
+            if(fromSelection)
+            {
+                await _detailService.Create();
+            }
+            else
+            {
+                switch(_selectedTab)
+                {
+                    case PersonListingViewModel:
+                        await _detailService.CreatePerson();
+                        break;
+                    case CarListingViewModel:
+                        await _detailService.CreateCar();
+                        break;
+                    case FuelCardListingViewModel:
+                        await _detailService.CreateFuelCard();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
            
         }
 
-     
-
-        //public ICommand EditItemCommand { get; }
-        //private void EditItemHandler()
-        //{
-
-        //}
-
-        //public ICommand DeleteItemCommand { get; }
-        //private void DeleteItemHandler()
-        //{
-
-        //}
     }
 }

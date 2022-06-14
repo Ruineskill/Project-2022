@@ -9,6 +9,8 @@ using System.Net.Http.Json;
 using System.Net;
 using System.Text.Json;
 using Domain.JsonConverters;
+using Presentation.Exceptions;
+using Presentation.Interfaces.ApiHttp;
 
 namespace Presentation.HttpClients
 {
@@ -30,24 +32,48 @@ namespace Presentation.HttpClients
 
         }
 
-        public Task<T> GetAsync<T>(string uri)
+        public async Task<T> GetAsync<T>(string uri)
         {
-            return _httpClient.GetFromJsonAsync<T>(uri, _jsonOptions);
+            try
+            {
+                return await _httpClient.GetFromJsonAsync<T>(uri, _jsonOptions);
+            }
+            catch(Exception ex)
+            {
+
+                throw new ApiException(ex.Message);
+            }
         }
 
-        public async Task<HttpStatusCode> PostAsync<T>(string uri, T payLoad)
+        public async Task<T> PostAsync<T>(string uri, T payLoad)
         {
-            var response = await _httpClient.PostAsJsonAsync(uri, payLoad, _jsonOptions);
-            return response.StatusCode;
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync(uri, payLoad, _jsonOptions);
+                response.EnsureSuccessStatusCode();
+                return await HttpContentJsonExtensions.ReadFromJsonAsync<T>(response.Content);
+            }
+            catch(Exception ex)
+            {
+
+                throw new ApiException(ex.Message);
+            }
         }
 
         public async Task<R> PostAsync<R, T>(string uri, T payLoad)
         {
-            var response = await _httpClient.PostAsJsonAsync(uri, payLoad, _jsonOptions);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync(uri, payLoad, _jsonOptions);
+                response.EnsureSuccessStatusCode();
 
+                return await HttpContentJsonExtensions.ReadFromJsonAsync<R>(response.Content);
+            }
+            catch(Exception ex)
+            {
 
-            return await HttpContentJsonExtensions.ReadFromJsonAsync<R>(response.Content);
+                throw new ApiException(ex.Message);
+            }
         }
 
 
@@ -61,25 +87,48 @@ namespace Presentation.HttpClients
             _httpClient.DefaultRequestHeaders.Clear();
         }
 
-        public async Task<HttpStatusCode> PutAsync<T>(string uri, T payLoad)
+        public async Task PutAsync<T>(string uri, T payLoad)
         {
-            var response = await _httpClient.PutAsJsonAsync(uri, payLoad, _jsonOptions);
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync(uri, payLoad, _jsonOptions);
+                response.EnsureSuccessStatusCode();
+            }
+            catch(Exception ex)
+            {
 
-            return response.StatusCode;
+                throw new ApiException(ex.Message);
+            }
         }
 
-        public async Task<HttpStatusCode> DeleteAsync(string uri)
+        public async Task DeleteAsync(string uri)
         {
-            var response = await _httpClient.DeleteAsync(uri);
-            return response.StatusCode;
+            try
+            {
+                var response = await _httpClient.DeleteAsync(uri);
+                response.EnsureSuccessStatusCode();
+            }
+            catch(Exception ex)
+            {
+
+                throw new ApiException(ex.Message);
+            }
         }
 
 
         public async IAsyncEnumerable<T> GetAllStream<T>(string uri)
         {
             var response = await _httpClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
-            response.EnsureSuccessStatusCode();
-     
+            try
+            {
+                response.EnsureSuccessStatusCode();
+            }
+            catch(Exception ex)
+            {
+
+                throw new ApiException(ex.Message);
+            }
+
             var responseStream = await response.Content.ReadAsStreamAsync();
             var items = JsonSerializer.DeserializeAsyncEnumerable<T>(responseStream, _jsonOptions);
 

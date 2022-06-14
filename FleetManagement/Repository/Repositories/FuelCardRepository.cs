@@ -21,12 +21,6 @@ namespace Repository.Repositories
         /// <param name="context"></param>
         public FuelCardRepository(Context context) => _context = context;
 
-        /// <summary>
-        /// Adds a new fuelcard to the db
-        /// </summary>
-        /// <param name="fuelCard"></param>
-        /// <returns>boolean</returns>
-        /// <exception cref="FuelCardRepositoryException"></exception>
         public async Task<bool> AddAsync(FuelCard fuelCard)
         {
             try
@@ -39,15 +33,9 @@ namespace Repository.Repositories
                 throw new FuelCardRepositoryException(nameof(AddAsync), ex);
             }
 
-            return true;
+            return fuelCard;
         }
 
-        /// <summary>
-        /// Removes a new fuelcard from the db
-        /// </summary>
-        /// <param name="fuelCard"></param>
-        /// <returns>boolean</returns>
-        /// <exception cref="FuelCardRepositoryException"></exception>
         public bool Remove(FuelCard fuelCard)
         {
             try
@@ -59,8 +47,6 @@ namespace Repository.Repositories
             {
                 throw new FuelCardRepositoryException(nameof(Remove), ex);
             }
-
-            return true;
         }
 
         /// <summary>
@@ -97,11 +83,6 @@ namespace Repository.Repositories
             }
         }
 
-        /// <summary>
-        /// Updates a fuelcard from the db
-        /// </summary>
-        /// <param name="car"></param>
-        /// <returns>boolean</returns>
         public async Task<bool> UpdateAsync(FuelCard fuelCard)
         {
             try
@@ -113,8 +94,6 @@ namespace Repository.Repositories
             {
                 throw new FuelCardRepositoryException(nameof(UpdateAsync), ex);
             }
-
-            return true;
         }
 
         /// <summary>

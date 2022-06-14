@@ -19,7 +19,6 @@ namespace Domain.Models
         private Person? _person;
         private bool _blocked = false;
         private bool _delete = false;
-        #endregion
 
         #region Getters & Setters
         public int Id { get => _id; private set => _id = value; }
@@ -65,8 +64,7 @@ namespace Domain.Models
         }
 
         public bool Blocked { get => _blocked; set => _blocked = value; }
-        public bool Delete { get => _delete; set => _delete = value; } 
-        #endregion
+   
 
         /// <summary>
         /// Constructor

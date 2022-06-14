@@ -1,36 +1,76 @@
-﻿using Domain.Models;
+﻿#nullable disable warnings
 using Domain.Models.Enums;
+using Presentation.DTO;
 using Presentation.ViewModels.Bases;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Presentation.ViewModels
 {
-    public class PersonViewModel : DetailViewModelBase
+    public class PersonViewModel : ViewModelBase
     {
-        public readonly Person Person;
-
-        public string FirstName { get => Person.FirstName; set => Person.FirstName = value; }
-        public string LastName { get => Person.LastName; set => Person.LastName = value; }
-        public DateOnly DateOfBirth { get => Person.DateOfBirth; set => Person.DateOfBirth = value; }
-        public string NationalID { get => Person.NationalRegistrationNumber; set => Person.NationalRegistrationNumber = value; }
-        public DrivingLicenseType DrivingLicenseType { get => Person.DrivingLicenseType; set => Person.DrivingLicenseType = value; }
-        public Address? Address { get => Person.Address; set => Person.Address = value; }
-        public Car? Car { get => Person.Car; set => Person.Car = Car; }
-        public FuelCard? FuelCard { get => Person.FuelCard; set => Person.FuelCard = value; }
+        public int Id { get; private set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateOnly DateOfBirth { get; set; }
+        public string NationalID { get; set; }
 
 
-        public PersonViewModel(Person person)
+        public DrivingLicenseType _drivingLicenseType;
+        public DrivingLicenseType DrivingLicenseType { get => _drivingLicenseType; set => SetProperty(ref _drivingLicenseType, value); }
+        public AddressViewModel Address { get; set; } = new AddressViewModel();
+
+        private CarViewModel? _car;
+        public CarViewModel? Car { get => _car; set => SetProperty(ref _car, value); }
+
+        private FuelCardViewModel? _fuelCard;
+        public FuelCardViewModel? FuelCard { get => _fuelCard; set => SetProperty(ref _fuelCard, value); }
+
+
+
+        public static implicit operator PersonDto(PersonViewModel from)
         {
-            Person = person;
+            if(from == null) return null;
+            return new PersonDto
+            {
+                Id = from.Id,
+                FirstName = from.FirstName,
+                LastName = from.LastName,
+                DateOfBirth = from.DateOfBirth,
+                NationalRegistrationNumber = from.NationalID,
+                DrivingLicenseType = from.DrivingLicenseType,
+                Address = from.Address,
+                Car = from.Car,
+                FuelCard = from.FuelCard,
+            };
+        }
+        public static implicit operator PersonViewModel(PersonDto from)
+        {
+            if(from == null) return null;
+            return new PersonViewModel
+            {
+                Id = from.Id,
+                FirstName = from.FirstName,
+                LastName = from.LastName,
+                DateOfBirth = from.DateOfBirth,
+                NationalID = from.NationalRegistrationNumber,
+                DrivingLicenseType = from.DrivingLicenseType,
+                Address = from.Address,
+                Car = from.Car,
+                FuelCard = from.FuelCard,
+            };
         }
 
-        public override void Save()
+
+        public override string ToString()
         {
-            throw new NotImplementedException();
+            return FirstName + " " + LastName;
         }
+
+        public PersonViewModel ShallowCopy()
+        {
+            return (PersonViewModel)this.MemberwiseClone();
+        }
+
+
     }
 }

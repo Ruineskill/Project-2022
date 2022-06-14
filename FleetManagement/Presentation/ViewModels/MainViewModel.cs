@@ -1,5 +1,4 @@
-﻿
-using Presentation.Interfaces;
+﻿using Presentation.Interfaces.Navigation;
 using Presentation.ViewModels.Bases;
 
 namespace Presentation.ViewModels
