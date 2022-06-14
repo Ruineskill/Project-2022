@@ -9,23 +9,23 @@ namespace Presentation.Mediators
 {
     public class MediatorBase<T>
     {
-        public event Action<T> Created;
-        public event Action<T> Updated;
-        public event Action<T> Deleted;
+        public event Action<T> OnCreated;
+        public event Action<T> OnUpdated;
+        public event Action<T> OnDeleted;
 
         public void Create(T obj)
         {
-            Created?.Invoke(obj);
+            OnCreated?.Invoke(obj);
         }
 
         public void Update(T obj)
         {
-            Updated?.Invoke(obj);
+            OnUpdated?.Invoke(obj);
         }
 
         public void Delete(T obj)
         {
-            Deleted?.Invoke(obj);
+            OnDeleted?.Invoke(obj);
         }
     }
 }
