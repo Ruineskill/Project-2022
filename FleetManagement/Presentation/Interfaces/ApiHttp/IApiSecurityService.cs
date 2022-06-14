@@ -6,13 +6,12 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Presentation.Interfaces
+namespace Presentation.Interfaces.ApiHttp
 {
     public interface IApiSecurityService
     {
         Task<bool> SignIn(string username, SecureString password);
 
-        Task<bool> SignOut();
-
+        Task SignOut();
     }
 }
