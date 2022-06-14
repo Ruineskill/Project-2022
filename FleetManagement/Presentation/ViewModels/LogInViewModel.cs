@@ -1,10 +1,14 @@
 ﻿#nullable disable
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Input;
+using Presentation.Exceptions;
 using Presentation.Interfaces;
+using Presentation.Interfaces.ApiHttp;
+using Presentation.Interfaces.Navigation;
 using Presentation.ViewModels.Bases;
 using System.Net.Http;
 using System.Security;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Presentation.ViewModels
@@ -14,7 +18,7 @@ namespace Presentation.ViewModels
         private readonly INavigationService _navigationService;
 
         private readonly IApiSecurityService _apiSecurityService;
-
+        private readonly IMessageService _messageService;
         private string _username = string.Empty;
 
         public string Username
@@ -35,8 +39,8 @@ namespace Presentation.ViewModels
 
         private bool _isSignInButtonEnabled = true;
         public bool IsSignInButtonEnabled
-        { 
-            get => _isSignInButtonEnabled; 
+        {
+            get => _isSignInButtonEnabled;
             set
             {
                 SetProperty(ref _isSignInButtonEnabled, value);
@@ -52,32 +56,40 @@ namespace Presentation.ViewModels
         }
 
 
-        public LogInViewModel(INavigationService navigationService, IApiSecurityService apiSecurityService)
+        public LogInViewModel(INavigationService navigationService, IApiSecurityService apiSecurityService, IMessageService messageService)
         {
             _navigationService = navigationService;
             _apiSecurityService = apiSecurityService;
-
-            LoginCommand = new RelayCommand(LoginHandler);
+            _messageService = messageService;
+            LoginCommand = new AsyncRelayCommand(LoginHandler);
         }
 
 
         public ICommand LoginCommand { get; }
-       
 
-        public async void LoginHandler()
+
+        public async Task LoginHandler()
         {
             IsSignInButtonEnabled = false;
 
-            bool signedIn = await _apiSecurityService.SignIn(Username, _password);
+           
 
-            if(signedIn)
+
+            try
             {
-
+                await _apiSecurityService.SignIn(Username, _password);
+           
                 var fleetViewModel = App.Current.Services.GetService<FleetViewModel>();
                 _navigationService.Navigate(fleetViewModel);
             }
-
-            IsSignInButtonEnabled = true;
+            catch(ApiException ex)
+            {
+                await _messageService.DisplayErrorAsync(ex.Message);
+            }
+            finally
+            {
+                IsSignInButtonEnabled = true;
+            }
 
         }
     }
