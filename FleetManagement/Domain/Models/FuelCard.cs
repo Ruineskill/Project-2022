@@ -17,7 +17,6 @@ namespace Domain.Models
         private ICollection<FuelType> _usableFuelTypes;
         private Person? _person;
         private bool _blocked = false;
-        private bool _delete = false;
 
         public int Id { get => _id; private set => _id = value; }
         public long CardNumber
@@ -62,7 +61,7 @@ namespace Domain.Models
         }
 
         public bool Blocked { get => _blocked; set => _blocked = value; }
-        public bool Delete { get => _delete; set => _delete = value; }
+   
 
 
         public FuelCard(long cardNumber, DateOnly expirationDate, int pinCode, ICollection<FuelType> usableFuelTypes)

@@ -22,7 +22,6 @@ namespace Domain.Models
         private Person? _person = null;
         private string? _color = null;
         private int _numberOfDoors;
-        private bool _isDelete = false;
         private DrivingLicenseType _requiredLicence;
 
         public int Id { get => _id; private set => _id = value; }
@@ -83,7 +82,6 @@ namespace Domain.Models
         }
         public string? Color { get => _color; set => _color = value; }
         public int NumberOfDoors { get => _numberOfDoors; set => _numberOfDoors = value; }
-        public bool IsDeleted { get => _isDelete; set => _isDelete = value; }
         public DrivingLicenseType RequiredLicence { get => _requiredLicence; private set => _requiredLicence = value; }
 
         public Car(string brand, string model, string chassisNumber, string licensePlate,

@@ -19,7 +19,6 @@ namespace Domain.Models
         private Address? _address;
         private Car? _car;
         private FuelCard? _fuelCard;
-        private bool _delete = false;
 
         public int Id { get => _id; private set => _id = value; }
         public string FirstName
@@ -84,8 +83,7 @@ namespace Domain.Models
                 }
             }
         }
-        public bool Delete { get => _delete; set => _delete = value; }
-
+ 
         public Person(string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber,
             DrivingLicenseType drivingLicenseType)
             : this(0, firstName, lastName, dateOfBirth, nationalRegistrationNumber, drivingLicenseType) { }
