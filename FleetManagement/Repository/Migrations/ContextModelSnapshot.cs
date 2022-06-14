@@ -44,9 +44,6 @@ namespace Repository.Migrations
                     b.Property<int>("FuelType")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("LicensePlate")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -96,9 +93,6 @@ namespace Repository.Migrations
                     b.Property<long>("CardNumber")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("Delete")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("ExpirationDate")
                         .HasColumnType("datetime2");
 
@@ -132,9 +126,6 @@ namespace Repository.Migrations
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Delete")
-                        .HasColumnType("bit");
 
                     b.Property<int>("DrivingLicenseType")
                         .HasColumnType("int");

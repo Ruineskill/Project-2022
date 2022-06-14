@@ -12,7 +12,7 @@ using Repository.Contexts;
 namespace Repository.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220517161716_initial")]
+    [Migration("20220614144728_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,9 +45,6 @@ namespace Repository.Migrations
 
                     b.Property<int>("FuelType")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("LicensePlate")
                         .IsRequired()
@@ -98,9 +95,6 @@ namespace Repository.Migrations
                     b.Property<long>("CardNumber")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("Delete")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("ExpirationDate")
                         .HasColumnType("datetime2");
 
@@ -134,9 +128,6 @@ namespace Repository.Migrations
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Delete")
-                        .HasColumnType("bit");
 
                     b.Property<int>("DrivingLicenseType")
                         .HasColumnType("int");

@@ -20,7 +20,6 @@ namespace Repository.Migrations
                     PinCode = table.Column<int>(type: "int", nullable: false),
                     UsableFuelTypes = table.Column<int>(type: "int", nullable: false),
                     Blocked = table.Column<bool>(type: "bit", nullable: false),
-                    Delete = table.Column<bool>(type: "bit", nullable: false),
                     PersonId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -44,7 +43,6 @@ namespace Repository.Migrations
                     Address_City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address_ZipCode = table.Column<int>(type: "int", nullable: true),
                     FuelCardId = table.Column<int>(type: "int", nullable: true),
-                    Delete = table.Column<bool>(type: "bit", nullable: false),
                     CarId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -72,7 +70,6 @@ namespace Repository.Migrations
                     PersonId = table.Column<int>(type: "int", nullable: true),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NumberOfDoors = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     RequiredLicence = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
