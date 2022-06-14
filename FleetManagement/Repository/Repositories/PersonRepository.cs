@@ -14,7 +14,7 @@ namespace Repository.Repositories
         public PersonRepository(Context context) => _context = context;
 
 
-        public async Task<bool> AddAsync(Person person)
+        public async Task<Person> AddAsync(Person person)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace Repository.Repositories
             {
                 throw new PersonRepositoryException(nameof(AddAsync), ex);
             }
-            return true;
+            return person;
            
         }
 
@@ -53,7 +53,7 @@ namespace Repository.Repositories
             }
         }
 
-        public  bool Remove(Person person)
+        public  void Remove(Person person)
         {
             try
             {
@@ -64,11 +64,9 @@ namespace Repository.Repositories
             {
                 throw new PersonRepositoryException(nameof(Remove), ex);
             }
-
-            return true;
         }
 
-        public async Task<bool> UpdateAsync(Person person)
+        public async Task UpdateAsync(Person person)
         {
             try
             {
@@ -79,8 +77,6 @@ namespace Repository.Repositories
             {
                 throw new PersonRepositoryException(nameof(UpdateAsync), ex);
             }
-
-            return true;
         }
 
         public IAsyncEnumerable<Person> GetAllStream()

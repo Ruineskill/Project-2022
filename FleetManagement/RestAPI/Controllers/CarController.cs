@@ -77,11 +77,11 @@ namespace RestAPI.Controllers
         // POST: api/Car
         [Authorize(Policy = UserPolicies.Manager)]
         [HttpPost(Shared.ApiRoutes.CarRoute.Create)]
-        public async Task<IActionResult> Create(Car car)
+        public async Task<ActionResult<Car>> Create(Car car)
         {
             try
             {
-                await _repo.AddAsync(car);
+               return Ok(await _repo.AddAsync(car));
             }
             catch (CarRepositoryException ex)
             {
@@ -94,8 +94,6 @@ namespace RestAPI.Controllers
                     return BadRequest(ex.Message);
                 }
             }
-
-            return Ok();
         }
 
         // DELETE: api/Car/
