@@ -24,6 +24,7 @@ namespace Presentation.Windows
         {
             InitializeComponent();
 
+         
         }
     }
 }
