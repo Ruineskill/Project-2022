@@ -37,7 +37,7 @@
 
                 <ResourceDictionary>
 
-                    <!--Datagrid style-->
+                    <!--Data-grid style-->
                     <Style x:Key="DataCells" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -55,18 +55,18 @@
 
                     <!--Context menu style-->
                     <Style TargetType="ContextMenu" BasedOn="{StaticResource MaterialDesignContextMenu}">
-                        <Setter Property="Background" Value="AntiqueWhite"/>
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Padding" Value="0"/>
+
                     </Style>
 
-                </ResourceDictionary>
+                    <Style  TargetType="MenuItem">
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
 
-                <ResourceDictionary>
-                    <!-- datagrid context menu for listing views-->
-                    <ContextMenu x:Key="DataListingContext">
-                        <MenuItem Header="Read" Command="{Binding ReadItemCommand}" />
-                        <MenuItem Header="Edit" Command="{Binding EditItemCommand}" />
-                        <MenuItem Header="Delete" Command="{Binding DeleteItemCommand}" />
-                    </ContextMenu>
                 </ResourceDictionary>
 
             </ResourceDictionary.MergedDictionaries>

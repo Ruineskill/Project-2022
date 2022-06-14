@@ -3,11 +3,20 @@
 using Microsoft.Extensions.DependencyInjection;
 using Presentation.HttpClients;
 using Presentation.Interfaces;
+using Presentation.Interfaces.ApiHttp;
+using Presentation.Interfaces.Listing;
+using Presentation.Interfaces.Navigation;
 using Presentation.Mediators;
 using Presentation.Services;
+using Presentation.Services.ApiHttp;
+using Presentation.Services.Listing;
+using Presentation.Services.Navigation;
 using Presentation.ViewModels;
+using Presentation.ViewModels.Dialogs;
+using Presentation.ViewModels.Listing;
 using Presentation.Windows;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Windows;
 
@@ -22,6 +31,13 @@ namespace Presentation
 
         public new static App Current => (App)Application.Current;
 
+        public static T? GetService<T>()
+        {
+           return Current.Services.GetService<T>();
+        }
+
+        public static Window ActiveWindow => Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+
         public App()
         {
             Services = ConfigureServices();
@@ -35,7 +51,7 @@ namespace Presentation
             // Navigation
             services.AddSingleton<INavigationService, MainNavigationService>();
             services.AddSingleton<IDetailNavigationService, DetailNavigationService>();
-            services.AddSingleton<IDetailDialogService, DetailDialogService>();
+
             // Http Api
             services.AddSingleton<IApiSecurityService, ApiSecurityService>();
             services.AddSingleton<HttpClient>();
@@ -48,23 +64,34 @@ namespace Presentation
             services.AddSingleton<CarMediator>();
             services.AddSingleton<FuelCardMediator>();
             services.AddSingleton<PersonMediator>();
+            services.AddScoped<IFleetMediator, FleetMediator>();
 
 
-            // Viewmodels/windows
-            services.AddSingleton<MainWindow>();
-            services.AddSingleton<MainViewModel>();
+            // ViewModels
+            services.AddScoped<MainViewModel>();
             services.AddScoped<LogInViewModel>();
             services.AddScoped<FleetViewModel>();
-            services.AddSingleton<CarListingViewModel>();
-            services.AddSingleton<PersonListingViewModel>();
-            services.AddSingleton<FuelCardListingViewModel>();
-            services.AddScoped<DetailViewModel>();
-          
+            services.AddScoped<CarListingViewModel>();
+            services.AddScoped<PersonListingViewModel>();
+            services.AddScoped<FuelCardListingViewModel>();
+            services.AddScoped<DetailDialogViewModel>();
             
 
+            // Windows/Dialogs
+            services.AddSingleton<MainWindow>();
+            services.AddSingleton<IMessageService, MessageService>();
+            services.AddSingleton<IDetailService, DetailService>();
+            services.AddSingleton<ISelectorService, SelectorService>();
+
+            // Listings
+            services.AddSingleton<ICarListingService, CarListingService>();
+            services.AddSingleton<IPersonListingService, PersonListingService>();
+            services.AddSingleton<IFuelCardListingService, FuelCardListingService>();
 
             return services.BuildServiceProvider();
         }
+
+       
 
         protected override void OnStartup(StartupEventArgs e)
         {
