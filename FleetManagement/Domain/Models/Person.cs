@@ -10,7 +10,7 @@ namespace Domain.Models
     /// </summary>
     public class Person
     {
-        #region Properties
+        
         private int _id;
         private string _firstName;
         private string _lastName;
@@ -21,7 +21,7 @@ namespace Domain.Models
         private Car? _car;
         private FuelCard? _fuelCard;
 
-        #region Getters & Setters
+       
         public int Id { get => _id; private set => _id = value; }
         public string FirstName
         {
@@ -85,7 +85,6 @@ namespace Domain.Models
                 }
             }
         }
-        public bool Delete { get => _delete; set => _delete = value; }
 
         public Person(string firstName, string lastName, DateOnly dateOfBirth, string nationalRegistrationNumber,
             DrivingLicenseType drivingLicenseType)

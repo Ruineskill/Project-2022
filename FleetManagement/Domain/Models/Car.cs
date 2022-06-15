@@ -12,7 +12,7 @@ namespace Domain.Models
     /// </summary>
     public class Car
     {
-        #region Properties
+   
         private int _id;
         private string _brand;
         private string _model;
@@ -24,9 +24,9 @@ namespace Domain.Models
         private string? _color = null;
         private int _numberOfDoors;
         private DrivingLicenseType _requiredLicence;
-        #endregion
+      
 
-        #region Getters & Setters
+      
         public int Id { get => _id; private set => _id = value; }
         public string Brand
         {

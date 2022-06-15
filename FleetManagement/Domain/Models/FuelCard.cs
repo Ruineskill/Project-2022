@@ -10,7 +10,7 @@ namespace Domain.Models
     /// </summary>
     public class FuelCard
     {
-        #region Properties
+        
         private int _id;
         private long _cardNumber;
         private DateOnly _expirationDate;
@@ -18,9 +18,9 @@ namespace Domain.Models
         private ICollection<FuelType> _usableFuelTypes;
         private Person? _person;
         private bool _blocked = false;
-        private bool _delete = false;
+ 
 
-        #region Getters & Setters
+   
         public int Id { get => _id; private set => _id = value; }
         public long CardNumber
         {
