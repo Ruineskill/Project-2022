@@ -1,11 +1,14 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
+﻿#nullable disable warnings
+using Microsoft.Toolkit.Mvvm.Input;
 using Presentation.Enums;
 using Presentation.Interfaces.Listing;
 using Presentation.Interfaces.Navigation;
+using Presentation.Validation;
 using Presentation.ViewModels.Bases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,18 +17,111 @@ namespace Presentation.ViewModels.Dialogs
 {
     public class DetailDialogViewModel : ViewModelBase
     {
+        public event Action<int> ErrorChanged;
+
         private readonly ISelectorService _selectorService;
 
-        public ViewModelBase? _content;
-        public ViewModelBase? Content
+        public ValidatorBase? Validator { get; set; }
+
+        public int ErrorCount { get; private set; }
+
+        public ValidatedViewModelBase? _content;
+        public ValidatedViewModelBase? Content
         {
-            get => _content; 
-            set =>SetProperty(ref _content, value); 
+            get => _content;
+            set
+            {
+                SetProperty(ref _content, value);
+                if(Validator != null)
+                {
+                    _content.PropertyChanged += _content_PropertyChanged;
+
+                    ValidateProperties();
+                }
+            }
         }
 
-        public ICommand? SaveCommand { get; set; }
 
-        public ICommand? CancelCommand { get; set; }
+
+        private void _content_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+
+
+            ValidateProperty(e.PropertyName);
+
+
+            while(Validator.ReValidation.TryDequeue(out string property))
+            {
+                ValidateProperty(property);
+            }
+
+        }
+
+        private void ValidateProperty(string propertyName)
+        {
+            var validator = Validator.GetType();
+            var valid = validator.GetMethod(propertyName, BindingFlags.Instance | BindingFlags.Public);
+
+            if(valid != null)
+            {
+                if(!(bool)valid.Invoke(Validator, new[] { Content }))
+                {
+                    Content.AddError(propertyName, Validator.Message);
+                    SetErrorCount();
+
+                }
+                else
+                {
+                    if(_content.ContainsErrorFor(propertyName))
+                    {
+                        _content.ClearErrors(propertyName);
+
+                        SetErrorCount(false);
+                    }
+                }
+            }
+           
+        }
+
+        private void SetErrorCount(bool increment = true)
+        {
+            ErrorCount = increment ? ++ErrorCount : --ErrorCount;
+            ErrorChanged?.Invoke(ErrorCount);
+        }
+
+        private void ValidateProperties()
+        {
+
+            var properties = _content.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            var validator = Validator.GetType();
+
+            try
+            {
+                foreach(var property in properties)
+                {
+                    var methode = validator.GetMethod(property.Name, BindingFlags.Instance | BindingFlags.Public);
+                    if(methode != null)
+                    {
+                        if(!(bool)methode.Invoke(Validator, new[] { Content }))
+                        {
+                            Content.AddError(property.Name, Validator.Message);
+                            ErrorCount++;
+                        }
+                    }
+
+
+                }
+            }
+            catch(Exception ex)
+            {
+
+                var msg = ex.Message;
+            }
+
+
+        }
+
+
 
         public DetailDialogViewModel(ISelectorService selectorService)
         {
@@ -34,6 +130,8 @@ namespace Presentation.ViewModels.Dialogs
             PickCommand = new AsyncRelayCommand<ModelType>(PickCommandHandler);
 
             RemoveCommand = new RelayCommand<ModelType>(RemoveHandler);
+
+           
         }
 
         private void RemoveHandler(ModelType modelType)
@@ -81,12 +179,7 @@ namespace Presentation.ViewModels.Dialogs
 
         public ICommand? RemoveCommand { get; set; }
 
-        public void SetContent(ViewModelBase content)
-        {
-            Content = content;
-        }
 
-    
         private void AssignePerson(PersonViewModel? person)
         {
             if(_content is CarViewModel carView)
