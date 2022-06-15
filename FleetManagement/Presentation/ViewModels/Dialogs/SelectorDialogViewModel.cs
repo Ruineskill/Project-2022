@@ -1,4 +1,5 @@
 ﻿
+#nullable disable warnings
 using Presentation.Interfaces.Listing;
 using Presentation.ViewModels.Bases;
 using System;
@@ -22,14 +23,10 @@ namespace Presentation.ViewModels.Dialogs
             get => _listing;
             set
             {
-                
+
                 _listing = value;
 
-                //Items = CollectionViewSource.GetDefaultView(Listing?.Items);
-                //Items.Filter = c => ((CarViewModel)c).FuelType == Domain.Models.Enums.FuelType.Diesel;
-
-
-                //_listing.View.Filter = c => ((CarViewModel)c).FuelType == Domain.Models.Enums.FuelType.Diesel;
+                Filter(null);
 
                 OnPropertyChanged(nameof(Items));
             }
@@ -49,5 +46,109 @@ namespace Presentation.ViewModels.Dialogs
             set => SetProperty(ref _search, value);
         }
 
+        private void Filter(string? p)
+        {
+
+            if(_listing != null)
+            {
+
+                switch(_listing)
+                {
+                    case ICarListingService:
+                        FilterCars(p);
+                        break;
+                    case IPersonListingService:
+                        FilterPeople(p);
+                        break;
+                    case IFuelCardListingService:
+                        FilterFuelCards(p);
+                        break;
+                    default:
+                        break;
+                }
+
+
+
+            }
+
+        }
+
+        private void FilterCars(string p)
+        {
+            if(p != null)
+            {
+                _listing.View.Filter = new Predicate<object>(bool (object s) =>
+                {
+                    var car = (CarViewModel)s;
+                    var pre = p.ToLower();
+
+                    if(car.Person == null || car.Brand.Contains(pre, StringComparison.CurrentCultureIgnoreCase)
+                    || car.Model.Contains(pre, StringComparison.CurrentCultureIgnoreCase)
+                    || car.ChassisNumber.Contains(pre, StringComparison.CurrentCultureIgnoreCase)) return true;
+                    return false;
+                });
+            }
+            else
+            {
+                _listing.View.Filter = new Predicate<object>(bool (object s) =>
+                {
+                    var car = (CarViewModel)s;
+                    if(car.Person == null) return true;
+                    return false;
+                });
+            }
+        }
+
+        private void FilterPeople(string p)
+        {
+            if(p != null)
+            {
+                _listing.View.Filter = new Predicate<object>(bool (object s) =>
+                {
+                    var person = (PersonViewModel)s;
+                    var pre = p.ToLower();
+
+                    if(person.FirstName.Contains(pre, StringComparison.CurrentCultureIgnoreCase)
+                    || person.LastName.Contains(pre, StringComparison.CurrentCultureIgnoreCase)
+                    || person.NationalID.Contains(pre, StringComparison.CurrentCultureIgnoreCase)) return true;
+                    return false;
+                });
+            }
+            else
+            {
+                _listing.View.Filter = new Predicate<object>(bool (object s) =>
+                {
+                    var person = (PersonViewModel)s;
+
+                    if(person.Car ==null || person.FuelCard ==null) return true;
+                    return false;
+                });
+            }
+        }
+
+        private void FilterFuelCards(string p)
+        {
+            if(p != null)
+            {
+                _listing.View.Filter = new Predicate<object>(bool (object s) =>
+                {
+                    var fuelCard = (FuelCardViewModel)s;
+                    var pre = p.ToLower();
+
+                    if(fuelCard.Person == null || fuelCard.CardNumber.ToString().Contains(pre, StringComparison.CurrentCultureIgnoreCase)) return true;
+                    return false;
+                });
+            }
+            else
+            {
+                _listing.View.Filter = new Predicate<object>(bool (object s) =>
+                {
+                    var fuelCard = (FuelCardViewModel)s;
+
+                    if(fuelCard.Person == null) return true;
+                    return false;
+                });
+            }
+        }
     }
 }
