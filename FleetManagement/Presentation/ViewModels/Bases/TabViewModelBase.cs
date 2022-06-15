@@ -15,6 +15,7 @@ namespace Presentation.ViewModels.Bases
 
         public abstract ValidatedViewModelBase? SelectedItem { get; set; }
 
+        public abstract void Filter(string p);
       
 
     }

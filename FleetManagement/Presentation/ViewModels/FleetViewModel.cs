@@ -33,7 +33,11 @@ namespace Presentation.ViewModels
         public string Search
         {
             get => _search;
-            set => SetProperty(ref _search, value);
+            set
+            {
+                SetProperty(ref _search, value);
+                SelectedTab.Filter(_search);
+            }
 
         }
 

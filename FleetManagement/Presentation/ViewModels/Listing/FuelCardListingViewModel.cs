@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.ComponentModel;
 
 namespace Presentation.ViewModels.Listing
 {
@@ -22,8 +23,7 @@ namespace Presentation.ViewModels.Listing
         private readonly IFuelCardListingService _fuelCardListingService;
 
         private readonly FuelCardMediator _fuelCardMediator;
-
-        public ObservableCollection<ViewModelBase> FuelCards => _fuelCardListingService.Items;
+        public ICollectionView FuelCards { get => _fuelCardListingService.View; }
 
         private ValidatedViewModelBase? _selectedItem;
         public override ValidatedViewModelBase? SelectedItem
@@ -57,6 +57,20 @@ namespace Presentation.ViewModels.Listing
         private async void OnFuelCardUpdated(FuelCardViewModel obj)
         {
             await _fuelCardListingService.Update(obj);
+        }
+
+        public override void Filter(string p)
+        {
+            if(string.IsNullOrWhiteSpace(p)) FuelCards.Filter = null;
+
+            FuelCards.Filter = new Predicate<object>(bool (object s) =>
+            {
+                var fuelCard = (FuelCardViewModel)s;
+                var pre = p.ToLower();
+
+                if(fuelCard.CardNumber.ToString().Contains(pre, StringComparison.CurrentCultureIgnoreCase)) return true;
+                return false;
+            });
         }
     }
 }

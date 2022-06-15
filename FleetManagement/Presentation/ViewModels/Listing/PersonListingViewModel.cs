@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Presentation.ViewModels.Listing
 {
@@ -16,7 +17,8 @@ namespace Presentation.ViewModels.Listing
         private readonly IPersonListingService _personListingService;
         private readonly PersonMediator _personMediator;
 
-        public ObservableCollection<ViewModelBase> People => _personListingService.Items;
+
+        public ICollectionView People { get => _personListingService.View; }
 
         private ValidatedViewModelBase? _selectedItem;
         public override ValidatedViewModelBase? SelectedItem
@@ -55,5 +57,20 @@ namespace Presentation.ViewModels.Listing
             await _personListingService.Update(obj);
         }
 
+        public override void Filter(string p)
+        {
+            if(string.IsNullOrWhiteSpace(p)) People.Filter = null;
+
+            People.Filter = new Predicate<object>(bool (object s) =>
+            {
+                var person = (PersonViewModel)s;
+                var pre = p.ToLower();
+
+                if(person.FirstName.Contains(pre, StringComparison.CurrentCultureIgnoreCase)
+                || person.LastName.Contains(pre, StringComparison.CurrentCultureIgnoreCase)
+                || person.NationalID.Contains(pre, StringComparison.CurrentCultureIgnoreCase)) return true;
+                return false;
+            });
+        }
     }
 }

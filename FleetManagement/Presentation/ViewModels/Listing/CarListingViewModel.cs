@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace Presentation.ViewModels.Listing
 {
@@ -24,10 +25,10 @@ namespace Presentation.ViewModels.Listing
 
         private readonly CarMediator _carMediator;
 
-        private readonly ICarListingService _carListingService;
+        private readonly ICarListingService _carListingService; 
 
-        public ObservableCollection<ViewModelBase> Cars => _carListingService.Items;
-
+        public ICollectionView Cars { get => _carListingService.View; }
+        
         private ValidatedViewModelBase? _selectedItem;
         public override ValidatedViewModelBase? SelectedItem
         {
@@ -66,5 +67,21 @@ namespace Presentation.ViewModels.Listing
             await _carListingService.Update(obj);
         }
 
+        public override void Filter(string p)
+        {
+            if(string.IsNullOrWhiteSpace(p)) Cars.Filter = null;
+
+            Cars.Filter = new Predicate<object>( bool (object s)=>
+            {
+                var car = (CarViewModel)s;
+                var pre = p.ToLower();
+
+                if(car.Brand.Contains(pre, StringComparison.CurrentCultureIgnoreCase) 
+                || car.Model.Contains(pre,StringComparison.CurrentCultureIgnoreCase)
+                || car.ChassisNumber.Contains(pre, StringComparison.CurrentCultureIgnoreCase)) return true;
+                return false;
+            });
+          
+        }
     }
 }
