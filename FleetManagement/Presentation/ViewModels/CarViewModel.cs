@@ -10,27 +10,53 @@ using System.Threading.Tasks;
 
 namespace Presentation.ViewModels
 {
-    public class CarViewModel : ViewModelBase
+    public class CarViewModel : ValidatedViewModelBase
     {
+        private PersonViewModel? _person;
+        private CarType _type;
+        private DrivingLicenseType _requiredLicence;
+        private FuelType _fuelType;
+        private string _licensePlate;
+        private string _chassisNumber;
+        private string _model;
+        private string _brand;
 
-    
 
         public int Id { get; private set; }
-        public string Brand { get; set; }
-        public string Model { get; set; }
-        public string ChassisNumber { get; set; }
-        public string LicensePlate { get; set; }
-        public FuelType FuelType { get; set; }
-        public CarType Type { get; set; }
-        public string Color { get; set; }
-        public int NumberOfDoors { get; set; }
-        public DrivingLicenseType RequiredLicence { get; private set; }
 
-        private PersonViewModel? _person;
-        public PersonViewModel? Person 
-        { 
-            get => _person; 
-            set => SetProperty(ref _person, value); 
+        public string Brand { get => _brand; set => SetProperty(ref _brand,value); }
+
+        public string Model { get => _model; set => SetProperty(ref _model, value); }
+
+        public string ChassisNumber { get => _chassisNumber; set => SetProperty(ref _chassisNumber, value); }
+
+        public string LicensePlate { get => _licensePlate; set => SetProperty(ref _licensePlate, value); }
+
+        public FuelType FuelType { get => _fuelType; set => SetProperty(ref _fuelType, value); }
+
+        public CarType Type
+        {
+            get => _type;
+            set
+            {
+                _requiredLicence = GetLicenceForCarType(value);
+                SetProperty(ref _type, value);              
+            }
+        }
+
+        public string Color { get; set; }
+
+        public int NumberOfDoors { get; set; }
+
+        public DrivingLicenseType RequiredLicence { get => _requiredLicence; private set => _requiredLicence = value; }
+
+
+
+
+        public PersonViewModel? Person
+        {
+            get => _person;
+            set => SetProperty(ref _person, value);
         }
 
 
@@ -84,6 +110,18 @@ namespace Presentation.ViewModels
             return (CarViewModel)this.MemberwiseClone();
         }
 
-       
+        public static DrivingLicenseType GetLicenceForCarType(CarType type)
+        {
+            if(type == CarType.Truck)
+            {
+                return DrivingLicenseType.C;
+            }
+            else if(type == CarType.Bus)
+            {
+                return DrivingLicenseType.D;
+            }
+
+            return DrivingLicenseType.B;
+        }
     }
 }

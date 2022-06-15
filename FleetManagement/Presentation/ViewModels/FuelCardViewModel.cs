@@ -7,16 +7,36 @@ using System.Collections.Generic;
 
 namespace Presentation.ViewModels
 {
-    public class FuelCardViewModel : ViewModelBase
+    public class FuelCardViewModel : ValidatedViewModelBase
     {
+        private PersonViewModel _person;
+        private ICollection<FuelType> _usableFuelTypes = new List<FuelType>();
+        private int _pinCode;
+        private DateOnly _expirationDate;
+        private long _cardNumber;
+        private bool _blocked = false;
 
         public int Id { get; private set; }
-        public long CardNumber { get; set; }
-        public DateOnly ExpirationDate { get; set; }
-        public int PinCode { get; set; }
-        public bool Blocked { get; set; } = false;
-        public ICollection<FuelType> UsableFuelTypes { get; set; } = new List<FuelType>();
-        private PersonViewModel _person;
+
+        public long CardNumber { get => _cardNumber; set => SetProperty(ref _cardNumber, value); }
+
+        public DateOnly ExpirationDate { get => _expirationDate; set => SetProperty(ref _expirationDate, value); }
+
+        public int PinCode { get => _pinCode; set => SetProperty(ref _pinCode, value); }
+
+        public ICollection<FuelType> UsableFuelTypes 
+        { 
+            get => _usableFuelTypes; 
+            set
+            {
+                //SetProperty(ref _usableFuelTypes, value);
+                _usableFuelTypes = value;
+                OnPropertyChanged(nameof(UsableFuelTypes));
+            }
+        }
+
+        public bool Blocked { get => _blocked; set => SetProperty(ref _blocked, value); }
+
         public PersonViewModel? Person
         {
             get => _person;
@@ -49,7 +69,7 @@ namespace Presentation.ViewModels
                 PinCode = from.PinCode,
                 UsableFuelTypes = from.UsableFuelTypes,
                 Person = from.Person,
-                Blocked = from.Blocked,
+                Blocked = from.Blocked
             };
         }
 
@@ -64,6 +84,6 @@ namespace Presentation.ViewModels
             return (FuelCardViewModel)this.MemberwiseClone();
         }
 
-       
+
     }
 }

@@ -6,21 +6,40 @@ using System;
 
 namespace Presentation.ViewModels
 {
-    public class PersonViewModel : ViewModelBase
+    public class PersonViewModel : ValidatedViewModelBase
     {
         public int Id { get; private set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateOnly DateOfBirth { get; set; }
-        public string NationalID { get; set; }
 
+        public string _firstName;
+        public string FirstName { get => _firstName; set => SetProperty(ref _firstName, value); }
+
+        private string _lastName;
+        public string LastName { get => _lastName; set => SetProperty(ref _lastName, value); }
+
+        private DateOnly _dateOfBirth;
+        public DateOnly DateOfBirth { get => _dateOfBirth; set => SetProperty(ref _dateOfBirth, value); }
+
+        private string _nationalID;
+        public string NationalID { get => _nationalID; set => SetProperty(ref _nationalID, value); }
 
         public DrivingLicenseType _drivingLicenseType;
         public DrivingLicenseType DrivingLicenseType { get => _drivingLicenseType; set => SetProperty(ref _drivingLicenseType, value); }
-        public AddressViewModel Address { get; set; } = new AddressViewModel();
+
+        private string _street;
+        public string Street { get => _street; set => SetProperty(ref _street, value); }
+
+        private int _number;
+        public int Number { get => _number; set => SetProperty(ref _number, value); }
+
+        private string _city;
+        public string City { get => _city; set => SetProperty(ref _city, value); }
+
+        private int _zipCode;
+        public int ZipCode { get => _zipCode; set => SetProperty(ref _zipCode, value); }
 
         private CarViewModel? _car;
         public CarViewModel? Car { get => _car; set => SetProperty(ref _car, value); }
+
 
         private FuelCardViewModel? _fuelCard;
         public FuelCardViewModel? FuelCard { get => _fuelCard; set => SetProperty(ref _fuelCard, value); }
@@ -38,7 +57,7 @@ namespace Presentation.ViewModels
                 DateOfBirth = from.DateOfBirth,
                 NationalRegistrationNumber = from.NationalID,
                 DrivingLicenseType = from.DrivingLicenseType,
-                Address = from.Address,
+                Address= new AddressDto { City = from.City, Number= from.Number, Street= from.Street, ZipCode=from.ZipCode },
                 Car = from.Car,
                 FuelCard = from.FuelCard,
             };
@@ -54,7 +73,10 @@ namespace Presentation.ViewModels
                 DateOfBirth = from.DateOfBirth,
                 NationalID = from.NationalRegistrationNumber,
                 DrivingLicenseType = from.DrivingLicenseType,
-                Address = from.Address,
+                City = from.Address.City,
+                Street = from.Address.Street,
+                ZipCode = from.Address.ZipCode,
+                Number=from.Address.Number,
                 Car = from.Car,
                 FuelCard = from.FuelCard,
             };
