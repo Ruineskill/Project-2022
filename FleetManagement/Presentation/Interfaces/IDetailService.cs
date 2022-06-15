@@ -9,9 +9,9 @@ namespace Presentation.Interfaces
 {
     public interface IDetailService
     {
-        Task Open(ViewModelBase item);
+        Task Open(ValidatedViewModelBase item);
         Task Create();
-        Task Delete(ViewModelBase item);
+        Task Delete(ValidatedViewModelBase item);
         Task CreatePerson();
         Task CreateCar();
         Task CreateFuelCard();

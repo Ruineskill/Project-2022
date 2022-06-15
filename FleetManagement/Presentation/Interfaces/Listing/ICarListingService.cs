@@ -6,6 +6,8 @@ namespace Presentation.Interfaces.Listing
 {
     public interface ICarListingService : IListingService
     {
-        Task<CarViewModel> Find(Func<CarViewModel, bool> predicate);
+        Task<CarViewModel?> Find(Func<CarViewModel, bool> predicate);
+        bool ConaintsVinID(string value);
+        bool ConaintsLicensePlate(string value);
     }
 }

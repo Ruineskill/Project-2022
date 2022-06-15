@@ -6,6 +6,7 @@ namespace Presentation.Interfaces.Listing
 {
     public interface IFuelCardListingService : IListingService
     {
-        Task<FuelCardViewModel> Find(Func<FuelCardViewModel, bool> predicate);
+        Task<FuelCardViewModel?> Find(Func<FuelCardViewModel, bool> predicate);
+        bool ContainsCardNumber(long value);
     }
 }
