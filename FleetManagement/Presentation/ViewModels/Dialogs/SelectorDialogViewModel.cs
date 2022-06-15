@@ -43,7 +43,11 @@ namespace Presentation.ViewModels.Dialogs
         public string Search
         {
             get => _search;
-            set => SetProperty(ref _search, value);
+            set
+            {
+                SetProperty(ref _search, value);
+                Filter(_search);
+            }
         }
 
         private void Filter(string? p)
@@ -97,6 +101,7 @@ namespace Presentation.ViewModels.Dialogs
                     return false;
                 });
             }
+            _listing.View.Refresh();
         }
 
         private void FilterPeople(string p)
@@ -124,6 +129,7 @@ namespace Presentation.ViewModels.Dialogs
                     return false;
                 });
             }
+            _listing.View.Refresh();
         }
 
         private void FilterFuelCards(string p)
@@ -149,6 +155,7 @@ namespace Presentation.ViewModels.Dialogs
                     return false;
                 });
             }
+            _listing.View.Refresh();
         }
     }
 }
