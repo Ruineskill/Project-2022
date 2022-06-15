@@ -18,20 +18,21 @@
        Height="600" Width="1000">
 
 
+    <md:DialogHost Identifier="MainHost">
 
 
+        <Grid >
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type vms:LogInViewModel}">
+                    <views:LogInView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:FleetViewModel}">
+                    <views:FleetView/>
+                </DataTemplate>
+            </Grid.Resources>
 
-    <Grid >
-        <Grid.Resources>
-            <DataTemplate DataType="{x:Type vms:LogInViewModel}">
-                <views:LogInView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:FleetViewModel}">
-                <views:FleetView/>
-            </DataTemplate>
-        </Grid.Resources>
+            <ContentControl   Content="{Binding CurrentViewModel}" />
 
-        <ContentControl   Content="{Binding CurrentViewModel}" />
-
-    </Grid>
+        </Grid>
+    </md:DialogHost>
 </Window>
