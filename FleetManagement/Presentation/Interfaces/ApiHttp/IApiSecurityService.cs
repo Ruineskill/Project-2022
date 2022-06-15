@@ -13,5 +13,6 @@ namespace Presentation.Interfaces.ApiHttp
         Task<bool> SignIn(string username, SecureString password);
 
         Task SignOut();
+        void StartTimer();
     }
 }
