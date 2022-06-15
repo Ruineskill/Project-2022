@@ -77,9 +77,9 @@ namespace Presentation.Views.Dialogs
             }
         }
 
-        public async Task<DetailDialogResult> Show(string parentName)
+        public async Task<DetailDialogResult> Show(DialogHosting parentName)
         {
-            await DialogHost.Show(this, parentName, new DialogOpenedEventHandler((sender, args) =>
+            await DialogHost.Show(this, parentName.ToString(), new DialogOpenedEventHandler((sender, args) =>
             {
                 _session = args.Session;
             }));
