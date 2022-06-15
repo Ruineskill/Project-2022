@@ -78,7 +78,7 @@ namespace UnitTest.Repositories
 
             var fuelCards = await _repo.GetAllAsync();
             var fuelCard = fuelCards.First();
-            _repo.Remove(fuelCard);
+            await _repo.RemoveAsync(fuelCard);
 
 
             var expected = fuelCards.Count() - 1;
@@ -94,9 +94,9 @@ namespace UnitTest.Repositories
 
             var fuelCards = await _repo.GetAllAsync();
             var fuelCard = fuelCards.First();
-            _repo.Remove(fuelCard);
+            await _repo.RemoveAsync(fuelCard);
 
-            Assert.Throws<FuelCardRepositoryException>(() => _repo.Remove(fuelCard));
+            await Assert.ThrowsAsync<FuelCardRepositoryException>(async () => await _repo.RemoveAsync(fuelCard));
 
         }
 

@@ -92,7 +92,7 @@ namespace UnitTest.Repositories
 
             var cars = await _repo.GetAllAsync();
             var car = cars.First();
-            _repo.Remove(car);
+            await _repo.RemoveAsync(car);
 
 
             var expected = cars.Count() - 1;
@@ -108,9 +108,9 @@ namespace UnitTest.Repositories
 
             var cars = await _repo.GetAllAsync();
             var car = cars.First();
-            _repo.Remove(car);
+            await _repo.RemoveAsync(car);
 
-            Assert.Throws<CarRepositoryException>(() => _repo.Remove(car));
+            await Assert.ThrowsAsync<CarRepositoryException>(async () => await _repo.RemoveAsync(car));
 
         }
 

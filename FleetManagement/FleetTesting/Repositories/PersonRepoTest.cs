@@ -88,7 +88,7 @@ namespace UnitTest.Repositories
         {
             var persons = await _repo.GetAllAsync();
             var person = persons.Last();
-            _repo.Remove(person);
+            await _repo.RemoveAsync(person);
 
             var expected = persons.Count() - 1;
             var actual = (await _repo.GetAllAsync()).Count();
@@ -102,9 +102,9 @@ namespace UnitTest.Repositories
         {
             var persons = await _repo.GetAllAsync();
             var person = persons.First();
-            _repo.Remove(person);
+            await _repo.RemoveAsync(person);
 
-            Assert.Throws<PersonRepositoryException>(() => _repo.Remove(person));
+           await  Assert.ThrowsAsync<PersonRepositoryException>(async () => await _repo.RemoveAsync(person));
 
         }
 
