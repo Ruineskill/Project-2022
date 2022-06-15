@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using Presentation.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,16 +19,29 @@ namespace Presentation.Views.Dialogs
 {
     public partial class ConfirmationDialog : UserControl
     {
-        public ConfirmationDialog(string message)
-        {
-            InitializeComponent();
-            Msg.Text = message;
-
-        }
+        private DialogSession? Session { get; set; }
 
         public ConfirmationDialog()
         {
             InitializeComponent();
+        }
+
+        public void Close()
+        {
+            if(Session != null)
+            {
+                Session.Close();
+                Session = null;
+            }
+        }
+
+        public async Task<object?> Show(string message, DialogHosting Host)
+        {
+            Msg.Text = message;
+            return await DialogHost.Show(this, Host.ToString(), new DialogOpenedEventHandler((sender, args) =>
+             {
+                 Session = args.Session;
+             }));
         }
     }
 }
