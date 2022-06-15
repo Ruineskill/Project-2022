@@ -13,13 +13,12 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Presentation.ViewModels;
 using Domain.Models.Enums;
 using Presentation.Validation;
+using Presentation.Enums;
 
 namespace Presentation.Services
 {
     public class DetailService : IDetailService
     {
-        private const string _mainHost = "FleetHost";
-
         private DetailDialog _detailDialog;
 
         private readonly IFleetMediator _fleetMediator;
@@ -37,7 +36,7 @@ namespace Presentation.Services
 
         public async Task Create()
         {
-            var result = await new CreateSelectionDialog().Show(_mainHost);
+            var result = await new CreateSelectionDialog().Show(DialogHosting.FleetHost);
             switch(result)
             {
                 case Enums.ModelType.Person:
@@ -72,7 +71,7 @@ namespace Presentation.Services
                     break;
             }
 
-            if(await _msgService.DisplayWarningAsync(msg, _mainHost))
+            if(await _msgService.DisplayWarningAsync(msg, DialogHosting.FleetHost))
             {
                 _fleetMediator.Delete(item);
             }
@@ -82,7 +81,7 @@ namespace Presentation.Services
         {
 
             _detailDialog.SetContent(item, GetValidatorFor(item));
-            var result = await _detailDialog.Show(_mainHost);
+            var result = await _detailDialog.Show(DialogHosting.FleetHost);
             if(result == Enums.DetailDialogResult.Save)
             {
                 _fleetMediator.Update(_detailDialog.GetContent());
@@ -94,7 +93,7 @@ namespace Presentation.Services
         {
             var item = new PersonViewModel();
             _detailDialog.SetContent(item, GetValidatorFor(item));
-            var result = await _detailDialog.Show(_mainHost);
+            var result = await _detailDialog.Show(DialogHosting.FleetHost);
             if(result == Enums.DetailDialogResult.Save)
             {
                 _fleetMediator.Create(_detailDialog.GetContent());
@@ -106,7 +105,7 @@ namespace Presentation.Services
         {
             var item = new CarViewModel();
             _detailDialog.SetContent(item, GetValidatorFor(item));
-            var result = await _detailDialog.Show(_mainHost);
+            var result = await _detailDialog.Show(DialogHosting.FleetHost);
             if(result == Enums.DetailDialogResult.Save)
             {
                 _fleetMediator.Create(_detailDialog.GetContent());
@@ -117,7 +116,7 @@ namespace Presentation.Services
         {
             var item = new FuelCardViewModel();
             _detailDialog.SetContent(item, GetValidatorFor(item));
-            var result = await _detailDialog.Show(_mainHost);
+            var result = await _detailDialog.Show(DialogHosting.FleetHost);
             if(result == Enums.DetailDialogResult.Save)
             {
                 _fleetMediator.Create(_detailDialog.GetContent());
