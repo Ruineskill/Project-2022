@@ -1,10 +1,16 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿#nullable disable warnings
+using Domain.Models.Enums;
+using MaterialDesignThemes.Wpf;
+using Presentation.Enums;
+using Presentation.Validation;
+using Presentation.ViewModels;
 using Presentation.ViewModels.Bases;
 using Presentation.ViewModels.Dialogs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-#nullable disable warnings
+
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,23 +30,42 @@ namespace Presentation.Views.Dialogs
     /// </summary>
     public partial class DetailDialog : UserControl
     {
-        private int  _errors = 0;
+        private DetailDialogResult _result;
 
-        public DetailDialogViewModel Context { get; }
+        private DetailDialogViewModel _context { get; }
         private DialogSession? _session { get; set; }
+        private ValidatedViewModelBase? _originalContent;
 
         public DetailDialog()
         {
             InitializeComponent();
-            Context = App.GetService<DetailDialogViewModel>();
-            DataContext = Context;
+            _context = App.GetService<DetailDialogViewModel>();
+            DataContext = _context;
+            _context.ErrorChanged += ErrorCountChanged;
 
-         
+
         }
 
-        public void SetContent(ViewModelBase item)
+        public ViewModelBase GetContent()
         {
-            Context?.SetContent(item);
+            return _originalContent;
+        }
+
+        public void SetContent(ValidatedViewModelBase item, ValidatorBase? validator)
+        {
+            _context.Validator = validator;
+            SetContent(item);
+            if(HasErrors())
+            {
+                SaveButton.IsEnabled = false;
+            }
+        }
+
+
+        public void SetContent(ValidatedViewModelBase item)
+        {
+            _originalContent = item;
+            _context.Content = CreateShallowCopy(item);
         }
 
         public void Close()
@@ -50,35 +75,139 @@ namespace Presentation.Views.Dialogs
                 _session.Close();
                 _session = null;
             }
-            _errors = 0;
         }
 
-        public async Task Show(string parentName)
+        public async Task<DetailDialogResult> Show(string parentName)
         {
             await DialogHost.Show(this, parentName, new DialogOpenedEventHandler((sender, args) =>
             {
                 _session = args.Session;
             }));
 
-            
+            return _result;
         }
 
         public bool HasErrors()
         {
-            return _errors != 0;
+            return _context.ErrorCount != 0;
         }
 
-        private void Detail_Error(object sender, ValidationErrorEventArgs e)
+        private void Detail_Error()
         {
-            if(e.Action == ValidationErrorEventAction.Added)
+            if(HasErrors() && SaveButton.IsEnabled)
             {
-                _errors++;
+                SaveButton.IsEnabled = false;
             }
             else
             {
-                _errors--;
-                
+                if(!SaveButton.IsEnabled) SaveButton.IsEnabled = true;
             }
         }
+
+        private void CancelButtonHandler(object sender, RoutedEventArgs e)
+        {
+            _result = DetailDialogResult.Cancel;
+            Close();
+        }
+
+        private void SaveButtonHandler(object sender, RoutedEventArgs e)
+        {
+            if(IsSame(_originalContent, _context.Content))
+            {
+                _result = DetailDialogResult.Save;
+                _originalContent = _context.Content;
+            }
+            else
+            {
+                _result = DetailDialogResult.Cancel;
+            }
+            Close();
+        }
+
+        void ErrorCountChanged(int errors)
+        {
+            if(errors == 0 || !SaveButton.IsEnabled)
+            {
+                SaveButton.IsEnabled = true;
+            }
+            else if(SaveButton.IsEnabled)
+            {
+                SaveButton.IsEnabled = false;
+            }
+
+        }
+
+
+
+        private static ValidatedViewModelBase CreateShallowCopy(ValidatedViewModelBase item)
+        {
+            if(item is CarViewModel car)
+            {
+                return car.ShallowCopy();
+            }
+            else if(item is PersonViewModel person)
+            {
+                return person.ShallowCopy();
+            }
+            else
+            {
+                var fuelCard = (FuelCardViewModel)item;
+
+                var copy = ((FuelCardViewModel)item).ShallowCopy();
+                copy.UsableFuelTypes = new List<FuelType>(fuelCard.UsableFuelTypes);
+
+                return copy;
+            }
+
+
+        }
+
+        private static bool IsSame(ValidatedViewModelBase item1, ValidatedViewModelBase item2)
+        {
+            if(item1 is CarViewModel lcar && item2 is CarViewModel rcar)
+            {
+                return lcar.Id == rcar.Id &&
+                lcar.Brand == rcar.Brand &&
+                lcar.Model == rcar.Model &&
+                lcar.ChassisNumber == rcar.ChassisNumber &&
+                lcar.LicensePlate == rcar.LicensePlate &&
+                lcar.FuelType == rcar.FuelType &&
+                lcar.Type == rcar.Type &&
+                lcar.Person == rcar.Person &&
+                lcar.Color == rcar.Color &&
+                lcar.NumberOfDoors == rcar.NumberOfDoors &&
+                lcar.RequiredLicence == rcar.RequiredLicence;
+            }
+            else if(item1 is PersonViewModel lperson && item2 is PersonViewModel rperson)
+            {
+                return lperson.Id == rperson.Id &&
+                       lperson.FirstName == rperson.FirstName &&
+                       lperson.LastName == rperson.LastName &&
+                       lperson.DateOfBirth == rperson.DateOfBirth &&
+                       lperson.NationalID == rperson.NationalID &&
+                       lperson.DrivingLicenseType == rperson.DrivingLicenseType &&
+                       lperson.City == rperson.City &&
+                       lperson.Number == rperson.Number &&
+                       lperson.ZipCode == rperson.ZipCode &&
+                       lperson.Street == rperson.Street &&
+                       lperson.Car == rperson.Car &&
+                       lperson.FuelCard == rperson.FuelCard;
+            }
+            else if(item1 is FuelCardViewModel lfuelCard && item2 is FuelCardViewModel rfuelCard)
+            {
+                return lfuelCard.Id == rfuelCard.Id &&
+                   lfuelCard.CardNumber == rfuelCard.CardNumber &&
+                   lfuelCard.ExpirationDate == rfuelCard.ExpirationDate &&
+                   lfuelCard.PinCode == rfuelCard.PinCode &&
+                   lfuelCard.UsableFuelTypes == rfuelCard.UsableFuelTypes &&
+                   lfuelCard.Person == rfuelCard.Person &&
+                   lfuelCard.Blocked == rfuelCard.Blocked;
+            }
+
+            return false;
+        }
+
+
+
     }
 }
