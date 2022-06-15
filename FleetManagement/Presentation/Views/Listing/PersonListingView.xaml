@@ -58,19 +58,19 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock  Grid.Row="0" Grid.Column="0" Margin="0,0,5,0" Text="City: "/>
-                                    <TextBlock  Grid.Row="0" Grid.Column="1" Text="{Binding Address.City}"/>
+                                    <TextBlock  Grid.Row="0" Grid.Column="1" Text="{Binding City}"/>
 
 
                                     <TextBlock  Grid.Row="1" Grid.Column="0" Margin="0,0,5,0" Text="ZipCode: "/>
-                                    <TextBlock  Grid.Row="1" Grid.Column="1" Text="{Binding Address.ZipCode}"/>
+                                    <TextBlock  Grid.Row="1" Grid.Column="1" Text="{Binding ZipCode}"/>
 
 
                                     <TextBlock  Grid.Row="2" Grid.Column="0" Margin="0,0,5,0" Text="Street: "/>
-                                    <TextBlock  Grid.Row="2" Grid.Column="1" Text="{Binding Address.Street}"/>
+                                    <TextBlock  Grid.Row="2" Grid.Column="1" Text="{Binding Street}"/>
 
 
                                     <TextBlock  Grid.Row="3" Grid.Column="0" Margin="0,0,5,0" Text="Number: "/>
-                                    <TextBlock  Grid.Row="3" Grid.Column="1" Text="{Binding Address.Number}"/>
+                                    <TextBlock  Grid.Row="3" Grid.Column="1" Text="{Binding Number}"/>
 
 
                                 </Grid>

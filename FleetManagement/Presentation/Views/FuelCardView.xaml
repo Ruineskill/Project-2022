@@ -28,21 +28,24 @@
 
         <converters:PersonConverter x:Key="PersonConverter"/>
         <converters:CheckBoxToListConverter x:Key="ToListConverter"/>
+        <converters:DateOnlyConverter x:Key="DateOnlyConverter"/>
     </UserControl.Resources>
     
-    <Grid Grid.IsSharedSizeScope="True" VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Grid Grid.IsSharedSizeScope="True" VerticalAlignment="Center" HorizontalAlignment="Center" >
         <Grid.Resources>
             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                <Setter Property="Margin" Value="0,0,0,20"/>
+                <Setter Property="Margin" Value="0,0,0,30"/>
             </Style>
             <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
-                <Setter Property="Margin" Value="0,0,0,20"/>
+                <Setter Property="Margin" Value="0,0,0,30"/>
             </Style>
 
             <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                <Setter Property="Margin" Value="0,0,0,30"/>
+            </Style>
+            <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
                 <Setter Property="Margin" Value="0,0,0,20"/>
             </Style>
-          
         </Grid.Resources>
         
         <Grid.RowDefinitions>
@@ -64,12 +67,11 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding CardNumber}" md:HintAssist.Hint="Card Number" />
-            <DatePicker Grid.Row="1" Grid.Column="0" Text="{Binding ExpirationDate}" md:HintAssist.Hint="Expiration Date" md:TextFieldAssist.HasClearButton="True"/>
-            <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding CardNumber}" md:HintAssist.Hint="Card Number" />
-            <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Person, Converter={StaticResource PersonConverter}}" md:HintAssist.Hint="Person" />
-            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding PinCode}" md:HintAssist.Hint="Pincode" />
-            <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding Blocked}" Content="Blocked" />
+            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding CardNumber, UpdateSourceTrigger=PropertyChanged}" md:HintAssist.Hint="Card Number" />
+            <DatePicker Grid.Row="1" Grid.Column="0" SelectedDate="{Binding ExpirationDate, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyConverter}}" md:HintAssist.Hint="Expiration Date" md:TextFieldAssist.HasClearButton="True"/>
+            <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Person, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PersonConverter}}" md:HintAssist.Hint="Person" />
+            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding PinCode, UpdateSourceTrigger=PropertyChanged}" md:HintAssist.Hint="Pincode" />
+            <CheckBox Grid.Row="2" Margin="0,0,0,20" Grid.Column="0" IsChecked="{Binding Blocked, UpdateSourceTrigger=PropertyChanged}" Content="Blocked" />
             
             <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal">
                 <Button Content="Pick" Margin="5,0,10,0"
@@ -98,15 +100,15 @@
                 </Grid.RowDefinitions>
 
 
-                <CheckBox Grid.Row="0" Grid.Column="0" Content="Benzine" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Benzine}}"/>
-                <CheckBox Grid.Row="1" Grid.Column="0" Content="Diesel" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Diesel}}"/>
-                <CheckBox Grid.Row="2" Grid.Column="0" Content="Hydrogen" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Hydrogen}}"/>
+                <CheckBox Grid.Row="0" Grid.Column="0" Content="Benzine" IsChecked="{Binding UsableFuelTypes,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Benzine}}"/>
+                <CheckBox Grid.Row="1" Grid.Column="0" Content="Diesel" IsChecked="{Binding UsableFuelTypes,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Diesel}}"/>
+                <CheckBox Grid.Row="2" Grid.Column="0" Content="Hydrogen" IsChecked="{Binding UsableFuelTypes,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Hydrogen}}"/>
 
-                <CheckBox Grid.Row="0" Grid.Column="1" Content="Hybrid Benzine" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.HybridBenzine}}"/>
-                <CheckBox Grid.Row="1" Grid.Column="1" Content="Hybrid Diesel" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.HybridDiesel}}"/>
-                <CheckBox Grid.Row="2" Grid.Column="1" Content="Electric" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Electric}}"/>
+                <CheckBox Grid.Row="0" Grid.Column="1" Content="Hybrid Benzine" IsChecked="{Binding UsableFuelTypes,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.HybridBenzine}}"/>
+                <CheckBox Grid.Row="1" Grid.Column="1" Content="Hybrid Diesel" IsChecked="{Binding UsableFuelTypes,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.HybridDiesel}}"/>
+                <CheckBox Grid.Row="2" Grid.Column="1" Content="Electric" IsChecked="{Binding UsableFuelTypes,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.Electric}}"/>
 
-                <CheckBox Grid.Row="0" Grid.Column="2" Content="Liquid Petrol Gas" IsChecked="{Binding UsableFuelTypes, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.LiquidPetrolGas}}"/>
+                <CheckBox Grid.Row="0" Grid.Column="2" Content="Liquid Petrol Gas" IsChecked="{Binding UsableFuelTypes,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToListConverter}, ConverterParameter={x:Static ld:FuelType.LiquidPetrolGas}}"/>
 
             </Grid>
 

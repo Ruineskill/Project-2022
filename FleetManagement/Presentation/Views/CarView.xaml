@@ -66,29 +66,29 @@
 
 
 
-        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Brand}" md:HintAssist.Hint="Brand" />
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Brand, UpdateSourceTrigger=PropertyChanged}" md:HintAssist.Hint="Brand" />
 
-        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Model}" md:HintAssist.Hint="Model" />
+        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Model, UpdateSourceTrigger=PropertyChanged}" md:HintAssist.Hint="Model" />
 
-        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding ChassisNumber}" md:HintAssist.Hint="Chassis Number" />
+        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding ChassisNumber, UpdateSourceTrigger=PropertyChanged}" md:HintAssist.Hint="Chassis Number" />
 
-        <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding LicensePlate}" md:HintAssist.Hint="License Plate" />
+        <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding LicensePlate, UpdateSourceTrigger=PropertyChanged}" md:HintAssist.Hint="License Plate" />
 
         <TextBox Grid.Row="4" Grid.Column="0" Text="{Binding NumberOfDoors}" md:HintAssist.Hint="Doors" />
 
-        
 
 
-        <TextBox Grid.Row="0"  Grid.Column="2"  IsReadOnly="True" Text="{Binding Person, Converter={StaticResource PersonConverter}}" md:HintAssist.Hint="Person"/>
+
+        <TextBox Grid.Row="0"  Grid.Column="2"  IsReadOnly="True" Text="{Binding Person, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PersonConverter}}" md:HintAssist.Hint="Person"/>
 
         <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Color}" md:HintAssist.Hint="Color" />
 
         <ComboBox Grid.Row="1" Grid.Column="2" md:HintAssist.Hint="Fuel"
-                  SelectedItem="{Binding FuelType}" 
+                  SelectedItem="{Binding FuelType , UpdateSourceTrigger=PropertyChanged}" 
                   ItemsSource="{Binding Source={StaticResource FuelEnum}}" />
 
         <ComboBox Grid.Row="2" Grid.Column="2" md:HintAssist.Hint="Type"
-                  SelectedItem="{Binding Type}" 
+                  SelectedItem="{Binding Type , UpdateSourceTrigger=PropertyChanged}" 
                   ItemsSource="{Binding Source={StaticResource CarEnum}}" />
 
         <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal">

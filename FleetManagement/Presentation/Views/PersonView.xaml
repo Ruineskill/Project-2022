@@ -9,8 +9,6 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:vms="clr-namespace:Presentation.ViewModels" 
              xmlns:enums="clr-namespace:Presentation.Enums" 
-             xmlns:vd="clr-namespace:Presentation.Validation" 
-             xmlns:pvd="clr-namespace:Presentation.Validation.PersonRules" 
              d:DataContext="{d:DesignInstance Type=vms:PersonViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
@@ -69,64 +67,28 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Row="0" Grid.Column="0"  md:HintAssist.Hint="First Name"  >
-                <TextBox.Text>
-                    <Binding Path="FirstName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <vd:NotEmptyRule  ValidatesOnTargetUpdated="True" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <!-- First Name   -->
+            <TextBox Grid.Row="0" Grid.Column="0"  Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"  md:HintAssist.Hint="First Name" />
 
-            <!-- Last Name -->
-            <TextBox Grid.Row="1" Grid.Column="0"  md:HintAssist.Hint="Last Name" >
-                <TextBox.Text>
-                    <Binding Path="LastName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <vd:NotEmptyRule  ValidatesOnTargetUpdated="True" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <!-- Last Name   -->
+            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"  md:HintAssist.Hint="Last Name"/>
 
-            <!-- Birthday -->
-            <DatePicker Grid.Row="2" Grid.Column="0"  md:HintAssist.Hint="Birthday" md:TextFieldAssist.HasClearButton="True">
-                <DatePicker.SelectedDate>
-                    <Binding Path="DateOfBirth" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" Converter="{StaticResource DateOnlyConverter}">
-                        <Binding.ValidationRules>
-                            <pvd:DateOfBirthRule  ValidatesOnTargetUpdated="True" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </DatePicker.SelectedDate>
-            </DatePicker>
 
-            <!-- NationalID -->
-            <TextBox Grid.Row="3" Grid.Column="0"  md:HintAssist.Hint="NationalID" >
-                <TextBox.Text>
-                    <Binding Path="NationalID" UpdateSourceTrigger="LostFocus" NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <pvd:NationalIDRule  ValidatesOnTargetUpdated="True"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <!-- Birthday   -->
+            <DatePicker Grid.Row="2" Grid.Column="0" SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyConverter}}" 
+                        
+                        md:HintAssist.Hint="Birthday" md:TextFieldAssist.HasClearButton="True"/>
 
-                <!-- Car -->
-            <vd:Proxy In="{Binding Car, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Out="{Binding ElementName=PersonCarRule, Path=Car}" />
-            <vd:Proxy In="{Binding FuelCard, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Out="{Binding ElementName=PersonCarRule, Path=FuelCard}" />
-            <vd:Proxy In="{Binding DrivingLicenseType ,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Out="{Binding ElementName=PersonCarRule, Path=LicenseType}" />
-          
 
-            <TextBox Grid.Row="0"  Grid.Column="2"  IsReadOnly="True"   md:HintAssist.Hint="Car">
-                <TextBox.Text>
-                    <Binding Path="Car" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" Converter="{StaticResource CarConverter}">
-                        <Binding.ValidationRules>
-                            <pvd:PersonCarRule  x:Name="PersonCarRule"  ValidatesOnTargetUpdated="True" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <!-- NationalID   -->
+            <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding NationalID, UpdateSourceTrigger=PropertyChanged}"  md:HintAssist.Hint="NationalID" />
+
+
+            <!-- Car -->
+
+            <TextBox Grid.Row="0"  Grid.Column="2" Text="{Binding Car, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CarConverter}}"
+                     IsReadOnly="True"   md:HintAssist.Hint="Car"/>
+
 
             <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal">
 
@@ -140,18 +102,8 @@
             </StackPanel>
 
             <!-- FuelCard -->
-            <vd:Proxy In="{Binding Car, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Out="{Binding ElementName=PersonFuelCardRule, Path=Car}" />
-            <vd:Proxy In="{Binding FuelCard, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Out="{Binding ElementName=PersonFuelCardRule, Path=FuelCard}" />
-
-            <TextBox Grid.Row="1" Grid.Column="2"  IsReadOnly="True"  md:HintAssist.Hint="Fuel Card" >
-                <TextBox.Text>
-                    <Binding Path="FuelCard" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" Converter="{StaticResource FuelCardConverter}">
-                        <Binding.ValidationRules>
-                            <pvd:PersonFuelCardRule x:Name="PersonFuelCardRule"  ValidatesOnTargetUpdated="True" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <TextBox Grid.Row="1" Grid.Column="2"  IsReadOnly="True" Text="{Binding FuelCard, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FuelCardConverter}}"  md:HintAssist.Hint="Fuel Card" />
+           
 
             <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal">
 
@@ -167,18 +119,10 @@
             </StackPanel>
 
             <!-- License -->
-            <vd:Proxy In="{Binding Car, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Out="{Binding ElementName=CarLicenseRule, Path=Car}" />
 
-            <ComboBox Grid.Row="2" Grid.Column="2" md:HintAssist.Hint="License"
-                  ItemsSource="{Binding Source={StaticResource LicenseType}}" Margin="0,0,0,20" >
-                <ComboBox.SelectedItem>
-                    <Binding Path="DrivingLicenseType" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <pvd:LicenseRule x:Name="CarLicenseRule" ValidatesOnTargetUpdated="True" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </ComboBox.SelectedItem>
-            </ComboBox>
+            <ComboBox Grid.Row="2" Grid.Column="2" md:HintAssist.Hint="License" SelectedItem="{Binding DrivingLicenseType, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Source={StaticResource LicenseType}}" Margin="0,0,0,20" />
+
 
 
         </Grid>
@@ -196,45 +140,19 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Row="0" Grid.Column="0"   md:HintAssist.Hint="City">
-                    <TextBox.Text>
-                        <Binding Path="Address.City" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <vd:NotEmptyStringRule  ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                <!--Address.City -->
+                <TextBox Grid.Row="0" Grid.Column="0"  Text="{Binding City, UpdateSourceTrigger=PropertyChanged}" md:HintAssist.Hint="City"/>
 
+                <!--Address.Street -->
+                <TextBox  Grid.Row="1" Grid.Column="0" Text="{Binding Street, UpdateSourceTrigger=PropertyChanged}" md:HintAssist.Hint="Street" />
 
+                <!--Address.Number -->
+                <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}" md:HintAssist.Hint="Number"/>
 
-                <TextBox  Grid.Row="1" Grid.Column="0" md:HintAssist.Hint="Street" >
-                    <TextBox.Text>
-                        <Binding Path="Address.Street" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <vd:NotEmptyStringRule  ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Grid.Row="0" Grid.Column="2"  md:HintAssist.Hint="Number" >
-                    <TextBox.Text>
-                        <Binding Path="Address.Number" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <pvd:NumberRule  ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Grid.Row="1" Grid.Column="2"  md:HintAssist.Hint="Zip Code" >
-                    <TextBox.Text>
-                        <Binding Path="Address.ZipCode" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <pvd:ZipCodeRule  ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                <!--Address.ZipCode -->
+                <TextBox Grid.Row="1" Grid.Column="2"  Text="{Binding ZipCode, UpdateSourceTrigger=PropertyChanged}" md:HintAssist.Hint="Zip Code" />
+                
+
             </Grid>
         </GroupBox>
 
