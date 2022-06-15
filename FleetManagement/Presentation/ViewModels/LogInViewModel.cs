@@ -83,7 +83,7 @@ namespace Presentation.ViewModels
            
                 var fleetViewModel = App.Current.Services.GetService<FleetViewModel>();
                 _navigationService.Navigate(fleetViewModel);
-                _apiSecurityService.StartTimer();
+                //_apiSecurityService.StartTimer();
             }
             catch(ApiException ex)
             {

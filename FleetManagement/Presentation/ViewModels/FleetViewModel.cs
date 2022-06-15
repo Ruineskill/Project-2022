@@ -36,7 +36,7 @@ namespace Presentation.ViewModels
             set
             {
                 SetProperty(ref _search, value);
-                SelectedTab.Filter(_search);
+               SelectedTab.Filter(_search);
             }
 
         }

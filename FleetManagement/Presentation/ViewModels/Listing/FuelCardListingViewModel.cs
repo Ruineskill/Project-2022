@@ -61,7 +61,13 @@ namespace Presentation.ViewModels.Listing
 
         public override void Filter(string p)
         {
-            if(string.IsNullOrWhiteSpace(p)) FuelCards.Filter = null;
+            if(string.IsNullOrWhiteSpace(p))
+            {
+                FuelCards.Filter = null;
+                return ;
+            }
+
+
 
             FuelCards.Filter = new Predicate<object>(bool (object s) =>
             {
@@ -71,6 +77,7 @@ namespace Presentation.ViewModels.Listing
                 if(fuelCard.CardNumber.ToString().Contains(pre, StringComparison.CurrentCultureIgnoreCase)) return true;
                 return false;
             });
+         
         }
     }
 }

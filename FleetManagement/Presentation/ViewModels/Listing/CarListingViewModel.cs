@@ -69,19 +69,24 @@ namespace Presentation.ViewModels.Listing
 
         public override void Filter(string p)
         {
-            if(string.IsNullOrWhiteSpace(p)) Cars.Filter = null;
+            if(string.IsNullOrWhiteSpace(p))
+            {
+                Cars.Filter = null;
+                return;
+            }
 
-            Cars.Filter = new Predicate<object>( bool (object s)=>
+
+            Cars.Filter = new Predicate<object>(bool (object s) =>
             {
                 var car = (CarViewModel)s;
                 var pre = p.ToLower();
 
-                if(car.Brand.Contains(pre, StringComparison.CurrentCultureIgnoreCase) 
-                || car.Model.Contains(pre,StringComparison.CurrentCultureIgnoreCase)
+                if(car.Brand.Contains(pre, StringComparison.CurrentCultureIgnoreCase)
+                || car.Model.Contains(pre, StringComparison.CurrentCultureIgnoreCase)
                 || car.ChassisNumber.Contains(pre, StringComparison.CurrentCultureIgnoreCase)) return true;
                 return false;
             });
-          
+         
         }
     }
 }
