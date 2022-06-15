@@ -107,7 +107,7 @@ namespace RestAPI.Controllers
 
                 if (person == null) return NotFound();
 
-                _repo.Remove(person);
+                await _repo.RemoveAsync(person);
             }
             catch (CarRepositoryException ex)
             {

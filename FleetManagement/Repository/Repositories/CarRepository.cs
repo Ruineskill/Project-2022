@@ -27,16 +27,23 @@ namespace Repository.Repositories
             return car;
         }
 
-        public void Remove(Car car)
+        public async Task RemoveAsync(Car car)
         {
             try
             {
+                if(car.Person != null)
+                {
+                    car.Person = null;
+                    await UpdateAsync(car);
+                }
+               
                 _context.Cars.Remove(car);
+                
                 _context.SaveChanges();
             }
             catch(Exception ex)
             {
-                throw new CarRepositoryException(nameof(Remove), ex);
+                throw new CarRepositoryException(nameof(RemoveAsync), ex);
             }
 
         }

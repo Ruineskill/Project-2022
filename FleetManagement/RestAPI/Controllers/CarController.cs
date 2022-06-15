@@ -140,7 +140,7 @@ namespace RestAPI.Controllers
 
                 if (car == null) return NotFound();
 
-                _repo.Remove(car);
+                await _repo.RemoveAsync(car);
             }
             catch (CarRepositoryException ex)
             {

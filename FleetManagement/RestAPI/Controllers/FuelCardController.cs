@@ -122,7 +122,7 @@ namespace RestAPI.Controllers
 
                 if (fuelCard == null) return NotFound();
 
-                _repo.Remove(fuelCard);
+                await _repo.RemoveAsync(fuelCard);
             }
             catch (CarRepositoryException ex)
             {

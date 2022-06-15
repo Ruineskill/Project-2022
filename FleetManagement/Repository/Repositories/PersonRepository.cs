@@ -53,16 +53,22 @@ namespace Repository.Repositories
             }
         }
 
-        public  void Remove(Person person)
+        public async Task RemoveAsync(Person person)
         {
             try
             {
+                if(person.Car != null || person.FuelCard != null)
+                {
+                    person.Car = null;
+                    person.FuelCard = null;
+                    await UpdateAsync(person);
+                }
                 _context.Persons.Remove(person);
                  _context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new PersonRepositoryException(nameof(Remove), ex);
+                throw new PersonRepositoryException(nameof(RemoveAsync), ex);
             }
         }
 

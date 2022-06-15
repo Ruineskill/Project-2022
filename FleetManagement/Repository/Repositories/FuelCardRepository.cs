@@ -28,16 +28,22 @@ namespace Repository.Repositories
             return fuelCard;
         }
 
-        public void Remove(FuelCard fuelCard)
+        public async Task RemoveAsync(FuelCard fuelCard)
         {
             try
             {
+                if(fuelCard.Person != null)
+                {
+                    fuelCard.Person = null;
+                    await UpdateAsync(fuelCard);
+                }
+
                 _context.FuelCards.Remove(fuelCard);
                 _context.SaveChanges();
             }
             catch(Exception ex)
             {
-                throw new FuelCardRepositoryException(nameof(Remove), ex);
+                throw new FuelCardRepositoryException(nameof(RemoveAsync), ex);
             }
         }
 
