@@ -18,8 +18,8 @@ namespace Presentation.ViewModels.Listing
 
         public ObservableCollection<ViewModelBase> People => _personListingService.Items;
 
-        private ViewModelBase? _selectedItem;
-        public override ViewModelBase? SelectedItem
+        private ValidatedViewModelBase? _selectedItem;
+        public override ValidatedViewModelBase? SelectedItem
         {
             get => _selectedItem;
             set => SetProperty(ref _selectedItem, value);
