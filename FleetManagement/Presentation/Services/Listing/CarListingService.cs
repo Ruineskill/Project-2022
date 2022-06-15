@@ -104,12 +104,22 @@ namespace Presentation.Services.Listing
             return _items.Contains(item);
         }
 
-        public Task<CarViewModel> Find(Func<CarViewModel, bool> predicate)
+        public Task<CarViewModel?> Find(Func<CarViewModel, bool> predicate)
         {
             return Task.Run(() =>
             {
                 return _items.Cast<CarViewModel>().First(predicate);
             });
+        }
+
+        public bool ConaintsVinID(string value)
+        {
+            return Find(p => p.ChassisNumber == value).Result != null;
+        }
+
+        public bool ConaintsLicensePlate(string value)
+        {
+            return Find(p => p.LicensePlate == value).Result != null;
         }
     }
 }

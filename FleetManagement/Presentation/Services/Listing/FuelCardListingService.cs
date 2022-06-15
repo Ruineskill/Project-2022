@@ -99,12 +99,17 @@ namespace Presentation.Services.Listing
             return _items.Contains(item);
         }
 
-        public Task<FuelCardViewModel> Find(Func<FuelCardViewModel, bool> predicate)
+        public Task<FuelCardViewModel?> Find(Func<FuelCardViewModel, bool> predicate)
         {
             return Task.Run(() =>
             {
                 return _items.Cast<FuelCardViewModel>().First(predicate);
             });
+        }
+
+        public bool ContainsCardNumber(long value)
+        {
+            return Find(v => v.CardNumber == value).Result != null;
         }
     }
 }
