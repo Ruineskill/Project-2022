@@ -4,7 +4,7 @@
     {
         Task<T> AddAsync(T value);
 
-        void Remove(T value);
+        Task RemoveAsync(T value);
 
         Task<IEnumerable<T>> GetAllAsync();
 
