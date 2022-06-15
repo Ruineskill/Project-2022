@@ -12,6 +12,7 @@ using Presentation.Views.Dialogs;
 using Microsoft.Toolkit.Mvvm.Input;
 using Presentation.ViewModels;
 using Domain.Models.Enums;
+using Presentation.Validation;
 
 namespace Presentation.Services
 {
@@ -20,12 +21,10 @@ namespace Presentation.Services
         private const string _mainHost = "FleetHost";
 
         private DetailDialog _detailDialog;
-        private DetailDialogViewModel _ctx;
+
         private readonly IFleetMediator _fleetMediator;
         private readonly IMessageService _msgService;
 
-        private ViewModelBase? _item;
-        private bool _isNewItem = false;
 
         public DetailService(IFleetMediator fleetMediator, IMessageService messageService)
         {
@@ -33,35 +32,8 @@ namespace Presentation.Services
             _fleetMediator = fleetMediator;
             _msgService = messageService;
 
-            _ctx = _detailDialog.Context;
-            _ctx.CancelCommand = new RelayCommand(CancleHandler);
-            _ctx.SaveCommand = new RelayCommand(SaveHandler);
         }
 
-        private void SaveHandler()
-        {
-
-            if(_detailDialog.HasErrors()) return;
-
-            if(_isNewItem)
-            {
-
-                _fleetMediator.Create(_item);
-            }
-            else if(_ctx.Content != null)
-            {
-                if(!IsSame(_item, _ctx.Content))
-                {
-                    _fleetMediator.Update(_item);
-                }
-            }
-            _detailDialog.Close();
-        }
-
-        private void CancleHandler()
-        {
-            _detailDialog.Close();
-        }
 
         public async Task Create()
         {
@@ -82,7 +54,7 @@ namespace Presentation.Services
             }
         }
 
-        public async Task Delete(ViewModelBase item)
+        public async Task Delete(ValidatedViewModelBase item)
         {
             string msg = string.Empty;
             switch(item)
@@ -106,106 +78,62 @@ namespace Presentation.Services
             }
         }
 
-        public async Task Open(ViewModelBase item)
+        public async Task Open(ValidatedViewModelBase item)
         {
-            _detailDialog.SetContent(CreateShallowCopy(item));
-            await _detailDialog.Show(_mainHost);
+
+            _detailDialog.SetContent(item, GetValidatorFor(item));
+            var result = await _detailDialog.Show(_mainHost);
+            if(result == Enums.DetailDialogResult.Save)
+            {
+                _fleetMediator.Update(_detailDialog.GetContent());
+            }
+
         }
 
         public async Task CreatePerson()
         {
-            _isNewItem = true;
-            _item = new PersonViewModel();
-            _detailDialog.SetContent(_item);
-            await _detailDialog.Show(_mainHost);
+            var item = new PersonViewModel();
+            _detailDialog.SetContent(item, GetValidatorFor(item));
+            var result = await _detailDialog.Show(_mainHost);
+            if(result == Enums.DetailDialogResult.Save)
+            {
+                _fleetMediator.Create(_detailDialog.GetContent());
+            }
 
-            _isNewItem = false;
         }
 
         public async Task CreateCar()
         {
-            _isNewItem = true;
-            var _item = new CarViewModel();
-            _detailDialog.SetContent(_item);
-            await _detailDialog.Show(_mainHost);
-
-            _isNewItem = false;
+            var item = new CarViewModel();
+            _detailDialog.SetContent(item, GetValidatorFor(item));
+            var result = await _detailDialog.Show(_mainHost);
+            if(result == Enums.DetailDialogResult.Save)
+            {
+                _fleetMediator.Create(_detailDialog.GetContent());
+            }
         }
 
         public async Task CreateFuelCard()
         {
-            _isNewItem = true;
-            _item = new FuelCardViewModel();
-            _detailDialog.SetContent(_item);
-            await _detailDialog.Show(_mainHost);
-
-            _isNewItem = false;
+            var item = new FuelCardViewModel();
+            _detailDialog.SetContent(item, GetValidatorFor(item));
+            var result = await _detailDialog.Show(_mainHost);
+            if(result == Enums.DetailDialogResult.Save)
+            {
+                _fleetMediator.Create(_detailDialog.GetContent());
+            }
         }
 
-        private ViewModelBase CreateShallowCopy(ViewModelBase item)
+        private static ValidatorBase? GetValidatorFor(ValidatedViewModelBase vm)
         {
-            _item = item;
-
-            if(item is CarViewModel car)
+            return vm switch
             {
-                return car.ShallowCopy();
-            }
-            else if(item is PersonViewModel person)
-            {
-                return person.ShallowCopy();
-            }
-            else
-            {
-                var fuelCard = (FuelCardViewModel)item;
-
-                var copy = ((FuelCardViewModel)item).ShallowCopy();
-                copy.UsableFuelTypes = new List<FuelType>(fuelCard.UsableFuelTypes);
-
-                return copy;
-            }
-
-
+                CarViewModel => new CarValidator(),
+                FuelCardViewModel => new FuelCardValidator(),
+                PersonViewModel => new PersonValidator(),
+                _ => null,
+            };
         }
-        private static bool IsSame(ViewModelBase item1, ViewModelBase item2)
-        {
-            if(item1 is CarViewModel lcar && item2 is CarViewModel rcar)
-            {
-                return lcar.Id == rcar.Id &&
-                lcar.Brand == rcar.Brand &&
-                lcar.Model == rcar.Model &&
-                lcar.ChassisNumber == rcar.ChassisNumber &&
-                lcar.LicensePlate == rcar.LicensePlate &&
-                lcar.FuelType == rcar.FuelType &&
-                lcar.Type == rcar.Type &&
-                lcar.Person == rcar.Person &&
-                lcar.Color == rcar.Color &&
-                lcar.NumberOfDoors == rcar.NumberOfDoors &&
-                lcar.RequiredLicence == rcar.RequiredLicence;
-            }
-            else if(item1 is PersonViewModel lperson && item2 is PersonViewModel rperson)
-            {
-                return lperson.Id == rperson.Id &&
-                       lperson.FirstName == rperson.FirstName &&
-                       lperson.LastName == rperson.LastName &&
-                       lperson.DateOfBirth == rperson.DateOfBirth &&
-                       lperson.NationalID == rperson.NationalID &&
-                       lperson.DrivingLicenseType == rperson.DrivingLicenseType &&
-                       lperson.Address == rperson.Address &&
-                       lperson.Car == rperson.Car &&
-                       lperson.FuelCard == rperson.FuelCard;
-            }
-            else if(item1 is FuelCardViewModel lfuelCard && item2 is FuelCardViewModel rfuelCard)
-            {
-                return lfuelCard.Id == rfuelCard.Id &&
-                   lfuelCard.CardNumber == rfuelCard.CardNumber &&
-                   lfuelCard.ExpirationDate == rfuelCard.ExpirationDate &&
-                   lfuelCard.PinCode == rfuelCard.PinCode &&
-                   lfuelCard.UsableFuelTypes == rfuelCard.UsableFuelTypes &&
-                   lfuelCard.Person == rfuelCard.Person &&
-                    lfuelCard.Blocked == rfuelCard.Blocked;
-            }
 
-            return false;
-        }
     }
 }
