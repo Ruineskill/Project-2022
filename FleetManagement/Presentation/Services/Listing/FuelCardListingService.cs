@@ -1,5 +1,6 @@
 ﻿#nullable disable warnings
 using Presentation.DTO;
+using Presentation.Enums;
 using Presentation.Exceptions;
 using Presentation.Interfaces;
 using Presentation.Interfaces.ApiHttp;
@@ -44,7 +45,7 @@ namespace Presentation.Services.Listing
             }
             catch(ApiException ex)
             {
-                await _messageService.DisplayErrorAsync(ex.Message);
+                await _messageService.DisplayErrorAsync(ex.Message, DialogHosting.FleetHost);
             }
         }
 
@@ -58,7 +59,7 @@ namespace Presentation.Services.Listing
             }
             catch(ApiException ex)
             {
-                await _messageService.DisplayErrorAsync(ex.Message);
+                await _messageService.DisplayErrorAsync(ex.Message, DialogHosting.FleetHost);
             }
         }
 
@@ -73,7 +74,7 @@ namespace Presentation.Services.Listing
             }
             catch(ApiException ex)
             {
-                await _messageService.DisplayErrorAsync(ex.Message);
+                await _messageService.DisplayErrorAsync(ex.Message, DialogHosting.FleetHost);
             }
 
             _view = CollectionViewSource.GetDefaultView(_items);
@@ -90,7 +91,7 @@ namespace Presentation.Services.Listing
             }
             catch(ApiException ex)
             {
-                await _messageService.DisplayErrorAsync(ex.Message);
+                await _messageService.DisplayErrorAsync(ex.Message, DialogHosting.FleetHost);
             }
         }
 

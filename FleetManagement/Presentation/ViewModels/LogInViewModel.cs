@@ -1,11 +1,13 @@
 ﻿#nullable disable
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Input;
+using Presentation.Enums;
 using Presentation.Exceptions;
 using Presentation.Interfaces;
 using Presentation.Interfaces.ApiHttp;
 using Presentation.Interfaces.Navigation;
 using Presentation.ViewModels.Bases;
+using System;
 using System.Net.Http;
 using System.Security;
 using System.Threading.Tasks;
@@ -84,7 +86,7 @@ namespace Presentation.ViewModels
             }
             catch(ApiException ex)
             {
-                await _messageService.DisplayErrorAsync(ex.Message);
+                await _messageService.DisplayErrorAsync(ex.Message, DialogHosting.MainHost);
             }
             finally
             {
