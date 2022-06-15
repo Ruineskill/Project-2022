@@ -3,26 +3,34 @@ using System.Threading.Tasks;
 using System.Windows;
 using MaterialDesignThemes.Wpf;
 using Presentation.Views.Dialogs;
+using Presentation.Enums;
 
 namespace Presentation.Services
 {
     public class MessageService : IMessageService
     {
-        public async Task DisplayErrorAsync(string message)
+        private readonly ConfirmationDialog _dialog;
+
+        public MessageService()
         {
-            var dialog = new ConfirmationDialog(message);
-            dialog.CancelButton.Visibility = Visibility.Hidden;
-            dialog.MsgIcon.Kind = PackIconKind.ErrorOutline;
-            await DialogHost.Show(dialog, "MainWinDialog");
+            _dialog = new ConfirmationDialog();
+        }
+
+        public async Task DisplayErrorAsync(string message, DialogHosting Host)
+        {
+
+            _dialog.CancelButton.Visibility = Visibility.Hidden;
+            _dialog.MsgIcon.Kind = PackIconKind.ErrorOutline;
+            await _dialog.Show(message, Host);
         }
 
 
-        public async Task<bool> DisplayWarningAsync(string message, string hostName)
+        public async Task<bool> DisplayWarningAsync(string message, DialogHosting Host)
         {
-            var dialog = new ConfirmationDialog(message);
-            dialog.CancelButton.Content = "No";
-            dialog.OkButton.Content = "Yes";
-            var result = await DialogHost.Show(dialog, hostName);
+
+            _dialog.CancelButton.Content = "No";
+            _dialog.OkButton.Content = "Yes";
+            var result = await _dialog.Show(message, Host);
 
             if(result != null) return (bool)result;
             return false;
