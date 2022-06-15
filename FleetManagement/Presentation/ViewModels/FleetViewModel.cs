@@ -120,13 +120,10 @@ namespace Presentation.ViewModels
                 switch(_selectedTab)
                 {
                     case PersonListingViewModel:
-                        await _detailService.CreatePerson();
                         break;
                     case CarListingViewModel:
-                        await _detailService.CreateCar();
                         break;
                     case FuelCardListingViewModel:
-                        await _detailService.CreateFuelCard();
                         break;
                     default:
                         break;

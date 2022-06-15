@@ -9,19 +9,11 @@ namespace Repository.Repositories
 {
     public class FuelCardRepository : IFuelCardRepository
     {
-        /// <summary>
-        /// readonly property
-        /// </summary>
         private readonly Context _context;
 
-
-        /// <summary>
-        /// constructor
-        /// </summary>
-        /// <param name="context"></param>
         public FuelCardRepository(Context context) => _context = context;
 
-        public async Task<bool> AddAsync(FuelCard fuelCard)
+        public async Task<FuelCard> AddAsync(FuelCard fuelCard)
         {
             try
             {
@@ -36,7 +28,7 @@ namespace Repository.Repositories
             return fuelCard;
         }
 
-        public bool Remove(FuelCard fuelCard)
+        public void Remove(FuelCard fuelCard)
         {
             try
             {
@@ -49,11 +41,6 @@ namespace Repository.Repositories
             }
         }
 
-        /// <summary>
-        /// Get all the fuelcards from the db
-        /// </summary>
-        /// <param name="car"></param>
-        /// <returns>IEnumerable<FuelCard></returns>
         public async Task<IEnumerable<FuelCard>> GetAllAsync()
         {
             try
@@ -66,11 +53,6 @@ namespace Repository.Repositories
             }
         }
 
-        /// <summary>
-        /// Get a specific fuelcard from the db
-        /// </summary>
-        /// <param name="car"></param>
-        /// <returns>fuelcard</returns>
         public async Task<FuelCard> FindAsync(int id)
         {
             try
@@ -83,7 +65,7 @@ namespace Repository.Repositories
             }
         }
 
-        public async Task<bool> UpdateAsync(FuelCard fuelCard)
+        public async Task UpdateAsync(FuelCard fuelCard)
         {
             try
             {
@@ -96,11 +78,6 @@ namespace Repository.Repositories
             }
         }
 
-        /// <summary>
-        /// Get all the fuelcards from the db without possiblity to alter them
-        /// </summary>
-        /// <param name="car"></param>
-        /// <returns>Enumerable<FuelCard></returns>
         public IAsyncEnumerable<FuelCard> GetAllStream()
         {
             try

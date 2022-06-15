@@ -1,4 +1,4 @@
-﻿#nullable disable
+﻿#nullable disable warnings
 using Domain.Interfaces;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,15 +9,8 @@ namespace Repository.Repositories
 {
     public class CarRepository : ICarRepository
     {
-        /// <summary>
-        /// readonly property
-        /// </summary>
         private readonly Context _context;
 
-        /// <summary>
-        /// constructor
-        /// </summary>
-        /// <param name="context"></param>
         public CarRepository(Context context) => _context = context;
 
         public async Task<Car> AddAsync(Car car)
@@ -34,7 +27,7 @@ namespace Repository.Repositories
             return car;
         }
 
-        public bool Remove(Car car)
+        public void Remove(Car car)
         {
             try
             {
@@ -48,11 +41,6 @@ namespace Repository.Repositories
 
         }
 
-        /// <summary>
-        /// Get all the cars from the db
-        /// </summary>
-        /// <returns>Enumerable<Car></returns>
-        /// <exception cref="CarRepositoryException"></exception>
         public async Task<IEnumerable<Car>> GetAllAsync()
         {
             try
@@ -65,12 +53,6 @@ namespace Repository.Repositories
             }
         }
 
-        /// <summary>
-        /// Find a car by id in the db
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>car</returns>
-        /// <exception cref="CarRepositoryException"></exception>
         public async Task<Car> FindAsync(int id)
         {
             try
@@ -83,7 +65,7 @@ namespace Repository.Repositories
             }
         }
 
-        public async Task<bool> UpdateAsync(Car car)
+        public async Task UpdateAsync(Car car)
         {
             try
             {
@@ -98,11 +80,6 @@ namespace Repository.Repositories
 
         }
 
-        /// <summary>
-        /// Get all cars from the db without possibility to alter them
-        /// </summary>
-        /// <returns>Enumerable<Car></returns>
-        /// <exception cref="CarRepositoryException"></exception>
         public IAsyncEnumerable<Car> GetAllStream()
         {
             try

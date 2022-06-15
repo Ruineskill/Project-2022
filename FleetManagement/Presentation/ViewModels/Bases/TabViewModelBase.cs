@@ -13,7 +13,7 @@ namespace Presentation.ViewModels.Bases
     {
         public abstract string Name { get; set; }
 
-        public abstract ViewModelBase? SelectedItem { get; set; }
+        public abstract ValidatedViewModelBase? SelectedItem { get; set; }
 
       
 
