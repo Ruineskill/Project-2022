@@ -1,0 +1,653 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Shared.ApiRoutes.BaseRoute" Collapsed="true">
+    <Position X="16.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>D:\OneDrive\HoGent\Project-2022\FleetManagement\Shared\ApiRoutes\BaseRoute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.ApiRoutes.CarRoute" Collapsed="true">
+    <Position X="18.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQACCAAgAAAAAAAAAAAAABAAAEAAkAAAgAAAAAIQIA=</HashCode>
+      <FileName>D:\OneDrive\HoGent\Project-2022\FleetManagement\Shared\ApiRoutes\CarRoute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.ApiRoutes.FuelCardRoute" Collapsed="true">
+    <Position X="22.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQACCAAgAAAAAAAAAAAAABAAAEAAkAAAgAAAAAIQIA=</HashCode>
+      <FileName>D:\OneDrive\HoGent\Project-2022\FleetManagement\Shared\ApiRoutes\FuelCardRoute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.ApiRoutes.PersonRoute" Collapsed="true">
+    <Position X="20.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQACCAAgAAAAAAAAAAAAABAAAEAAkAAAgAAAAAIQIA=</HashCode>
+      <FileName>D:\OneDrive\HoGent\Project-2022\FleetManagement\Shared\ApiRoutes\PersonRoute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.ApiRoutes.UserRoute" Collapsed="true">
+    <Position X="25.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>D:\OneDrive\HoGent\Project-2022\FleetManagement\Shared\ApiRoutes\UserRoute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Authentication.AuthenticationResponse" Collapsed="true">
+    <Position X="22" Y="10.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAgAAAAAAAAAQAAIAABAAA=</HashCode>
+      <FileName>D:\OneDrive\HoGent\Project-2022\FleetManagement\Shared\Authentication\AuthenticationReponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Authentication.RefreshRequest" Collapsed="true">
+    <Position X="10.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>D:\OneDrive\HoGent\Project-2022\FleetManagement\Shared\Authentication\RefreshRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shared.Authentication.SignInRequest" Collapsed="true">
+    <Position X="8.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>D:\OneDrive\HoGent\Project-2022\FleetManagement\Shared\Authentication\SignInRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.Converters.CarConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\CarConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Converters.CheckBoxToListConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\CheckBoxToListConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Converters.DateOnlyConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.5" Y="12" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\DateOnlyConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Converters.FuelCardConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.5" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\FuelCardConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Converters.PersonConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\PersonConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.DTO.AddressDto" Collapsed="true">
+    <Position X="20.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAEAAAAAAAAAAAAABAAIAAAAAAAA=</HashCode>
+      <FileName>DTO\AddressDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.DTO.CarDto" Collapsed="true">
+    <Position X="18.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAEAAAAAAAAAAAAAAAAAAAAAAAACAEQgAgAABCAA=</HashCode>
+      <FileName>DTO\CarDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.DTO.FuelCardDto" Collapsed="true">
+    <Position X="22.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JIACAAAAAEAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTO\FuelCardDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.DTO.PersonDto" Collapsed="true">
+    <Position X="20.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAQBAAAAAAAAIAAAAAAQAAACAAAAAAAAAQg=</HashCode>
+      <FileName>DTO\PersonDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.Exceptions.ApiException" Collapsed="true">
+    <Position X="17.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ApiException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.HttpClients.ApiHttpClient" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAgAAAAAAABAAAABAAAAAACAIAIAAIAAAAIA=</HashCode>
+      <FileName>HttpClients\ApiHttpClient.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Mediators.CarMediator" Collapsed="true">
+    <Position X="5.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mediators\CarMediator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.Mediators.FleetMediator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAAAAAAAAAAAABAAAAUAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mediators\FleetMediator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Mediators.FuelCardMediator" Collapsed="true">
+    <Position X="0.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mediators\FuelCardMediator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.Mediators.MediatorBase&lt;T&gt;" Collapsed="true">
+    <Position X="3" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAIAAAAAAAACEAAEAAAAAAAAEAAAA=</HashCode>
+      <FileName>Mediators\MediatorBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.Mediators.PersonMediator" Collapsed="true">
+    <Position X="3" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mediators\PersonMediator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.Services.ApiHttp.ApiSecurityService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="10.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCAAIAgAEAAAAAAEAAAAAAIAAAAAAAAIgAAAAA=</HashCode>
+      <FileName>Services\ApiHttp\ApiSecurityService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.ApiHttp.HttpCarService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAEAAAAAAAABAAAAAAAgAAAAAIIAAAIA=</HashCode>
+      <FileName>Services\ApiHttp\HttpCarService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.ApiHttp.HttpFuelCardService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAEAAAAAAAABAAAAAAAgAAAAAIIAAAIA=</HashCode>
+      <FileName>Services\ApiHttp\HttpFuelCardService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.ApiHttp.HttpPersonService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAEAAAAAAAABAAAAAAAgAAAAAIIAAAIA=</HashCode>
+      <FileName>Services\ApiHttp\HttpPersonService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.Listing.CarListingService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAACAAAACAQAAAAABEJQEAAACAAAAwQAAA=</HashCode>
+      <FileName>Services\Listing\CarListingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.Listing.FuelCardListingService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.5" Y="8.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAACAAAACAAAAAACBEJQEAAACAAAAQQAAA=</HashCode>
+      <FileName>Services\Listing\FuelCardListingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.Listing.PersonListingService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAACAAAACAAAAAAABEJQEAAACAAAAQQIAA=</HashCode>
+      <FileName>Services\Listing\PersonListingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.Listing.SelectorService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAACAAAAgAAAAAAAAkAAAEAAAAAAgAAgAAAAIA=</HashCode>
+      <FileName>Services\Listing\SelectorService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.Navigation.DetailNavigationService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAEIAAAAAAAAAAAAAAQEAAgAQAAAAAAA=</HashCode>
+      <FileName>Services\Navigation\DetailNavigationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.Navigation.MainNavigationService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="11.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAEIAAAAAAAAAAAAAAAAAAgAQAAAAAAA=</HashCode>
+      <FileName>Services\Navigation\MainNavigationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.DetailService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAABAAAAMAAAAAAAAAAQAAEAAEAAAAAAEADAAAA=</HashCode>
+      <FileName>Services\DetailService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Services.MessageService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIgAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\MessageService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Validation.CarValidator" Collapsed="true">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAEAAAAAAoEAAAAAgAAAAAAAIAAAAGQgAAAABCAA=</HashCode>
+      <FileName>Validation\CarValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.Validation.FuelCardValidator" Collapsed="true">
+    <Position X="3" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JIAAAAAAAEAAAAAAAAAAAAAAQAIAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Validation\FuelCardValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.Validation.PersonValidator" Collapsed="true">
+    <Position X="5.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAQABAAIAEACIEAAACAQAAABAAIAAAAAAQg=</HashCode>
+      <FileName>Validation\PersonValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.Validation.ValidatorBase" Collapsed="true">
+    <Position X="3" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAQAAAAAAAACQAAABAAAAAAACAIAAEAAA=</HashCode>
+      <FileName>Validation\ValidatorBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.Bases.TabViewModelBase" Collapsed="true">
+    <Position X="3.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAABAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Bases\TabViewModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.Bases.ValidatedViewModelBase" Collapsed="true">
+    <Position X="10.5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAkAAADAAAAAAAAAAAAAAAIAAAAAAAhgAA=</HashCode>
+      <FileName>ViewModels\Bases\ValidatedViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Presentation.ViewModels.Bases.ViewModelBase" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Bases\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.Dialogs.DetailDialogViewModel" Collapsed="true">
+    <Position X="19.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAhAgBAQBAAAAAgigAAEAAACAgAAAAAAQBQA=</HashCode>
+      <FileName>ViewModels\Dialogs\DetailDialogViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.Dialogs.SelectorDialogViewModel" Collapsed="true">
+    <Position X="21.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACIAAAAAAAACAAAAASABAAAAhAAAAAAgAAAAAAgAAI=</HashCode>
+      <FileName>ViewModels\Dialogs\SelectorDialogViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.Listing.CarListingViewModel" Collapsed="true">
+    <Position X="1.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACQAAAAAACAAAAAgQAARAAAAAAAhAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Listing\CarListingViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.Listing.FuelCardListingViewModel" Collapsed="true">
+    <Position X="3.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAABAAAAAAAAQAARAAABAAABAAACAAAYA=</HashCode>
+      <FileName>ViewModels\Listing\FuelCardListingViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.Listing.PersonListingViewModel" Collapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAIIAAAAAAAAEAAQAARAAAAAAABAAgAAAAAI=</HashCode>
+      <FileName>ViewModels\Listing\PersonListingViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.CarViewModel" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAEAAAKAAAAQFAgAAABAIAAAAAACAEwgggBAJKAA=</HashCode>
+      <FileName>ViewModels\CarViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.FleetViewModel" Collapsed="true">
+    <Position X="24" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAEAAACIAAAAAAIICAAAAJIAAEAEAAgAAAAAAgBQA=</HashCode>
+      <FileName>ViewModels\FleetViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.FuelCardViewModel" Collapsed="true">
+    <Position X="8.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JIACAYAAAUAAAAAEAABAABAQwAAAgAAAAAAAABAABAA=</HashCode>
+      <FileName>ViewModels\FuelCardViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.LogInViewModel" Collapsed="true">
+    <Position X="15" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAEISAAAgAAAAAAAQACAAIAAACAAAA=</HashCode>
+      <FileName>ViewModels\LogInViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.MainViewModel" Collapsed="true">
+    <Position X="17.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAIAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.ViewModels.PersonViewModel" Collapsed="true">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIECAUAAAAQARAAMAEEAIAAAAAQQAAABAAoAADBSAQg=</HashCode>
+      <FileName>ViewModels\PersonViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Presentation.Views.Dialogs.ConfirmationDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="13" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAEAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Views\Dialogs\ConfirmationDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.Dialogs.CreateSelectionDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="14" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAEAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Views\Dialogs\CreateSelectionDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.Dialogs.DetailDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAIABAECAAAAABAAABAEAAAoACAIACCQAAA=</HashCode>
+      <FileName>Views\Dialogs\DetailDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.Dialogs.SelectorDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAgAAAQAAAAAAAAAAAAAEAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Views\Dialogs\SelectorDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.CarListingView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Listing\CarListingView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.FuelCardListingView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.5" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Listing\FuelCardListingView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.PersonListingView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Listing\PersonListingView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.CarView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CarView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.FleetView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\FleetView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.FuelCardView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\FuelCardView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.LogInView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LogInView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Views.PersonView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\PersonView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.Windows.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Windows\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Presentation.App" Collapsed="true">
+    <Position X="5.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oAAAAAAAEAAAAAAAAACAAAAAAAAAAAAAAAAACAAAAEA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Presentation.Interfaces.ApiHttp.IApiHttpClient" Collapsed="true">
+    <Position X="0.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAIA=</HashCode>
+      <FileName>Interfaces\ApiHttp\IApiHttpClient.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.ApiHttp.IApiSecurityService" Collapsed="true">
+    <Position X="2.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Interfaces\ApiHttp\IApiSecurityService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.ApiHttp.IHttpCarService" Collapsed="true">
+    <Position X="8.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ApiHttp\IHttpCarService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.ApiHttp.IHttpFuelCardService" Collapsed="true">
+    <Position X="11" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ApiHttp\IHttpFuelCardService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.ApiHttp.IHttpObject&lt;T&gt;" Collapsed="true">
+    <Position X="11" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAABAAAAAAAgAAAAAIIAAAIA=</HashCode>
+      <FileName>Interfaces\ApiHttp\IHttpObject.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.ApiHttp.IHttpPersonService" Collapsed="true">
+    <Position X="13.25" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ApiHttp\IHttpPersonService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.Listing.ICarListingService" Collapsed="true">
+    <Position X="11" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Interfaces\Listing\ICarListingService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.Listing.IFuelCardListingService" Collapsed="true">
+    <Position X="13.25" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Listing\IFuelCardListingService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.Listing.IListingContextMenuCommands" Collapsed="true">
+    <Position X="7.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAIAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Interfaces\Listing\IListingContextMenuCommands.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.Listing.IListingService" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAACAAAAAAAAAAAAAEBQEAAAAAAAAAQAAA=</HashCode>
+      <FileName>Interfaces\Listing\IListingService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.Listing.IPersonListingService" Collapsed="true">
+    <Position X="8.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Interfaces\Listing\IPersonListingService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.Listing.ISelectorService" Collapsed="true">
+    <Position X="11.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Listing\ISelectorService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.Navigation.IDetailNavigationService" Collapsed="true">
+    <Position X="14.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Navigation\IDetailNavigationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.Navigation.INavigationService" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Interfaces\Navigation\INavigationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.IDetailService" Collapsed="true">
+    <Position X="4.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAMAAAAAAAAAAAAAEAAEAAAAAAAADAAAA=</HashCode>
+      <FileName>Interfaces\IDetailService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.IFleetMediator" Collapsed="true">
+    <Position X="6" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IFleetMediator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Presentation.Interfaces.IMessageService" Collapsed="true">
+    <Position X="9.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMessageService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Presentation.Enums.DetailDialogResult" Collapsed="true">
+    <Position X="0.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\DetailDialogResult.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Presentation.Enums.DialogHosting" Collapsed="true">
+    <Position X="2.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Enums\DialogHosting.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Presentation.Enums.ModelType" Collapsed="true">
+    <Position X="4.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQA=</HashCode>
+      <FileName>Enums\ModelType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

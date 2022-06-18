@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Domain.Exceptions.InvalidCarException">
+    <Position X="11.5" Y="8" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidCarException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Exceptions.InvalidChassisNumberException">
+    <Position X="8.75" Y="9.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidChassisNumberException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Exceptions.InvalidDateOfBirthException">
+    <Position X="3.25" Y="9.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidDateOfBirthException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Exceptions.InvalidFuelCardException">
+    <Position X="6" Y="9.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidFuelCardException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Exceptions.InvalidFuelCardExpirationDateException">
+    <Position X="0.5" Y="6.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidFuelCardExpirationDateException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Exceptions.InvalidFuelCardRequirementException">
+    <Position X="8.25" Y="8" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidFuelCardRequirementException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Exceptions.InvalidLicenseTypeRequirementException">
+    <Position X="4.75" Y="8" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidLicenceTypeRequirementException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Exceptions.InvalidLicensePlateException">
+    <Position X="4" Y="6.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidLicensePlateException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Exceptions.InvalidNationRegistrationNumberException">
+    <Position X="0.5" Y="8" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidNationRegistrationNumberException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Exceptions.InvalidPostalCodeException">
+    <Position X="0.5" Y="9.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidPostalCodeException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.JsonConverters.DateOnlyConverter">
+    <Position X="16.5" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAgAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>JsonConverters\DateOnlyConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Models.TypeConvertors.DateOnlyConverter">
+    <Position X="13.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TypeConvertors\DateOnlyConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Models.TypeConvertors.DateOnlyComparer">
+    <Position X="13.5" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TypeConvertors\DateOnlyConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Models.TypeConvertors.EnumListConverter">
+    <Position X="16.5" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Models\TypeConvertors\EnumListConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Models.TypeConvertors.EnumListComparer">
+    <Position X="13.5" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TypeConvertors\EnumListConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Models.Car">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAiAEAAAKAIoEQBAgBAABAAAAAIACCAEwgggAABKAA=</HashCode>
+      <FileName>Models\Car.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Models.FuelCard">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JIAiAYAAAUAABAQAAABAABAAwAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FuelCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Models.Person">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIECQUAAAAQBAAAAAAFAIAAAACQQAAAiAAQAAEAQERg=</HashCode>
+      <FileName>Models\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Domain.Interfaces.ICarRepository" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICarRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Domain.Interfaces.IFuelCardRepository" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IFuelCardRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Domain.Interfaces.IPersonRepository" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IPersonRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Domain.Interfaces.IRepository&lt;T&gt;" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAgAAAFACAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Domain.Models.Enums.CarType">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAESACAAAAAAABAoAAAACAAAAAACAAAAAgAQ=</HashCode>
+      <FileName>Models\Enums\CarType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Domain.Models.Enums.DrivingLicenseType">
+    <Position X="5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAADCAAAAAQAAAAAAAAAAAEAIAAAApAEEAAA=</HashCode>
+      <FileName>Models\Enums\DrivingLicenseType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Domain.Models.Enums.FuelType">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAIAwAAAAAIAIAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Enums\FuelType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
